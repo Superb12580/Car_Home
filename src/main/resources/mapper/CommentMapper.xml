@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.superb.mapper.CommentMapper">
+
+    <resultMap id="commentEssay" type="com.superb.dto.CommentDto">
+        <result column="essay_id" property="essayId"/>
+        <result column="comment_text" property="commentText"/>
+        <association property="user" column="user_id" select="com.superb.mapper.UserMapper.superbById" javaType="java.util.Map"/>
+    </resultMap>
+
+    <select id="commentCountByEssayId" resultType="java.lang.Integer" parameterType="java.lang.Long">
+        select count(*) from comment where essay_id = #{essayId} and deleted = 0
+    </select>
+
+    <select id="superbCommentById" resultMap="commentEssay">
+        select * from comment where essay_id = #{essayId} and deleted = 0
+    </select>
+
+    <resultMap id="commentUser" type="com.superb.dto.CommentDto">
+        <result column="user_id" property="userId"/>
+        <result column="comment_text" property="commentText"/>
+        <association property="essay" column="essay_id" javaType="com.superb.entity.Essay" select="com.superb.mapper.EssayMapper.superbByEssayId"/>
+    </resultMap>
+
+    <select id="superbCommentByUserId" resultMap="commentUser">
+        select * from comment where user_id = #{userId} and deleted = 0 order by create_time desc
+    </select>
+
+
+
+
+    <resultMap id="comment" type="java.util.Map">
+        <result column="user_id" property="userId"/>
+        <result column="comment_text" property="commentText"/>
+        <result column="create_time" property="createTime"/>
+        <association column="essay_id" property="essay" select="com.superb.mapper.EssayMapper.selectByEssayId" javaType="java.util.Map"/>
+    </resultMap>
+
+    <select id="superbByUserId" resultMap="comment" parameterType="java.lang.Long">
+        select * from comment where user_id = #{userId} and deleted = 0 order by create_time desc
+    </select>
+</mapper>
