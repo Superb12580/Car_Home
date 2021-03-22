@@ -46,5 +46,13 @@ public interface ForwardMapper extends BaseMapper<Forward> {
     List<Map<String, Object>> superbForwardById(Long essayId);
 
 
+    /**
+     * 查询所有转发动态
+     * @param page
+     * @return
+     */
+    IPage<Map<String, Object>> superbAllForward(Page<?> page);
+
+
 
 }

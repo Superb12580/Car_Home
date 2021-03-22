@@ -30,4 +30,9 @@ public class ForwardServiceImpl extends ServiceImpl<ForwardMapper, Forward> impl
     public IPage<Map<String, Object>> superbByUserId(Page<?> page, Long userId) {
         return forwardMapper.superbByUserId(page, userId);
     }
+
+    @Override
+    public IPage<Map<String, Object>> superbAllForward(Page<?> page) {
+        return forwardMapper.superbAllForward(page);
+    }
 }

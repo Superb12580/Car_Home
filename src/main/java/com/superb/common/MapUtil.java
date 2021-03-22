@@ -11,6 +11,10 @@ import java.util.Map;
  */
 public class MapUtil {
 
+    // 管理员Id
+    public static final Long GLYID = 1L;
+
+
     // 签到标志量
     public static final Integer YQD = 1;
     public static final Integer WQD = 0;
@@ -39,19 +43,24 @@ public class MapUtil {
     public static final String FSXX = "发送消息";
     public static final String SCXX = "删除消息";
 
+    // 通知
+    public static final String HYZCQCZJ = "欢迎注册汽车之家";
+    public static final String XTTZ = "系统通知";
+    public static final String DTTZ = "动态通知";
 
     // 消息类型
-    public static final Long XXLX_XT = 0L;
-    public static final Long XXLX_DT = 1L;
-    public static final Long XXLX_SX = 2L;
+    public static final Integer XXLX_XT = 0;
+    public static final Integer XXLX_DT = 1;
+    public static final Integer XXLX_SX = 2;
 
-    public static Map<Long, String> XXLX_MAP = new LinkedHashMap<>();
+    public static Map<Integer, String> XXLX_MAP = new LinkedHashMap<>();
 
     static {
         XXLX_MAP.put(XXLX_XT, "系统消息");
         XXLX_MAP.put(XXLX_DT, "动态消息");
         XXLX_MAP.put(XXLX_SX, "私信");
     }
+
 
 
 

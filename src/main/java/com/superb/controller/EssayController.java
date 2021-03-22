@@ -47,9 +47,9 @@ public class EssayController {
      */
     @GetMapping("/list")
     public Result list(@RequestParam(defaultValue = "1",value = "current") Integer current,
-                       @RequestParam(defaultValue = "5",name = "size") int size){
+                       @RequestParam(defaultValue = "5",name = "size") Integer size){
         Page<Map<String, Object>> page = new Page<>(current, size);
-        IPage<Map<String, Object>> essayDtoIPage = essayService.superbList(page);
+        IPage<Map<String, Object>> essayDtoIPage = essayService.superbAllEssay(page);
         return Result.success(essayDtoIPage);
     }
 

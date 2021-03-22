@@ -6,7 +6,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.superb.common.MapUtil;
 import com.superb.dto.Item;
 import com.superb.dto.RegisterLogin;
+import com.superb.entity.Message;
 import com.superb.entity.User;
+import com.superb.service.MessageService;
 import com.superb.service.RecordService;
 import com.superb.service.UserService;
 import com.superb.util.Result;
@@ -18,6 +20,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * 注册
@@ -41,6 +44,9 @@ public class RegisterController {
 
     @Autowired
     private RecordService recordService;
+
+    @Autowired
+    private MessageService messageService;
 
     /**
      * 传参邮箱
@@ -69,10 +75,11 @@ public class RegisterController {
 
     /**
      * 发送验证码
+     *
      * @param
      */
     @PostMapping("/send")
-    private void sendEmail(@RequestBody RegisterLogin register){
+    private void sendEmail(@RequestBody RegisterLogin register) {
         try {
             //发送验证码
             String code = sendMail.sendMailHelper(register.getEmail());
@@ -87,13 +94,12 @@ public class RegisterController {
     }
 
     /**
-     *
      * @param register
      * @return
      */
     @PostMapping("/test")
-    public Result test(@RequestBody RegisterLogin register){
-        if (this.registerLogin == null || this.registerLogin.getCode() == null || this.registerLogin.getEmail() ==null) {
+    public Result test(@RequestBody RegisterLogin register) {
+        if (this.registerLogin == null || this.registerLogin.getCode() == null || this.registerLogin.getEmail() == null) {
             return Result.fail(400);
         }
         if (register == null || register.getCode() == null || register.getUserName() == null || register.getPassword() == null) {
@@ -112,17 +118,23 @@ public class RegisterController {
         user.setPassword(SecureUtil.md5(register.getPassword()));
         user.setEmail(this.registerLogin.getEmail());
         user.setUserName(register.getUserName());
-        boolean b = userService.save(user);
-        if (b) {
-            //置0
-            this.registerLogin.setFlag(0);
-            Item item = new Item();
-            BeanUtil.copyProperties(user, item);
-            // ==================日志==================
-            recordService.xr(user.getEmail(), user.getUserName(), MapUtil.ZCCG, "", "");
-            return Result.success("注册成功，请登录", item);
-        }
-        return Result.fail(400);
+        userService.save(user);
+        final User user_name = userService.getOne(new QueryWrapper<User>().eq("user_name", register.getUserName()));
+        //置0
+        this.registerLogin.setFlag(0);
+        Item item = new Item();
+        BeanUtil.copyProperties(user, item);
+        // ==================日志==================
+        recordService.xr(user.getEmail(), user.getUserName(), MapUtil.ZCCG, "", "");
+        // 发送消息
+        Message message = new Message();
+        message.setMessageTitle(MapUtil.XTTZ);
+        message.setThisId(user_name.getUserId());
+        message.setMessageText(MapUtil.HYZCQCZJ);
+        message.setThatId(MapUtil.GLYID);
+        message.setMessageType(MapUtil.XXLX_XT);
+        messageService.save(message);
+        return Result.success("注册成功，请登录", item);
     }
 
 //    /**

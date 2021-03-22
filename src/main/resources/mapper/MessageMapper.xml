@@ -8,14 +8,14 @@
         <result column="message_text" property="messageText"/>
         <result column="that_id" property="thatId"/>
         <result column="this_id" property="thisId"/>
-        <result column="essay_id" property="essayId"/>
         <result column="message_type" property="messageType"/>
         <result column="create_time" property="createTime"/>
         <result column="user_name" property="userName"/>
         <result column="essay_title" property="essayTitle"/>
+        <result column="essay_id" property="essayId"/>
     </resultMap>
 
-    <select id="superbMessageById" resultMap="message" parameterType="java.lang.Long">
-        select a.*,b.user_name,c.essay_title from message a INNER JOIN `user` b on a.that_id = b.user_id LEFT JOIN essay c on a.essay_id = c.essay_id where a.this_id = #{userId} and a.deleted = 0
+    <select id="superbMessageById" resultMap="message">
+        select a.*,b.user_name,c.essay_title from message a INNER JOIN `user` b on a.that_id = b.user_id LEFT JOIN essay c on a.essay_id = c.essay_id where a.this_id = #{userId} and a.message_type = #{messageType} and a.deleted = 0
     </select>
 </mapper>

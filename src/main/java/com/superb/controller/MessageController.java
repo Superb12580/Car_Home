@@ -53,15 +53,18 @@ public class MessageController {
      * @return
      */
     @GetMapping("/item")
-    public Result item(@RequestParam(defaultValue = "1",name = "current") int current,
-                       @RequestParam(defaultValue = "5",name = "size") int size,
+    public Result item(@RequestParam(defaultValue = "1",name = "current") Integer current,
+                       @RequestParam(defaultValue = "5",name = "size") Integer size,
+                       @RequestParam("messageType") Integer messageType,
                        @RequestParam Long userId){
 
-
         Page<Map<String, Object>> page = new Page<>(current, size);
-        IPage<Map<String, Object>> mapIPage = messageService.superbMessageById(page, userId);
+        IPage<Map<String, Object>> mapIPage = messageService.superbMessageById(page, userId, messageType);
         return Result.success(mapIPage);
     }
+
+
+
 
     /**
      * 发送消息

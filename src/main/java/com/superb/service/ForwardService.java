@@ -26,4 +26,11 @@ public interface ForwardService extends IService<Forward> {
      */
     IPage<Map<String, Object>> superbByUserId(Page<?> page, Long userId);
 
+    /**
+     * 查询所有转发动态
+     * @param page
+     * @return
+     */
+    IPage<Map<String, Object>> superbAllForward(Page<?> page);
+
 }

@@ -33,14 +33,15 @@ EssayServiceImpl extends ServiceImpl<EssayMapper, Essay> implements EssayService
         return essayMapper.superbByEssayId(essayId);
     }
 
-    @Override
-    public IPage<Map<String, Object>> superbList(Page<?> page) {
-        return essayMapper.superbList(page);
-    }
 
     @Override
     public IPage<Map<String, Object>> superbEssayById(Page<?> page, Long userId) {
         return essayMapper.superbEssayById(page, userId);
+    }
+
+    @Override
+    public IPage<Map<String, Object>> superbAllEssay(Page<?> page) {
+        return essayMapper.superbAllEssay(page);
     }
 
     @Override

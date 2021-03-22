@@ -16,16 +16,6 @@
         select * from comment where essay_id = #{essayId} and deleted = 0
     </select>
 
-    <resultMap id="commentUser" type="com.superb.dto.CommentDto">
-        <result column="user_id" property="userId"/>
-        <result column="comment_text" property="commentText"/>
-        <association property="essay" column="essay_id" javaType="com.superb.entity.Essay" select="com.superb.mapper.EssayMapper.superbByEssayId"/>
-    </resultMap>
-
-    <select id="superbCommentByUserId" resultMap="commentUser">
-        select * from comment where user_id = #{userId} and deleted = 0 order by create_time desc
-    </select>
-
 
 
 
@@ -33,9 +23,11 @@
         <result column="user_id" property="userId"/>
         <result column="comment_text" property="commentText"/>
         <result column="create_time" property="createTime"/>
+        <association column="user_id" property="user" select="com.superb.mapper.UserMapper.superbById" javaType="java.util.Map"/>
         <association column="essay_id" property="essay" select="com.superb.mapper.EssayMapper.selectByEssayId" javaType="java.util.Map"/>
     </resultMap>
 
+<!--    查询一个用户的所有评论 附带动态相关-->
     <select id="superbByUserId" resultMap="comment" parameterType="java.lang.Long">
         select * from comment where user_id = #{userId} and deleted = 0 order by create_time desc
     </select>

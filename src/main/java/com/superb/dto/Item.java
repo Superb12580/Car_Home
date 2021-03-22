@@ -73,6 +73,11 @@ public class Item implements Serializable {
     private Integer graded;
 
     /**
+     * 是否已关注
+     */
+    private Integer flagAttention;
+
+    /**
      * 收藏数
      */
     private Integer collectionCount;
@@ -88,5 +93,27 @@ public class Item implements Serializable {
      * 粉丝数
      */
     private Integer fansCount;
+
+    /**
+     * 收藏数
+     */
+    private Integer essayCount;
+
+
+    /**
+     * 关注数
+     */
+    private Integer forwardCount;
+
+
+    /**
+     * 粉丝数
+     */
+    private Integer commentCount;
+
+    /**
+     * 消息数
+     */
+    private Integer messageCount;
 
 }

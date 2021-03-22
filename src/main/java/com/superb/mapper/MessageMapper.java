@@ -21,10 +21,10 @@ import java.util.Map;
 public interface MessageMapper extends BaseMapper<Message> {
 
     /**
-     * 连表查询自己的消息
+     * 连表查询用户的消息
      * @param userId
      * @return
      */
-    IPage<Map<String, Object>> superbMessageById(Page<?> page, Long userId);
+    IPage<Map<String, Object>> superbMessageById(Page<?> page, Long userId, Integer messageType);
 
 }

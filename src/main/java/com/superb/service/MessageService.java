@@ -23,6 +23,6 @@ public interface MessageService extends IService<Message> {
      * @param userId
      * @return
      */
-    IPage<Map<String, Object>> superbMessageById(Page<?> page, Long userId);
+    IPage<Map<String, Object>> superbMessageById(Page<?> page, Long userId, Integer messageType);
 
 }

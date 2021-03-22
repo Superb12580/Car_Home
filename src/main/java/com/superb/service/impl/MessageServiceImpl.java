@@ -29,13 +29,8 @@ MessageServiceImpl extends ServiceImpl<MessageMapper, Message> implements Messag
     private MessageMapper messageMapper;
 
     @Override
-    public IPage<Map<String, Object>> superbMessageById(Page<?> page, Long userId) {
-        IPage<Map<String, Object>> list = messageMapper.superbMessageById(page, userId);
-        for (Map<String, Object> map : list.getRecords()) {
-            Long messageType = (Long)map.get("messageType");
-            map.put("messageType2", MapUtil.XXLX_MAP.get(messageType));
-        }
-        return list;
+    public IPage<Map<String, Object>> superbMessageById(Page<?> page, Long userId, Integer messageType) {
+        return messageMapper.superbMessageById(page, userId, messageType);
     }
 
 }

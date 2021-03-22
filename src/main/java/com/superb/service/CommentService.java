@@ -20,18 +20,12 @@ import java.util.Map;
 public interface CommentService extends IService<Comment> {
 
     /**
-     * 查询一个用户的所有转发
+     * 查询一个用户的所有评论
      * @param userId
      * @return
      */
     IPage<Map<String, Object>> superbByUserId(Page<?> page, Long userId);
 
-    /**
-     * 查询一条动态的所有评论 附带评论用户信息
-     * @param essayId
-     * @return
-     */
-    List<CommentDto> superbCommentById(Long essayId);
 
     /**
      * 查询一个用户的所有评论 附带评论相关动态

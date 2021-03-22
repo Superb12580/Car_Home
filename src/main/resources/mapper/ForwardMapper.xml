@@ -7,12 +7,22 @@
         <result column="user_id" property="userId"/>
         <result column="forward_title" property="forwardTitle"/>
         <result column="create_time" property="createTime"/>
+        <!--连接用户表 显示发动态的用户-->
+        <association column="user_id" property="user"
+                     select="com.superb.mapper.UserMapper.superbById"
+                     javaType="com.superb.entity.User"/>
         <association column="essay_id" property="essay" select="com.superb.mapper.EssayMapper.selectByEssayId" javaType="java.util.Map"/>
     </resultMap>
 
     <select id="superbByUserId" resultMap="forward" parameterType="java.lang.Long">
         select * from forward where user_id = #{userId} and deleted = 0 order by create_time desc
     </select>
+
+<!--    查询所有转发 连接动态表-->
+    <select id="superbAllForward" resultMap="forward">
+        select * from forward where deleted = 0 order by create_time desc
+    </select>
+
 
 
     <select id="forwardCountByEssayId" resultType="java.lang.Integer" parameterType="java.lang.Long">

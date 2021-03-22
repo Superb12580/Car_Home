@@ -39,11 +39,6 @@ public interface EssayMapper extends BaseMapper<Essay> {
      */
     Map<String, Object> selectByEssayId(Long essayId);
 
-    /**
-     * 显示所有动态 包含转发数点赞数评论数
-     * @return
-     */
-    IPage<Map<String, Object>> superbList(Page<?> page);
 
     /**
      * 查询一个用户的所有动态 包含转发数点赞数评论数
@@ -51,6 +46,14 @@ public interface EssayMapper extends BaseMapper<Essay> {
      * @return
      */
     IPage<Map<String, Object>> superbEssayById(Page<?> page, Long userId);
+
+
+    /**
+     * 查询所有动态
+     * @param page
+     * @return
+     */
+    IPage<Map<String, Object>> superbAllEssay(Page<?> page);
 
 
     /**********************管理员***************************/

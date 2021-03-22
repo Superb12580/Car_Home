@@ -9,13 +9,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.common.MapUtil;
 import com.superb.dto.Item;
 import com.superb.dto.RegisterLogin;
-import com.superb.entity.Attention;
-import com.superb.entity.Collection;
-import com.superb.entity.User;
-import com.superb.service.AgreeService;
-import com.superb.service.AttentionService;
-import com.superb.service.CollectionService;
-import com.superb.service.UserService;
+import com.superb.entity.*;
+import com.superb.service.*;
 import com.superb.util.FileUpload;
 import com.superb.util.Result;
 import com.superb.util.SendMail;
@@ -184,20 +179,71 @@ public class UserController {
     @Autowired
     private AttentionService attentionService;
 
-    //显示个人资料
-    @GetMapping("/item")
-    public Result item(@RequestParam("userId") Long userId) {
+    @Autowired
+    private EssayService essayService;
 
-        // 保存收藏关注粉丝数
+    @Autowired
+    private ForwardService forwardService;
+
+    @Autowired
+    private CommentService commentService;
+
+    @Autowired
+    private MessageService messageService;
+
+    //显示个人资料
+    @GetMapping("/user")
+    public Result user(@RequestParam("userId") Long userId) {
+
+        // 保存收藏、关注、粉丝、动态、转发、评论、消息数
         int collectionCount = collectionService.count(new QueryWrapper<Collection>().eq("user_id", userId));
         int attentionCount = attentionService.count(new QueryWrapper<Attention>().eq("this_id", userId));
         int fansCount = attentionService.count(new QueryWrapper<Attention>().eq("that_id", userId));
+        int messageCount = messageService.count(new QueryWrapper<Message>().eq("this_id", userId));
 
         User user = userService.getById(userId);
         Item item = new Item();
         item.setAttentionCount(attentionCount);
         item.setCollectionCount(collectionCount);
         item.setFansCount(fansCount);
+        item.setMessageCount(messageCount);
+        BeanUtil.copyProperties(user, item);
+        return Result.success(item);
+    }
+
+    /**
+     *
+     * @param userId 用户本人id
+     * @param thatId 查看用户id
+     * @return
+     */
+    @GetMapping("/item")
+    public Result item(@RequestParam("userId") Long userId, @RequestParam("thatId") Long thatId) {
+
+        // 保存收藏、关注、粉丝、动态、转发、评论、消息数
+        int collectionCount = collectionService.count(new QueryWrapper<Collection>().eq("user_id", thatId));
+        int attentionCount = attentionService.count(new QueryWrapper<Attention>().eq("this_id", thatId));
+        int fansCount = attentionService.count(new QueryWrapper<Attention>().eq("that_id", thatId));
+        int essayCount = essayService.count(new QueryWrapper<Essay>().eq("user_id", thatId));
+        int forwardCount = forwardService.count(new QueryWrapper<Forward>().eq("user_id", thatId));
+        int commentCount = commentService.count(new QueryWrapper<Comment>().eq("user_id", thatId));
+        int messageCount = messageService.count(new QueryWrapper<Message>().eq("this_id", thatId));
+
+        final Attention one = attentionService.getOne(new QueryWrapper<Attention>().eq("this_id", userId).eq("that_id", thatId));
+
+
+
+        User user = userService.getById(thatId);
+        Item item = new Item();
+        // 是否已关注
+        item.setFlagAttention(one == null ? 0 : 1);
+        item.setAttentionCount(attentionCount);
+        item.setCollectionCount(collectionCount);
+        item.setFansCount(fansCount);
+        item.setEssayCount(essayCount);
+        item.setForwardCount(forwardCount);
+        item.setCommentCount(commentCount);
+        item.setMessageCount(messageCount);
         BeanUtil.copyProperties(user, item);
         return Result.success(item);
     }

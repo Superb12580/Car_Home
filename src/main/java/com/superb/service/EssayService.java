@@ -31,18 +31,18 @@ public interface EssayService extends IService<Essay> {
 
 
     /**
-     * 查询所有动态，显示发动态用户信息，并附带点赞用户评论用户，转发个数
-     * @return
-     */
-    IPage<Map<String, Object>> superbList(Page<?> page);
-
-
-    /**
      * 查询一个用户的所有动态 包含转发数点赞数评论数
      * @param page
      * @return
      */
     IPage<Map<String, Object>> superbEssayById(Page<?> page, Long userId);
+
+    /**
+     * 查询所有动态
+     * @param page
+     * @return
+     */
+    IPage<Map<String, Object>> superbAllEssay(Page<?> page);
 
 
 //    管理员

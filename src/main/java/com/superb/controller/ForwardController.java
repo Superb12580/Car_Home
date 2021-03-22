@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.common.MapUtil;
-import com.superb.dto.ForwardDto;
 import com.superb.entity.Essay;
 import com.superb.entity.Forward;
 import com.superb.entity.User;
@@ -14,11 +13,8 @@ import com.superb.service.ForwardService;
 import com.superb.service.RecordService;
 import com.superb.service.UserService;
 import com.superb.util.Result;
-import com.superb.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -45,6 +41,20 @@ public class ForwardController {
     private UserService userService;
 
     /**
+     * 显示所有转发
+     * @param current
+     * @param size
+     * @return
+     */
+    @GetMapping("/list")
+    public Result list(@RequestParam(defaultValue = "1",value = "current") Integer current,
+                       @RequestParam(defaultValue = "5",name = "size") Integer size){
+        Page<Map<String, Object>> page = new Page<>(current, size);
+        IPage<Map<String, Object>> forwardDtoIPage = forwardService.superbAllForward(page);
+        return Result.success(forwardDtoIPage);
+    }
+
+    /**
      * 转发动态
      * @param forward
      * @return
@@ -62,7 +72,7 @@ public class ForwardController {
     }
 
     /**
-     * 查看我的转发
+     * 查看个人转发
      * @param userId
      * @param current
      * @param size
