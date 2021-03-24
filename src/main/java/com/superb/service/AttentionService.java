@@ -6,6 +6,8 @@ import com.superb.dto.AttentionDto;
 import com.superb.entity.Attention;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -22,6 +24,13 @@ public interface AttentionService extends IService<Attention> {
      * @return
      */
     IPage<AttentionDto> superbAttentionById(Page<?> page, Long thisId);
+
+    /**
+     * 查询关注
+     * @param thisId
+     * @return
+     */
+    List<AttentionDto> superbById(Long thisId);
 
     /**
      * 查询粉丝

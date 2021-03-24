@@ -8,6 +8,8 @@ import com.superb.entity.Attention;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -25,6 +27,13 @@ public interface AttentionMapper extends BaseMapper<Attention> {
      * @return
      */
     IPage<AttentionDto> superbAttentionById(Page<?> page,Long thisId);
+
+    /**
+     * 查询关注
+     * @param thisId
+     * @return
+     */
+    List<AttentionDto> superbById(Long thisId);
 
     /**
      * 查询粉丝

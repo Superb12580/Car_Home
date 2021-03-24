@@ -23,5 +23,11 @@ public class AttentionDto extends Attention implements Serializable {
      */
     private User user;
 
+    // 是否已关注
+    private Integer flagAttention;
+
+    // 是否互相关注
+    private Integer flagFans;
+
 
 }

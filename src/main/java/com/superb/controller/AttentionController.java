@@ -41,16 +41,17 @@ public class AttentionController {
     /**
      * 查看我的关注
      * 连接用户表 预览用户id name photo
-     *
-     * @param currentPage
+     * @param current
+     * @param size
      * @param thisId
      * @return
      */
     @GetMapping("/item")
-    public Result item(@RequestParam(defaultValue = "1", name = "currentPage") Integer currentPage,
+    public Result item(@RequestParam(defaultValue = "1", name = "current") Integer current,
+                       @RequestParam(defaultValue = "12", name = "size") Integer size,
                        @RequestParam("thisId") Long thisId) {
 
-        Page<AttentionDto> page = new Page<>(currentPage, MapUtil.sizeD);
+        Page<AttentionDto> page = new Page<>(current, size);
         IPage<AttentionDto> attentionDtoIPage = attentionService.superbAttentionById(page, thisId);
 
         return Result.success(attentionDtoIPage);
@@ -60,17 +61,18 @@ public class AttentionController {
     /**
      * 查看我的粉丝
      * 连接用户表 预览用户id name photo
-     *
-     * @param currentPage
+     * @param current
+     * @param size
      * @param thatId
      * @return
      */
     @GetMapping("/itemFans")
-    public Result itemFans(@RequestParam(defaultValue = "1", name = "currentPage") Integer currentPage,
+    public Result itemFans(@RequestParam(defaultValue = "1", name = "current") Integer current,
+                           @RequestParam(defaultValue = "12", name = "size") Integer size,
                            @RequestParam("thatId") Long thatId) {
 
 
-        Page<AttentionDto> page = new Page<>(currentPage, MapUtil.sizeD);
+        Page<AttentionDto> page = new Page<>(current, size);
         IPage<AttentionDto> attentionDtoIPage = attentionService.superbFansById(page, thatId);
 
         return Result.success(attentionDtoIPage);

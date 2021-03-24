@@ -19,6 +19,13 @@ public class MapUtil {
     public static final Integer YQD = 1;
     public static final Integer WQD = 0;
 
+    // 已关注
+    public static final Integer YGZ = 1;
+    // 互相关注
+    public static final Integer HXGZ = 1;
+    // 未关注
+    public static final Integer WGZ = 0;
+
     // 日志使用
     public static final String ZCJCYZM = "注册接收验证码";
     public static final String ZCCG = "注册成功";
