@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.superb.mapper.FoldMapper">
+<!--    <resultMap id="describe" type="com.superb.entity.Fold">-->
+<!--        <id column="style_id" property="styleId"/>-->
+<!--        <result column="style_photo" property="stylePhoto"/>-->
+<!--        <result column="a_text1" property="aText1"/>-->
+<!--        <result column="a_text2" property="aText2"/>-->
+<!--        <result column="b_text1" property="bText1"/>-->
+<!--        <result column="b_text2" property="bText2"/>-->
+<!--        <result column="c_text1" property="cText1"/>-->
+<!--        <result column="c_text2" property="cText2"/>-->
+<!--        <result column="d_text1" property="dText1"/>-->
+<!--        <result column="d_text2" property="dText2"/>-->
+<!--    </resultMap>-->
+</mapper>

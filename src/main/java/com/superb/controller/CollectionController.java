@@ -14,11 +14,8 @@ import com.superb.service.RecordService;
 import com.superb.service.StyleService;
 import com.superb.service.UserService;
 import com.superb.util.Result;
-import com.superb.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>

@@ -72,7 +72,7 @@ public class MapUtil {
 
 
 
-    public static final Integer sizeA = 5;
+    public static final Integer sizeA = 4;
     public static final Integer sizeB = 8;
     public static final Integer sizeC = 10;
     public static final Integer sizeD = 15;

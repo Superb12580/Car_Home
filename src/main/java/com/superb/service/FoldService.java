@@ -1,6 +1,6 @@
 package com.superb.service;
 
-import com.superb.entity.Style;
+import com.superb.entity.Fold;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author Superb
  * @since 2021-03-24
  */
-public interface StyleService extends IService<Style> {
+public interface FoldService extends IService<Fold> {
 
 }
