@@ -24,12 +24,10 @@ import java.util.List;
 @Service
 public class AttentionServiceImpl extends ServiceImpl<AttentionMapper, Attention> implements AttentionService {
 
-    @Autowired
-    private AttentionMapper attentionMapper;
 
     @Override
     public IPage<AttentionDto> superbAttentionById(Page<?> page, Long thisId) {
-        IPage<AttentionDto> attentionDtoIPage = attentionMapper.superbAttentionById(page, thisId);
+        IPage<AttentionDto> attentionDtoIPage = baseMapper.superbAttentionById(page, thisId);
         // 默认所有都是已关注（展示我的关注时，点击已关注取消关注，不进行刷新页面，而是显示关注按钮，这时需要一个标志量）
         // 来标志默认已关注 用于取消关注之后显示再次关注按钮
         for (AttentionDto attentionDto : attentionDtoIPage.getRecords()) {
@@ -40,15 +38,15 @@ public class AttentionServiceImpl extends ServiceImpl<AttentionMapper, Attention
 
     @Override
     public List<AttentionDto> superbById(Long thisId) {
-        return attentionMapper.superbById(thisId);
+        return baseMapper.superbById(thisId);
     }
 
     @Override
     public IPage<AttentionDto> superbFansById(Page<?> page, Long thatId) {
         // 我的关注 不分页
-        List<AttentionDto> attentionDtos = attentionMapper.superbById(thatId);
+        List<AttentionDto> attentionDtos = baseMapper.superbById(thatId);
         // 我的粉丝
-        IPage<AttentionDto> fansDtoIPage = attentionMapper.superbFansById(page, thatId);
+        IPage<AttentionDto> fansDtoIPage = baseMapper.superbFansById(page, thatId);
         // 判断是否相互关注
         for (AttentionDto fans : fansDtoIPage.getRecords()) {
             // 默认未关注

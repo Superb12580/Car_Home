@@ -21,12 +21,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class CollectionServiceImpl extends ServiceImpl<CollectionMapper, Collection> implements CollectionService {
 
-    @Autowired
-    private CollectionMapper collectionMapper;
-
 
     @Override
     public IPage<CollectionDto> superbCollectionById(Page<?> page, Long userId) {
-        return collectionMapper.superbCollectionById(page, userId);
+        return baseMapper.superbCollectionById(page, userId);
     }
 }

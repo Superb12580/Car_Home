@@ -15,7 +15,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author Superb
- * @since 2021-03-24
+ * @since 2021-03-25
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -31,6 +31,11 @@ public class Style implements Serializable {
     private Integer styleId;
 
     /**
+     * 价格区间
+     */
+    private String jgqj;
+
+    /**
      * 数据字典-厂商
      */
     private Integer cs;
@@ -39,6 +44,11 @@ public class Style implements Serializable {
      * 车型名称
      */
     private String styleName;
+
+    /**
+     * 轮播图
+     */
+    private String imgLbt;
 
     /**
      * 车型头像
@@ -64,6 +74,31 @@ public class Style implements Serializable {
      * 数据字典-能源类型
      */
     private Integer nylx;
+
+    /**
+     * 评分人数
+     */
+    private Integer pfrs;
+
+    /**
+     * 总评分
+     */
+    private Integer zpf;
+
+    /**
+     * 收藏数
+     */
+    private Integer scs;
+
+    /**
+     * 点击量
+     */
+    private Long djl;
+
+    /**
+     * 销量
+     */
+    private Integer xl;
 
     /**
      * 标签 数据字典1-39

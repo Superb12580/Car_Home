@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.dto.EssayDto;
 import com.superb.entity.Essay;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.springframework.stereotype.Repository;
 
 import java.util.Map;
 
@@ -17,7 +16,6 @@ import java.util.Map;
  * @author Superb
  * @since 2020-11-11
  */
-@Repository
 public interface EssayMapper extends BaseMapper<Essay> {
 
     /**

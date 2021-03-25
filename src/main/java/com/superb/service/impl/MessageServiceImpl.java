@@ -25,12 +25,10 @@ import java.util.Map;
 public class
 MessageServiceImpl extends ServiceImpl<MessageMapper, Message> implements MessageService {
 
-    @Autowired
-    private MessageMapper messageMapper;
 
     @Override
     public IPage<Map<String, Object>> superbMessageById(Page<?> page, Long userId, Integer messageType) {
-        return messageMapper.superbMessageById(page, userId, messageType);
+        return baseMapper.superbMessageById(page, userId, messageType);
     }
 
 }

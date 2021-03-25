@@ -2,7 +2,6 @@ package com.superb.mapper;
 
 import com.superb.entity.Style;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -10,9 +9,8 @@ import org.springframework.stereotype.Repository;
  * </p>
  *
  * @author Superb
- * @since 2021-03-24
+ * @since 2021-03-25
  */
-@Repository
 public interface StyleMapper extends BaseMapper<Style> {
 
 }

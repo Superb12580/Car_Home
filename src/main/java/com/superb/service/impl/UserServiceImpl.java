@@ -23,21 +23,19 @@ import java.util.List;
 public class
 UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
-    @Autowired
-    private UserMapper userMapper;
 
     @Override
     public IPage<User> adminListDeleted(Page<?> page) {
-        return userMapper.adminListDeleted(page);
+        return baseMapper.adminListDeleted(page);
     }
 
     @Override
     public IPage<User> adminLikeDeleted(Page<?> page, String str) {
-        return userMapper.adminLikeDeleted(page,"%"+str+"%");
+        return baseMapper.adminLikeDeleted(page,"%"+str+"%");
     }
 
     @Override
     public List<User> getUserNotId(Long userId) {
-        return userMapper.getUserNotId(userId);
+        return baseMapper.getUserNotId(userId);
     }
 }

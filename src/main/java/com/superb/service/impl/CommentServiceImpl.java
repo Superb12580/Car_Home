@@ -24,18 +24,16 @@ import java.util.Map;
 @Service
 public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> implements CommentService {
 
-    @Autowired
-    private CommentMapper commentMapper;
 
     @Override
     public IPage<Map<String, Object>> superbByUserId(Page<?> page, Long userId) {
-        return commentMapper.superbByUserId(page, userId);
+        return baseMapper.superbByUserId(page, userId);
     }
 
 
     @Override
     public IPage<CommentDto> superbCommentByUserId(Page<CommentDto> page, Long userId) {
-        return commentMapper.superbCommentByUserId(page, userId);
+        return baseMapper.superbCommentByUserId(page, userId);
     }
 
 }

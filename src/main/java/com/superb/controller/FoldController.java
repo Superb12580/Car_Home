@@ -30,13 +30,18 @@ public class FoldController {
     @Autowired
     private FoldService foldService;
 
+    private int count = 0;
 
+    /**
+     * 折叠项展示
+     * @return
+     */
     @GetMapping("/item")
     public Result item() {
         List<Map<String, Object>> list = foldService.listMaps();
 
-        int i = new Random().nextInt(list.size());
-        return Result.success(list.get(i));
+
+        return Result.success(list.get(++count % list.size()));
     }
 
 }

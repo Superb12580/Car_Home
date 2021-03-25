@@ -22,8 +22,6 @@ import java.util.Date;
 public class
 RecordServiceImpl extends ServiceImpl<RecordMapper, Record> implements RecordService {
 
-    @Autowired
-    private RecordMapper recordMapper;
 
 
     @Override
@@ -34,6 +32,6 @@ RecordServiceImpl extends ServiceImpl<RecordMapper, Record> implements RecordSer
         record.setNr(nr);
         record.setObjectId(objectId);
         record.setObjectName(objectName);
-        return recordMapper.insert(record);
+        return baseMapper.insert(record);
     }
 }

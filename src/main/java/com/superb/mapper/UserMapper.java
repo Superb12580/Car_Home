@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -16,7 +15,6 @@ import java.util.List;
  * @author Superb
  * @since 2020-11-11
  */
-@Repository
 public interface UserMapper extends BaseMapper<User> {
 
     /**

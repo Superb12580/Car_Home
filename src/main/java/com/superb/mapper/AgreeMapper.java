@@ -1,10 +1,7 @@
 package com.superb.mapper;
 
-import com.superb.dto.AgreeDto;
 import com.superb.entity.Agree;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +14,6 @@ import java.util.Map;
  * @author Superb
  * @since 2020-11-11
  */
-@Repository
 public interface AgreeMapper extends BaseMapper<Agree> {
 
     /**

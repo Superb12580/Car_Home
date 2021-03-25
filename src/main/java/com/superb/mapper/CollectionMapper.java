@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.dto.CollectionDto;
 import com.superb.entity.Collection;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author Superb
  * @since 2020-11-11
  */
-@Repository
 public interface CollectionMapper extends BaseMapper<Collection> {
     /**
      * 查询收藏

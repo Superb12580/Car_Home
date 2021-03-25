@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.superb.mapper.NewsMapper">
+
+    <select id="listWz" parameterType="java.lang.Integer" resultType="com.superb.entity.News">
+        select * from news order by create_time desc limit #{total}
+    </select>
+
+    <select id="listPh" parameterType="java.lang.Integer" resultType="com.superb.entity.News">
+        select * from news order by `count` desc limit #{total}
+    </select>
+</mapper>

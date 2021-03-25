@@ -22,17 +22,15 @@ import java.util.Map;
  */
 @Service
 public class ForwardServiceImpl extends ServiceImpl<ForwardMapper, Forward> implements ForwardService {
-    @Autowired
-    private ForwardMapper forwardMapper;
 
 
     @Override
     public IPage<Map<String, Object>> superbByUserId(Page<?> page, Long userId) {
-        return forwardMapper.superbByUserId(page, userId);
+        return baseMapper.superbByUserId(page, userId);
     }
 
     @Override
     public IPage<Map<String, Object>> superbAllForward(Page<?> page) {
-        return forwardMapper.superbAllForward(page);
+        return baseMapper.superbAllForward(page);
     }
 }

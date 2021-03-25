@@ -22,10 +22,8 @@ import java.util.Map;
 @Service
 public class AgreeServiceImpl extends ServiceImpl<AgreeMapper, Agree> implements AgreeService {
 
-    @Autowired
-    private AgreeMapper agreeMapper;
     @Override
     public List<Map<String, Object>> superbAgreeById(Long essayId) {
-        return agreeMapper.superbAgreeById(essayId);
+        return baseMapper.superbAgreeById(essayId);
     }
 }

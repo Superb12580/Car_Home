@@ -24,43 +24,41 @@ import java.util.Map;
 public class
 EssayServiceImpl extends ServiceImpl<EssayMapper, Essay> implements EssayService {
 
-    @Autowired
-    private EssayMapper essayMapper;
 
 
     @Override
     public EssayDto superbByEssayId(Long essayId) {
-        return essayMapper.superbByEssayId(essayId);
+        return baseMapper.superbByEssayId(essayId);
     }
 
 
     @Override
     public IPage<Map<String, Object>> superbEssayById(Page<?> page, Long userId) {
-        return essayMapper.superbEssayById(page, userId);
+        return baseMapper.superbEssayById(page, userId);
     }
 
     @Override
     public IPage<Map<String, Object>> superbAllEssay(Page<?> page) {
-        return essayMapper.superbAllEssay(page);
+        return baseMapper.superbAllEssay(page);
     }
 
     @Override
     public IPage<EssayDto> adminList(Page<?> page) {
-        return essayMapper.adminList(page);
+        return baseMapper.adminList(page);
     }
 
     @Override
     public IPage<EssayDto> adminListDeleted(Page<?> page) {
-        return essayMapper.adminListDeleted(page);
+        return baseMapper.adminListDeleted(page);
     }
 
     @Override
     public IPage<EssayDto> adminLike(Page<?> page, String str) {
-        return essayMapper.adminLike(page, str);
+        return baseMapper.adminLike(page, str);
     }
 
     @Override
     public IPage<EssayDto> adminLikeDeleted(Page<?> page, String str) {
-        return essayMapper.adminLikeDeleted(page, str);
+        return baseMapper.adminLikeDeleted(page, str);
     }
 }

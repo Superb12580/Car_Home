@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.dto.CommentDto;
 import com.superb.entity.Comment;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -18,7 +17,6 @@ import java.util.Map;
  * @author Superb
  * @since 2020-11-11
  */
-@Repository
 public interface CommentMapper extends BaseMapper<Comment> {
 
 
