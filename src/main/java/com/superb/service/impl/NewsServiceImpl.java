@@ -1,5 +1,7 @@
 package com.superb.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.entity.News;
 import com.superb.mapper.NewsMapper;
 import com.superb.service.NewsService;
@@ -7,6 +9,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -27,5 +30,15 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News> implements Ne
     @Override
     public List<News> listPh(Integer total) {
         return baseMapper.listPh(total);
+    }
+
+    @Override
+    public Map<String, Object> newsById(Integer id) {
+        return baseMapper.newsById(id);
+    }
+
+    @Override
+    public IPage<Map<String ,Object>> listNews(Page<?> page) {
+        return baseMapper.listNews(page);
     }
 }

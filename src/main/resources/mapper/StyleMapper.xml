@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.superb.mapper.StyleMapper">
-    <resultMap id="style" type="com.superb.entity.Style">
-        <id column="style_id" property="styleId"/>
-        <result column="style_name" property="styleName"/>
-        <result column="style_photo" property="stylePhoto"/>
-    </resultMap>
 
-    <select id="superbById" resultMap="style" parameterType="java.lang.Integer">
-        select style_id,style_name,style_photo from style where style_id = #{styleId} and deleted = 0
+    <select id="superbById" resultType="com.superb.entity.Style" parameterType="java.lang.Integer">
+        select * from style where style_id = #{styleId} and deleted = 0
     </select>
 
 </mapper>

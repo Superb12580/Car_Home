@@ -9,4 +9,38 @@
     <select id="listPh" parameterType="java.lang.Integer" resultType="com.superb.entity.News">
         select * from news order by `count` desc limit #{total}
     </select>
+
+<!--    一个用户的文章数量-->
+    <select id="newsCountByUserId" parameterType="java.lang.Long" resultType="java.lang.Integer">
+        select count(*) from news where user_id = #{userId}
+    </select>
+
+
+    <resultMap id="news" type="java.util.Map">
+        <result column="news_photo" property="newsPhoto"/>
+        <result column="create_time" property="createTime"/>
+        <association property="user" column="user_id" select="com.superb.mapper.UserMapper.selectById" javaType="com.superb.entity.User"/>
+        <association property="fansCount" column="user_id" select="com.superb.mapper.AttentionMapper.fansCountByUserId" javaType="java.lang.Integer"/>
+        <association property="newsCount" column="user_id" select="com.superb.mapper.NewsMapper.newsCountByUserId" javaType="java.lang.Integer"/>
+        <association property="style" column="style_id" select="com.superb.mapper.StyleMapper.selectById" javaType="com.superb.entity.Style"/>
+        <collection property="photo" column="id" select="com.superb.mapper.PhotoMapper.newsById" javaType="java.util.List" ofType="java.util.Map"/>
+    </resultMap>
+<!--    查询文章详情 附带用户信息 粉丝数 文章数量 相关style信息 文章排行 photo-->
+    <select id="newsById" parameterType="java.lang.Integer" resultMap="news">
+        select * from news where id = #{id}
+    </select>
+
+
+
+    <resultMap id="listNews" type="java.util.Map">
+        <result column="news_photo" property="newsPhoto"/>
+        <result column="create_time" property="createTime"/>
+        <association property="user" column="user_id" select="com.superb.mapper.UserMapper.selectById" javaType="com.superb.entity.User"/>
+    </resultMap>
+
+<!--    查询所有带头图片的news 附带user-->
+    <select id="listNews" resultMap="listNews">
+        select * from news where news_photo is not null
+    </select>
+
 </mapper>

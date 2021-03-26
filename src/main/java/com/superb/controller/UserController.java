@@ -217,8 +217,8 @@ public class UserController {
      * @param thatId 查看用户id
      * @return
      */
-    @GetMapping("/item")
-    public Result item(@RequestParam("userId") Long userId, @RequestParam("thatId") Long thatId) {
+    @GetMapping("/item")// 默认0 未登录时使用
+    public Result item(@RequestParam(defaultValue = "0L", name = "userId") Long userId, @RequestParam("thatId") Long thatId) {
 
         // 保存收藏、关注、粉丝、动态、转发、评论、消息数
         int collectionCount = collectionService.count(new QueryWrapper<Collection>().eq("user_id", thatId));

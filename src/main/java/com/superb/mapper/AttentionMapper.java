@@ -40,4 +40,12 @@ public interface AttentionMapper extends BaseMapper<Attention> {
      */
     IPage<AttentionDto> superbFansById(Page<?> page,Long thatId);
 
+
+    /**
+     * 查询粉丝数量
+     * @param userId
+     * @return
+     */
+    Integer fansCountByUserId (Long userId);
+
 }

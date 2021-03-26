@@ -29,4 +29,11 @@
     </select>
 
 
+
+<!--    查询粉丝数量-->
+    <select id="fansCountByUserId" resultType="java.lang.Integer" parameterType="java.lang.Long">
+        select count(*) from attention where that_id = #{thatId}
+    </select>
+
+
 </mapper>

@@ -35,5 +35,10 @@ public class Video implements Serializable {
      */
     private Integer styleId;
 
+    /**
+     * 文章id
+     */
+    private Integer newsId;
+
 
 }

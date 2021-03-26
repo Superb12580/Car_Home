@@ -43,21 +43,21 @@ public class CollectionController {
 
     /**
      * 查看我的收藏
-     * 连接车型表，预览车id name photo 即可
-     * @param currentPage
+     * @param current
+     * @param size
      * @param userId
      * @return
      */
     @GetMapping("/item")
-    public Result item(@RequestParam(defaultValue = "1",name = "currentPage") Integer currentPage,
+    public Result item(@RequestParam(defaultValue = "1",name = "current") Integer current,
+                       @RequestParam(defaultValue = "8", name = "size") Integer size,
                        @RequestParam("userId") Long userId){
 
 
-        Page<CollectionDto> page = new Page<>(currentPage, MapUtil.sizeD);
-        IPage<CollectionDto> collectionDtoIPage = collectionService.superbCollectionById(page, userId);
+        Page<CollectionDto> page = new Page<>(current, size);
 
 
-        return Result.success(collectionDtoIPage);
+        return Result.success(collectionService.superbCollectionById(page, userId));
 
     }
 
