@@ -49,6 +49,22 @@ public class NewsController {
         return Result.success(list);
     }
 
+
+    /**
+     * 查询所有带图的news  附加user
+     * @param current
+     * @param size
+     * @return
+     */
+    @GetMapping("/item")
+    public Result list (@RequestParam(defaultValue = "1",value = "current") Integer current,
+                        @RequestParam(defaultValue = "10",name = "size") Integer size,
+                        @RequestParam("userId") Long userId) {
+        Page<Map<String ,Object>> page = new Page<>(current, size);
+        IPage<Map<String, Object>> list = newsService.itemNews(page, userId);
+        return Result.success(list);
+    }
+
     /**
      * news左侧轮播图
      * @return

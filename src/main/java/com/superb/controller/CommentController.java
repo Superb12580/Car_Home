@@ -9,11 +9,9 @@ import com.superb.dto.AgreeDto;
 import com.superb.dto.CommentDto;
 import com.superb.entity.Comment;
 import com.superb.entity.Essay;
+import com.superb.entity.Message;
 import com.superb.entity.User;
-import com.superb.service.CommentService;
-import com.superb.service.EssayService;
-import com.superb.service.RecordService;
-import com.superb.service.UserService;
+import com.superb.service.*;
 import com.superb.util.Result;
 import com.superb.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +45,9 @@ public class CommentController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MessageService messageService;
+
     /**
      * 返回一个用户的所有评论
      * 连接动态表
@@ -66,6 +67,24 @@ public class CommentController {
     }
 
     /**
+     * 返回一条动态的所有评论
+     * 连接用户表
+     * @param essayId
+     * @param current
+     * @param size
+     * @return
+     */
+    @GetMapping("itemByEssayId")
+    public Result itemByEssayId(@RequestParam("essayId") Long essayId,
+                       @RequestParam(defaultValue = "1",value = "current") Integer current,
+                       @RequestParam(defaultValue = "10",name = "size") Integer size){
+
+        Page<Map<String, Object>> page = new Page<>(current, size);
+        IPage<Map<String, Object>> mapIPage = commentService.superbCommentById(page, essayId);
+        return Result.success(mapIPage);
+    }
+
+    /**
      * 添加评论
      * @param comment
      * @return
@@ -73,10 +92,23 @@ public class CommentController {
     @PostMapping("/add")
     public Result add(@RequestBody Comment comment){
 
+        // 相关动态
         Essay essay = essayService.getById(comment.getEssayId());
+        // 评论用户
         User user = userService.getById(comment.getUserId());
         // ==================日志==================
         recordService.xr(user.getUserId().toString(), user.getUserName(), MapUtil.PL + "：" + comment.getCommentText(), essay.getEssayId().toString(), essay.getEssayTitle());
+        // 消息
+        Message message = new Message();
+        message.setMessageTitle(MapUtil.DTTZ);
+        message.setMessageText(MapUtil.YHPLLNDDT);
+        message.setThatId(MapUtil.GLYID);
+        message.setUserId(user.getUserId());
+        message.setThisId(essay.getUserId());
+        message.setEssayId(essay.getEssayId());
+        message.setMessageType(MapUtil.XXLX_DT);
+        messageService.save(message);
+        // 评论
         commentService.save(comment);
         return Result.success("已评论");
     }
@@ -93,7 +125,7 @@ public class CommentController {
         User user = userService.getById(comment.getUserId());
         // ==================日志==================
         recordService.xr(user.getUserId().toString(), user.getUserName(), MapUtil.SCPL + "：" + comment.getCommentText(), essay.getEssayId().toString(), essay.getEssayTitle());
-        commentService.remove(new QueryWrapper<Comment>().eq("essay_id", comment.getEssayId()).eq("user_id", comment.getUserId()));
+        commentService.removeById(comment.getId());
         return Result.success("评论已删除");
     }
 

@@ -39,7 +39,8 @@ public class MapUtil {
     public static final String MMCW = "密码错误，登录失败";
     public static final String YHBCZ = "用户不存在，登录失败";
     public static final String MMXGCG = "密码修改成功";
-    public static final String DZ = "点赞";
+    public static final String DZDT = "点赞动态";
+    public static final String DZPL = "点赞评论";
     public static final String QXDZ = "取消点赞";
     public static final String GZ = "关注";
     public static final String QXGZ = "取消关注";
@@ -56,14 +57,24 @@ public class MapUtil {
     public static final String SCXX = "删除消息";
 
     // 通知
-    public static final String HYZCQCZJ = "欢迎注册汽车之家";
+
     public static final String XTTZ = "系统通知";
+    public static final String GZTZ = "关注通知";
     public static final String DTTZ = "动态通知";
+
+    //通知内容
+    public static final String HYZCQCZJ = "欢迎注册汽车之家";
+    public static final String YHDZLNDDT = "用户点赞了你的动态";
+    public static final String YHDZLNDPL = "用户点赞了你的评论";
+    public static final String YHGZLN = "用户关注了你";
+    public static final String YHPLLNDDT = "用户评论了你的动态";
+    public static final String YHZFLNDDT = "用户转发了你的动态";
 
     // 消息类型
     public static final Integer XXLX_XT = 0;
     public static final Integer XXLX_DT = 1;
     public static final Integer XXLX_SX = 2;
+    public static final Integer XXLX_PL = 3;
 
     public static Map<Integer, String> XXLX_MAP = new LinkedHashMap<>();
 
@@ -71,9 +82,14 @@ public class MapUtil {
         XXLX_MAP.put(XXLX_XT, "系统消息");
         XXLX_MAP.put(XXLX_DT, "动态消息");
         XXLX_MAP.put(XXLX_SX, "私信");
+        XXLX_MAP.put(XXLX_PL, "评论");
     }
 
 
+    // 所有车家号
+    public static final Integer sizeCJH = 11;
+    // 一次显示
+    public static final Integer sizeXS = 5;
 
 
 

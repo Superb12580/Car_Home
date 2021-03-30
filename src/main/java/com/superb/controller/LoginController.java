@@ -52,10 +52,6 @@ public class LoginController {
     @PostMapping("/test")
     public Result test(HttpServletRequest request, @RequestBody RegisterLogin login) {
 
-        // 判断前端传参
-        if (login == null || login.getUserName() == null || login.getPassword() == null) {
-            return Result.fail(250);
-        }
         // 这里同时判断（用户名和邮箱不可能相同，所以查询结果仍唯一）
         User user = userService.getOne(new QueryWrapper<User>().eq("user_name", login.getUserName()).or().eq("email", login.getUserName()));
         // 用户不存在

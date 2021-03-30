@@ -60,7 +60,7 @@ public class Item implements Serializable {
     /**
      * 注册时间
      */
-    private LocalDateTime createTime;
+    private String createTime;
 
     /**
      * 用户等级

@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -248,6 +249,15 @@ public class UserController {
         return Result.success(item);
     }
 
+    private Integer count = 0;
+
+    @GetMapping("/listCjh")
+    public Result listCjh () {
+        Page<User> page = new Page<>((count++ % 2) + 1, MapUtil.sizeXS);
+        return Result.success(userService.page(page, new QueryWrapper<User>().lt("user_id", MapUtil.sizeCJH)).getRecords());
+    }
+
+
 
     /**
      * 签到
@@ -277,7 +287,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/put")
-    public Result put(HttpServletRequest request, @RequestBody Item item) {
+    public Result put(@RequestBody Item item) {
 
 
         //用户名已存在
@@ -295,11 +305,7 @@ public class UserController {
 //        String filePath = FileUpload.upload(file, path, file.getOriginalFilename());
 //        user.setPhoto(filePath);
         boolean flag = userService.updateById(user);
-        if (flag) {
-            //回传信息，用于更新前端session
-            return Result.success("修改成功", item);
-        }
-        return Result.fail(400);
+        return Result.success("修改成功", item);
     }
 
 

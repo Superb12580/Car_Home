@@ -7,11 +7,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.common.MapUtil;
 import com.superb.entity.Essay;
 import com.superb.entity.Forward;
+import com.superb.entity.Message;
 import com.superb.entity.User;
-import com.superb.service.EssayService;
-import com.superb.service.ForwardService;
-import com.superb.service.RecordService;
-import com.superb.service.UserService;
+import com.superb.service.*;
 import com.superb.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +38,9 @@ public class ForwardController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MessageService messageService;
+
     /**
      * 显示所有转发
      * @param current
@@ -62,10 +63,23 @@ public class ForwardController {
     @PostMapping("/add")
     public Result add(@RequestBody Forward forward){
 
+        // 相关动态
         Essay essay = essayService.getById(forward.getEssayId());
+        // 转发用户
         User user = userService.getById(forward.getUserId());
         // ==================日志==================
         recordService.xr(user.getUserId().toString(), user.getUserName(), MapUtil.ZFDT, essay.getEssayId().toString(), essay.getEssayTitle());
+        // 消息
+        Message message = new Message();
+        message.setMessageTitle(MapUtil.DTTZ);
+        message.setMessageText(MapUtil.YHZFLNDDT);
+        message.setThatId(MapUtil.GLYID);
+        message.setUserId(user.getUserId());
+        message.setThisId(essay.getUserId());
+        message.setEssayId(essay.getEssayId());
+        message.setMessageType(MapUtil.XXLX_DT);
+        messageService.save(message);
+        // 转发
         forwardService.save(forward);
         return Result.success("转发成功");
 
@@ -100,8 +114,8 @@ public class ForwardController {
         User user = userService.getById(forward.getUserId());
         // ==================日志==================
         recordService.xr(user.getUserId().toString(), user.getUserName(), MapUtil.SCZF, essay.getEssayId().toString(), essay.getEssayTitle());
-        forwardService.remove(new QueryWrapper<Forward>().eq("essay_id", forward.getEssayId()).eq("user_id", forward.getUserId()));
-        return Result.success("删除成功",null);
-
+        // 删除
+        forwardService.removeById(forward.getId());
+        return Result.success("删除成功");
     }
 }

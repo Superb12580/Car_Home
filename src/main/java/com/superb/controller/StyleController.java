@@ -2,6 +2,7 @@ package com.superb.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.common.MapUtil;
 import com.superb.entity.Style;
@@ -59,6 +60,14 @@ public class StyleController {
 
         return Result.success(styleService.page(page, new QueryWrapper<Style>().isNotNull("img_lbt")).getRecords());
 
+    }
+
+    // 点击量前十
+    @GetMapping("/itemDjl")
+    public Result itemDjl() {
+        Page<Style> page = new Page<>(MapUtil.HXGZ, MapUtil.sizeC);
+        IPage<Style> djl = styleService.page(page, new QueryWrapper<Style>().orderByDesc("djl"));
+        return Result.success(djl.getRecords());
     }
 
 }

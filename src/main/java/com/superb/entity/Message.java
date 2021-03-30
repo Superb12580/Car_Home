@@ -49,6 +49,11 @@ public class Message implements Serializable {
     private Long thatId;
 
     /**
+     * 点赞者id
+     */
+    private Long userId;
+
+    /**
      * 接收者id
      */
     private Long thisId;
@@ -57,6 +62,11 @@ public class Message implements Serializable {
      * 动态id
      */
     private Long essayId;
+
+    /**
+     * 评论id
+     */
+    private Integer commentId;
 
     /**
      * 消息类型 0系统 1动态 2私信

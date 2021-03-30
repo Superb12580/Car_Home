@@ -41,7 +41,37 @@ public class News implements Serializable {
     /**
      * 正文
      */
-    private String text;
+    private String text1;
+
+    /**
+     * 正文
+     */
+    private String text2;
+
+    /**
+     * 正文
+     */
+    private String text3;
+
+    /**
+     * 正文
+     */
+    private String text4;
+
+    /**
+     * 正文
+     */
+    private String text5;
+
+    /**
+     * 正文
+     */
+    private String text6;
+
+    /**
+     * 正文
+     */
+    private String text7;
 
     /**
      * 相关车系id

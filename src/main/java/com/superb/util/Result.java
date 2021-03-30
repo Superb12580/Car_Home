@@ -2,6 +2,7 @@ package com.superb.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 统一返回结果集
@@ -32,9 +33,12 @@ public class Result {
     public static Result success(String msg){
         return new Result(200,msg,null);
     }
-//    public static Result fail(Integer code,String msg){
-//        return new Result(code,msg,null);
-//    }
+    public static Result success() {
+        return new Result(200, "", null);
+    }
+    public static Result fail(){
+        return new Result(400 ,"",null);
+    }
     public static Result fail(String msg){
         return new Result(400,msg,null);
     }

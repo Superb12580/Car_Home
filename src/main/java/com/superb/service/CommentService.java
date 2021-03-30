@@ -28,10 +28,10 @@ public interface CommentService extends IService<Comment> {
 
 
     /**
-     * 查询一个用户的所有评论 附带评论相关动态
-     * @param userId
+     * 查询一条动态的所有评论 附带评论用户信息
+     * @param essayId
      * @return
      */
-    IPage<CommentDto> superbCommentByUserId(Page<CommentDto> page,Long userId);
+    IPage<Map<String, Object>> superbCommentById(Page<?> page, Long essayId);
 
 }

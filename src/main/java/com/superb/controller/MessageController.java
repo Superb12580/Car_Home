@@ -46,7 +46,7 @@ public class MessageController {
 
     /**
      * 我的所有消息
-     * message_type 指定消息类型  0系统 1动态 2私信
+     * message_type 指定消息类型  0系统 1动态 2私信 3评论点赞
      * 前端进行分模块显示
      * @param
      * @param
@@ -56,7 +56,7 @@ public class MessageController {
     public Result item(@RequestParam(defaultValue = "1",name = "current") Integer current,
                        @RequestParam(defaultValue = "5",name = "size") Integer size,
                        @RequestParam("messageType") Integer messageType,
-                       @RequestParam Long userId){
+                       @RequestParam("userId") Long userId){
 
         Page<Map<String, Object>> page = new Page<>(current, size);
         IPage<Map<String, Object>> mapIPage = messageService.superbMessageById(page, userId, messageType);

@@ -34,14 +34,8 @@ public interface CommentMapper extends BaseMapper<Comment> {
      * @param essayId
      * @return
      */
-    List<CommentDto> superbCommentById(Long essayId);
+    IPage<Map<String, Object>> superbCommentById(Page<?> page, Long essayId);
 
-    /**
-     * 查询一个用户的所有评论 附带评论相关动态
-     * @param userId
-     * @return
-     */
-    IPage<CommentDto> superbCommentByUserId(Page<CommentDto> page,Long userId);
 
     /**
      * 查询一个动态的评论数量

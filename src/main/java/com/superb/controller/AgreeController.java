@@ -6,11 +6,9 @@ import com.superb.common.MapUtil;
 import com.superb.dto.AgreeDto;
 import com.superb.entity.Agree;
 import com.superb.entity.Essay;
+import com.superb.entity.Message;
 import com.superb.entity.User;
-import com.superb.service.AgreeService;
-import com.superb.service.EssayService;
-import com.superb.service.RecordService;
-import com.superb.service.UserService;
+import com.superb.service.*;
 import com.superb.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +38,9 @@ public class AgreeController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MessageService messageService;
+
     /**
      * 返回一条动态的所有赞
      * 连接用户表，预览用户id name （photo） 即可
@@ -65,11 +66,23 @@ public class AgreeController {
         Agree agree2 = agreeService.getOne(new QueryWrapper<Agree>().eq("essay_id", agree.getEssayId()).eq("user_id", agree.getUserId()));
         // 根据id查出动态标题
         Essay essay = essayService.getById(agree.getEssayId());
+        // 查出点赞用户
         User user = userService.getById(agree.getUserId());
         //点赞
         if (agree2 == null) {
             // ==================日志==================
-            recordService.xr(user.getUserId().toString(), user.getUserName(), MapUtil.DZ, essay.getEssayId().toString(), essay.getEssayTitle());
+            recordService.xr(user.getUserId().toString(), user.getUserName(), MapUtil.DZDT, essay.getEssayId().toString(), essay.getEssayTitle());
+            // 消息
+            Message message = new Message();
+            message.setMessageTitle(MapUtil.DTTZ);
+            message.setMessageText(MapUtil.YHDZLNDDT);
+            message.setThatId(MapUtil.GLYID);
+            message.setUserId(user.getUserId());
+            message.setThisId(essay.getUserId());
+            message.setEssayId(essay.getEssayId());
+            message.setMessageType(MapUtil.XXLX_DT);
+            messageService.save(message);
+            // 点赞
             agreeService.save(agree);
             return Result.success("已点赞");
         }

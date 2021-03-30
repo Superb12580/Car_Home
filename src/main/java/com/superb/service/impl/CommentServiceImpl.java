@@ -30,10 +30,10 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         return baseMapper.superbByUserId(page, userId);
     }
 
-
     @Override
-    public IPage<CommentDto> superbCommentByUserId(Page<CommentDto> page, Long userId) {
-        return baseMapper.superbCommentByUserId(page, userId);
+    public IPage<Map<String, Object>> superbCommentById(Page<?> page, Long essayId) {
+        return baseMapper.superbCommentById(page, essayId);
     }
+
 
 }

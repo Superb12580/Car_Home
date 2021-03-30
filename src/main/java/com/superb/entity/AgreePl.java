@@ -1,12 +1,9 @@
 package com.superb.entity;
 
-import java.time.LocalDateTime;
 import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -17,45 +14,30 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author Superb
- * @since 2020-11-11
+ * @since 2021-03-30
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class Forward implements Serializable {
+public class AgreePl implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    /**
-     * 主键id
-     */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
 
     /**
-     * 动态id
+     * 评论id
      */
-    private Long essayId;
+    private Integer commentId;
 
     /**
-     * 转发用户id
+     * 点赞用户id
      */
     private Long userId;
 
     /**
-     * 转发标题
-     */
-    private String forwardTitle;
-
-    /**
-     * 转发时间
+     * 创建时间
      */
     @TableField(fill = FieldFill.INSERT)
     private String createTime;
-
-    /**
-     * 逻辑删除
-     */
-    private Boolean deleted;
 
 
 }

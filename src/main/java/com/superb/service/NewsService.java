@@ -45,4 +45,11 @@ public interface NewsService extends IService<News> {
      */
     IPage<Map<String ,Object>> listNews (Page<?> page);
 
+
+    /**
+     * 查询一个带头图片的news 附带user
+     * @return
+     */
+    IPage<Map<String, Object>> itemNews (Page<?> page, Long userId);
+
 }

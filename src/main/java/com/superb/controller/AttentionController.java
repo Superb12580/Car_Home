@@ -7,8 +7,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.common.MapUtil;
 import com.superb.dto.AttentionDto;
 import com.superb.entity.Attention;
+import com.superb.entity.Message;
 import com.superb.entity.User;
 import com.superb.service.AttentionService;
+import com.superb.service.MessageService;
 import com.superb.service.RecordService;
 import com.superb.service.UserService;
 import com.superb.util.Result;
@@ -37,6 +39,9 @@ public class AttentionController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MessageService messageService;
 
     /**
      * 查看我的关注
@@ -96,11 +101,22 @@ public class AttentionController {
         if (attention2 == null) {
             // ==================日志==================
             recordService.xr(user.getUserId().toString(), user.getUserName(), MapUtil.GZ, user2.getUserId().toString(), user2.getUserName());
+            // 消息
+            Message message = new Message();
+            message.setMessageTitle(MapUtil.GZTZ);
+            message.setMessageText(MapUtil.YHGZLN);
+            message.setThatId(MapUtil.GLYID);
+            message.setUserId(user.getUserId());
+            message.setThisId(user2.getUserId());
+            message.setMessageType(MapUtil.XXLX_DT);
+            messageService.save(message);
+            // 关注
             attentionService.save(attention);
             return Result.success("关注成功");
         }
         // ==================日志==================
         recordService.xr(user.getUserId().toString(), user.getUserName(), MapUtil.QXGZ, user2.getUserId().toString(), user2.getUserName());
+        // 取消关注
         attentionService.remove(new QueryWrapper<Attention>().eq("this_id", attention.getThisId()).eq("that_id", attention.getThatId()));
         return Result.success("已取消关注");
     }
