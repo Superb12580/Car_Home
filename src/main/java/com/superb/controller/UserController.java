@@ -304,8 +304,12 @@ public class UserController {
         //上传图片
 //        String filePath = FileUpload.upload(file, path, file.getOriginalFilename());
 //        user.setPhoto(filePath);
-        boolean flag = userService.updateById(user);
-        return Result.success("修改成功", item);
+        userService.updateById(user);
+        // 修改后的信息更新到前端
+        final User byId = userService.getById(user.getUserId());
+        Item item2 = new Item();
+        BeanUtil.copyProperties(byId, item2);
+        return Result.success("修改成功", item2);
     }
 
 

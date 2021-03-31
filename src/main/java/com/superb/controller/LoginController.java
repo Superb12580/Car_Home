@@ -53,7 +53,7 @@ public class LoginController {
     public Result test(HttpServletRequest request, @RequestBody RegisterLogin login) {
 
         // 这里同时判断（用户名和邮箱不可能相同，所以查询结果仍唯一）
-        User user = userService.getOne(new QueryWrapper<User>().eq("user_name", login.getUserName()).or().eq("email", login.getUserName()));
+        User user = userService.getOne(new QueryWrapper<User>().eq("user_name", login.getUserName()).or().eq("email", login.getUserName()).or().eq("dlh", login.getUserName()));
         // 用户不存在
         if (user == null) {
             // ==================日志==================
