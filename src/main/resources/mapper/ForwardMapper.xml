@@ -11,6 +11,7 @@
         <association column="user_id" property="user"
                      select="com.superb.mapper.UserMapper.superbById"
                      javaType="com.superb.entity.User"/>
+<!--        连接动态表-->
         <association column="essay_id" property="essay" select="com.superb.mapper.EssayMapper.selectByEssayId" javaType="java.util.Map"/>
     </resultMap>
 

@@ -4,18 +4,22 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.dto.CommentDto;
 import com.superb.entity.Comment;
+import com.superb.entity.Label;
 import com.superb.mapper.CommentMapper;
 import com.superb.service.CommentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.superb.service.LabelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author Superb
@@ -24,10 +28,23 @@ import java.util.Map;
 @Service
 public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> implements CommentService {
 
+    @Autowired
+    private LabelService labelService;
 
     @Override
     public IPage<Map<String, Object>> superbByUserId(Page<?> page, Long userId) {
-        return baseMapper.superbByUserId(page, userId);
+        IPage<Map<String, Object>> mapIPage = baseMapper.superbByUserId(page, userId);
+        // 处理多标签
+        for (Map<String, Object> map : mapIPage.getRecords()) {
+            Map<String, Object> map2 = ((Map<String, Object>) map.get("essay"));
+            if (map2 != null && map2.get("essayLabel") != null && !"".equals(map2.get("essayLabel"))) {
+                String str = map2.get("essayLabel").toString();
+                String[] split = str.split(",");
+                List<Label> labels = labelService.listLabel(Arrays.asList(split));
+                map2.put("essayLabel", labels);
+            }
+        }
+        return mapIPage;
     }
 
     @Override

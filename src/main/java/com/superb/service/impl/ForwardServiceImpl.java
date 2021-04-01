@@ -4,12 +4,17 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.dto.ForwardDto;
 import com.superb.entity.Forward;
+import com.superb.entity.Label;
 import com.superb.mapper.ForwardMapper;
 import com.superb.service.ForwardService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.superb.service.LabelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,14 +28,38 @@ import java.util.Map;
 @Service
 public class ForwardServiceImpl extends ServiceImpl<ForwardMapper, Forward> implements ForwardService {
 
+    @Autowired
+    private LabelService labelService;
 
     @Override
     public IPage<Map<String, Object>> superbByUserId(Page<?> page, Long userId) {
-        return baseMapper.superbByUserId(page, userId);
+        IPage<Map<String, Object>> mapIPage = baseMapper.superbByUserId(page, userId);
+        // 处理多标签
+        for (Map<String, Object> map : mapIPage.getRecords()) {
+            Map<String, Object> map2 = ((Map<String, Object>) map.get("essay"));
+            if (map2 != null && map2.get("essayLabel") != null && !"".equals(map2.get("essayLabel"))) {
+                String str = map2.get("essayLabel").toString();
+                String[] split = str.split(",");
+                List<Label> labels = labelService.listLabel(Arrays.asList(split));
+                map2.put("essayLabel", labels);
+            }
+        }
+        return mapIPage;
     }
 
     @Override
     public IPage<Map<String, Object>> superbAllForward(Page<?> page) {
-        return baseMapper.superbAllForward(page);
+        IPage<Map<String, Object>> forward = baseMapper.superbAllForward(page);
+        // 处理多标签
+        for (Map<String, Object> map : forward.getRecords()) {
+            Map<String, Object> map2 = ((Map<String, Object>) map.get("essay"));
+            if (map2 != null && map2.get("essayLabel") != null && !"".equals(map2.get("essayLabel"))) {
+                String str = map2.get("essayLabel").toString();
+                String[] split = str.split(",");
+                List<Label> labels = labelService.listLabel(Arrays.asList(split));
+                map2.put("essayLabel", labels);
+            }
+        }
+        return forward;
     }
 }

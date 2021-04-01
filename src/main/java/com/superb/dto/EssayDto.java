@@ -22,9 +22,14 @@ public class EssayDto extends Essay implements Serializable {
      */
     private User user;
     /**
-     * 展示个人动态或管理员查询时 连接显示标签
+     * 多标签
      */
-    private Label label;
+    private List<Label> label;
+
+    /**
+     * 标签序号
+     */
+    private String essayLabel = "";
     /**
      * 展示个人动态或管理员查询时 连接显示评论
      */

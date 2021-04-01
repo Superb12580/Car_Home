@@ -2,6 +2,7 @@ package com.superb.controller;
 
 
 import com.superb.entity.Label;
+import com.superb.mapper.LabelMapper;
 import com.superb.service.LabelService;
 import com.superb.util.Result;
 import com.superb.util.Utils;
@@ -27,6 +28,7 @@ public class LabelController {
 
     @Autowired
     private LabelService labelService;
+
 
     /**
      * 查询所有标签

@@ -21,7 +21,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author Superb
@@ -41,13 +41,14 @@ public class EssayController {
 
     /**
      * 显示所有动态
+     *
      * @param current
      * @param size
      * @return
      */
     @GetMapping("/list")
-    public Result list(@RequestParam(defaultValue = "1",value = "current") Integer current,
-                       @RequestParam(defaultValue = "5",name = "size") Integer size){
+    public Result list(@RequestParam(defaultValue = "1", value = "current") Integer current,
+                       @RequestParam(defaultValue = "5", name = "size") Integer size) {
         Page<Map<String, Object>> page = new Page<>(current, size);
         IPage<Map<String, Object>> essayDtoIPage = essayService.superbAllEssay(page);
         return Result.success(essayDtoIPage);
@@ -56,6 +57,7 @@ public class EssayController {
 
     /**
      * 显示个人动态
+     *
      * @param userId
      * @param current
      * @param size
@@ -63,8 +65,8 @@ public class EssayController {
      */
     @GetMapping("/user")
     public Result item(@RequestParam("userId") Long userId,
-                       @RequestParam(defaultValue = "1",name = "current") Integer current,
-                       @RequestParam(defaultValue = "5",name = "size") Integer size){
+                       @RequestParam(defaultValue = "1", name = "current") Integer current,
+                       @RequestParam(defaultValue = "5", name = "size") Integer size) {
 
         Page<Map<String, Object>> page = new Page<>(current, size);
         IPage<Map<String, Object>> essayDtoIPage = essayService.superbEssayById(page, userId);
@@ -73,23 +75,35 @@ public class EssayController {
 
     /**
      * 显示一条动态  详细
+     *
      * @param essayId
      * @return
      */
     @GetMapping("/item")
-    public Result item(@RequestParam("essayId") Long essayId){
+    public Result item(@RequestParam("essayId") Long essayId) {
         EssayDto essayDto = essayService.superbByEssayId(essayId);
         return Result.success(essayDto);
     }
 
     /**
      * 发表动态
-     * @param essay
+     *
+     * @param map
      * @return
      */
     @PostMapping("/add")
-    public Result add(@RequestBody Essay essay){
-
+    public Result add(@RequestBody Map<String, Object> map) {
+        Essay essay = new Essay();
+        essay.setUserId(((Integer) map.get("userId")).longValue());
+        essay.setEssayTitle(map.get("essayTitle").toString());
+        essay.setEssayText(map.get("essayText").toString());
+        StringBuilder sb = new StringBuilder();
+        final List<Integer> list = (List<Integer>) map.get("essayLabel");
+        for (Integer in : list) {
+            sb.append(in.toString()).append(',');
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        essay.setEssayLabel(sb.toString());
         User user = userService.getById(essay.getUserId());
         // ==================日志==================
         recordService.xr(user.getUserId().toString(), user.getUserName(), MapUtil.FBDT, "", essay.getEssayTitle());
@@ -99,11 +113,12 @@ public class EssayController {
 
     /**
      * 删除动态
+     *
      * @param essay
      * @retur
      */
     @PostMapping("/delete")
-    public Result delete(@RequestBody Essay essay){
+    public Result delete(@RequestBody Essay essay) {
 
         User user = userService.getById(essay.getUserId());
         // ==================日志==================
@@ -115,15 +130,16 @@ public class EssayController {
 
     /**
      * 批量删除动态
+     *
      * @param str
      * @param userId
      * @return
      */
     @PostMapping("/deletes")
-    public Result deletes(@RequestParam("str") String str, @RequestParam("userId")Long userId){
+    public Result deletes(@RequestParam("str") String str, @RequestParam("userId") Long userId) {
 
         List<Integer> list = Utils.stringToInteger(str);
-        if (list == null || list.size() == 0){
+        if (list == null || list.size() == 0) {
             return Result.fail(250);
         }
         User user = userService.getById(userId);

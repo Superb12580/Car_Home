@@ -94,5 +94,14 @@ public class News implements Serializable {
      */
     private Long count;
 
+    /**
+     * 上市车名称
+     */
+    private String sscmc;
+
+    /**
+     * 上市时间
+     */
+    private String sssj;
 
 }

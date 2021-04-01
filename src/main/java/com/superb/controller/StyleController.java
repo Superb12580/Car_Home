@@ -43,7 +43,7 @@ public class StyleController {
 
         Page<Style> page = new Page<>((++count % i) + 1, MapUtil.sizeA);
 
-        return Result.success(styleService.page(page).getRecords());
+        return Result.success(styleService.page(page, new QueryWrapper<Style>().orderByDesc("create_time")).getRecords());
 
     }
 
@@ -58,7 +58,7 @@ public class StyleController {
 
         Page<Style> page = new Page<>((++count2 % i) + 1, MapUtil.sizeA);
 
-        return Result.success(styleService.page(page, new QueryWrapper<Style>().isNotNull("img_lbt")).getRecords());
+        return Result.success(styleService.page(page, new QueryWrapper<Style>().isNotNull("img_lbt").orderByDesc("create_time")).getRecords());
 
     }
 

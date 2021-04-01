@@ -40,12 +40,12 @@
 
 <!--    查询所有带头图片的news 附带user-->
     <select id="listNews" resultMap="listNews">
-        select * from news where news_photo is not null
+        select * from news
     </select>
 
     <!--    查询所有带头图片的news 附带user-->
     <select id="itemNews" resultMap="listNews" parameterType="java.lang.Long">
-        select * from news where news_photo is not null and user_id = #{userId}
+        select * from news where user_id = #{userId}
     </select>
 
 </mapper>

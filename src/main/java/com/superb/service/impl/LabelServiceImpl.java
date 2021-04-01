@@ -18,5 +18,10 @@ import java.util.List;
  * @since 2020-11-11
  */
 @Service
-public class LabelServiceImpl extends ServiceImpl<LabelMapper, Label> implements LabelService {
+public class
+LabelServiceImpl extends ServiceImpl<LabelMapper, Label> implements LabelService {
+    @Override
+    public List<Label> listLabel(List<String> labelId) {
+        return baseMapper.listLabel(labelId);
+    }
 }

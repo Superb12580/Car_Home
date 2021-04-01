@@ -15,4 +15,10 @@ import java.util.List;
  * @since 2020-11-11
  */
 public interface LabelService extends IService<Label> {
+    /**
+     * 多标签查询
+     * @param labelId
+     * @return
+     */
+    List<Label> listLabel (List<String> labelId);
 }

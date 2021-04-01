@@ -76,7 +76,7 @@ public class NewsController {
 
         Page<News> page = new Page<>((++count % i) + 1, MapUtil.sizeA);
 
-        return Result.success(newsService.page(page, new QueryWrapper<News>().isNotNull("news_photo")).getRecords());
+        return Result.success(newsService.page(page, new QueryWrapper<News>().isNotNull("news_photo").orderByDesc("create_time")).getRecords());
     }
 
     /**

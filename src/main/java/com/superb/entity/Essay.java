@@ -39,7 +39,7 @@ public class Essay implements Serializable {
     /**
      * 动态标签
      */
-    private Integer essayLabel;
+    private String essayLabel;
 
     /**
      * 动态正文
