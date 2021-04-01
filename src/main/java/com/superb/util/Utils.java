@@ -13,20 +13,6 @@ import java.util.UUID;
  * @E_mail superb12580@163.com
  */
 public class Utils {
-    //登录判断
-//    public static Long loginFlag(HttpServletRequest request){
-//        Object obj = request.getSession().getAttribute("id");
-//        if (obj == null){
-//            return -1L;
-//        }
-//        return (Long)obj;
-//    }
-//
-//    public static boolean adminFlag(HttpServletRequest request){
-//        //管理员判断
-//        return request.getSession().getAttribute("admin") == null;
-//    }
-
 
 
     /**
@@ -35,8 +21,11 @@ public class Utils {
      * @return
      */
     public static String getFileName(String fileName){
-        String suffix = fileName.substring(fileName.lastIndexOf("."));
-        return UUID.randomUUID().toString().replace("-", "") + suffix;
+        if (fileName != null) {
+            String suffix = fileName.substring(fileName.lastIndexOf("."));
+            return UUID.randomUUID().toString().replace("-", "") + suffix;
+        }
+        return null;
     }
 
 

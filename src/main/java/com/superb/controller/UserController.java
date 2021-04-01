@@ -192,6 +192,28 @@ public class UserController {
     @Autowired
     private MessageService messageService;
 
+    @Autowired
+    private OssService ossService;
+
+    /**
+     * 上传头像的方法
+     * @param file
+     * @return
+     */
+    @PostMapping("/upload")
+    public Result uploadOssFile(MultipartFile file, User user) {
+        //获取上传文件  MultipartFile
+        //返回上传到oss的路径
+        String url = ossService.uploadFileAvatar(file);
+        user.setPhoto(url);
+        userService.updateById(user);
+        // 修改后的信息更新到前端
+        final User byId = userService.getById(user.getUserId());
+        Item item = new Item();
+        BeanUtil.copyProperties(byId, item);
+        return Result.success("上传成功", item);
+    }
+
     //显示个人资料
     @GetMapping("/user")
     public Result user(@RequestParam("userId") Long userId) {
@@ -301,9 +323,6 @@ public class UserController {
 
         User user = new User();
         BeanUtil.copyProperties(item, user);
-        //上传图片
-//        String filePath = FileUpload.upload(file, path, file.getOriginalFilename());
-//        user.setPhoto(filePath);
         userService.updateById(user);
         // 修改后的信息更新到前端
         final User byId = userService.getById(user.getUserId());

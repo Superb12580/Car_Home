@@ -27,6 +27,7 @@
         <result column="user_id" property="userId"/>
         <result column="comment_text" property="commentText"/>
         <result column="create_time" property="createTime"/>
+        <result column="essay_id" property="essayId"/>
         <association column="user_id" property="user" select="com.superb.mapper.UserMapper.superbById" javaType="java.util.Map"/>
         <association column="essay_id" property="essay" select="com.superb.mapper.EssayMapper.selectByEssayId" javaType="java.util.Map"/>
     </resultMap>

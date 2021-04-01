@@ -37,7 +37,7 @@ public class ForwardServiceImpl extends ServiceImpl<ForwardMapper, Forward> impl
         // 处理多标签
         for (Map<String, Object> map : mapIPage.getRecords()) {
             Map<String, Object> map2 = ((Map<String, Object>) map.get("essay"));
-            if (map2 != null && map2.get("essayLabel") != null && !"".equals(map2.get("essayLabel"))) {
+            if (map2 != null && map2.get("essayLabel") instanceof String && map2.get("essayLabel") != null && !"".equals(map2.get("essayLabel"))) {
                 String str = map2.get("essayLabel").toString();
                 String[] split = str.split(",");
                 List<Label> labels = labelService.listLabel(Arrays.asList(split));
@@ -53,7 +53,7 @@ public class ForwardServiceImpl extends ServiceImpl<ForwardMapper, Forward> impl
         // 处理多标签
         for (Map<String, Object> map : forward.getRecords()) {
             Map<String, Object> map2 = ((Map<String, Object>) map.get("essay"));
-            if (map2 != null && map2.get("essayLabel") != null && !"".equals(map2.get("essayLabel"))) {
+            if (map2 != null && map2.get("essayLabel") instanceof String && map2.get("essayLabel") != null && !"".equals(map2.get("essayLabel"))) {
                 String str = map2.get("essayLabel").toString();
                 String[] split = str.split(",");
                 List<Label> labels = labelService.listLabel(Arrays.asList(split));

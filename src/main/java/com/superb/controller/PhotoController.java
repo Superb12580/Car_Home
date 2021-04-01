@@ -18,18 +18,4 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/photo")
 public class PhotoController {
-
-    /**
-     * 上传头像的方法
-     * @param file
-     * @return
-     */
-    @PostMapping
-    public Result uploadOssFile(MultipartFile file) {
-        //获取上传文件  MultipartFile
-        //返回上传到oss的路径
-//        String url = ossService.uploadFileAvatar(file);
-//        return Result.ok().data("url",url);
-        return null;
-    }
 }
