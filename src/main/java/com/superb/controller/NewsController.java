@@ -94,8 +94,6 @@ public class NewsController {
      */
     @GetMapping("/itemPh")
     public Result itemPh () {
-
-
         return Result.success(newsService.listPh(MapUtil.PHTS));
     }
 

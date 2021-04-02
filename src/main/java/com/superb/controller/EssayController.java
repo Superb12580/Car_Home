@@ -1,6 +1,7 @@
 package com.superb.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.common.MapUtil;
@@ -8,6 +9,7 @@ import com.superb.dto.EssayDto;
 import com.superb.entity.Essay;
 import com.superb.entity.User;
 import com.superb.service.EssayService;
+import com.superb.service.MessageService;
 import com.superb.service.RecordService;
 import com.superb.service.UserService;
 import com.superb.util.Result;
@@ -38,6 +40,10 @@ public class EssayController {
 
     @Autowired
     private UserService userService;
+
+
+    @Autowired
+    private MessageService messageService;
 
     /**
      * 显示所有动态
@@ -105,9 +111,15 @@ public class EssayController {
         sb.deleteCharAt(sb.length() - 1);
         essay.setEssayLabel(sb.toString());
         User user = userService.getById(essay.getUserId());
-        // ==================日志==================
-        recordService.xr(user.getUserId().toString(), user.getUserName(), MapUtil.FBDT, "", essay.getEssayTitle());
+        // 保存 增加唯一标识字段 用于插入后立即查出
+        String uuid = Utils.getUUID();
+        essay.setWybs(uuid);
         essayService.save(essay);
+        Essay wybs = essayService.getOne(new QueryWrapper<Essay>().eq("wybs", uuid));
+        // 发送通知粉丝
+        messageService.sendMessage(wybs);
+        // ==================日志==================
+        recordService.xr(user.getUserId().toString(), user.getUserName(), MapUtil.FBDT, wybs.getEssayId().toString(), wybs.getEssayTitle());
         return Result.success("发表成功");
     }
 
@@ -144,7 +156,7 @@ public class EssayController {
         }
         User user = userService.getById(userId);
         // ==================日志==================
-        recordService.xr(user.getUserId().toString(), user.getUserName(), MapUtil.PLSCDT, "", "");
+        recordService.xr(user.getUserId().toString(), user.getUserName(), MapUtil.PLSCDT);
         essayService.removeByIds(list);
         return Result.success("批量删除成功");
     }

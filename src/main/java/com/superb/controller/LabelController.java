@@ -51,8 +51,8 @@ public class LabelController {
         if (label == null || label.getLabelText() == null || "".equals(label.getLabelText()) || label.getLabelId() != null){
             return Result.fail(250);
         }
-        boolean b = labelService.save(label);
-        return b ? Result.success("标签添加成功",null) : Result.fail(400);
+        labelService.save(label);
+        return Result.success("标签添加成功");
     }
 
     /**
@@ -66,8 +66,8 @@ public class LabelController {
         if (label == null || label.getLabelText() == null || "".equals(label.getLabelText()) || label.getLabelId() == null){
             return Result.fail(250);
         }
-        boolean b = labelService.updateById(label);
-        return b ? Result.success("标签修改成功",null) : Result.fail(400);
+        labelService.updateById(label);
+        return Result.success("标签修改成功");
 
     }
 
@@ -98,10 +98,7 @@ public class LabelController {
         if (list == null){
             return Result.fail(250);
         }
-        boolean b = labelService.removeByIds(list);
-        if (b){
-            return Result.success("批量删除成功",null);
-        }
-        return Result.fail("标签不存在，请重试");
+        labelService.removeByIds(list);
+        return Result.success("批量删除成功");
     }
 }

@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author Superb
- * @since 2020-11-11
+ * @since 2021-04-02
  */
 public interface VideoService extends IService<Video> {
 

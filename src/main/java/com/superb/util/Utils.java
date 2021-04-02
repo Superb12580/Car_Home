@@ -28,6 +28,10 @@ public class Utils {
         return null;
     }
 
+    public static String getUUID(){
+        return UUID.randomUUID().toString().replace("-", "");
+    }
+
 
 
 

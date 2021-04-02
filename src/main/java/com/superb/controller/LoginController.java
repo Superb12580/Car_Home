@@ -6,14 +6,17 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.superb.common.MapUtil;
 import com.superb.dto.Item;
 import com.superb.dto.RegisterLogin;
+import com.superb.entity.Message;
 import com.superb.entity.Record;
 import com.superb.entity.User;
+import com.superb.service.MessageService;
 import com.superb.service.RecordService;
 import com.superb.service.UserService;
 import com.superb.util.Result;
 import com.superb.util.SendMail;
 import com.superb.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -42,6 +45,8 @@ public class LoginController {
     @Autowired
     private RecordService recordService;
 
+    @Autowired
+    private MessageService messageService;
 
     /**
      * 登录验证、传参用户名或邮箱和密码
@@ -58,28 +63,29 @@ public class LoginController {
         if (user == null) {
             // ==================日志==================
             String ipAddress = getIpAddress(request);
-            recordService.xr(ipAddress, "", MapUtil.YHBCZ,"", "");
+            recordService.xr(ipAddress, "", MapUtil.YHBCZ);
             return Result.fail(150);
         }
         // 比对密码
         if (user.getPassword().equals(SecureUtil.md5(login.getPassword()))) {
-            //获取客户端ip地址
-//            String ipAddress = getIpAddress(request);
-//            request.getSession().setAttribute("id",user.getUserId());
-//            request.getSession().setAttribute("ip",ipAddress);
-            //管理员
-//            if (user.getUserId() == 1){
-//                request.getSession().setAttribute("admin",user.getUserId());
-//            }
-//            State.login(user.getUserId(), ipAddress);
+            // 获取私信总条数
+            int count = messageService.count(new QueryWrapper<Message>().eq("this_id", user.getUserId()).eq("message_type", MapUtil.XXLX_SX));
             Item item = new Item();
             BeanUtil.copyProperties(user, item);
+            item.setSxts(Math.max(count - item.getSxts(), 0));
+            // 更新条数
+            if (item.getSxts() > 0) {
+                User user2 = new User();
+                user2.setUserId(item.getUserId());
+                user2.setSxts(count);
+                userService.updateById(user2);
+            }
             // ==================日志==================
-            recordService.xr(user.getUserId().toString(), user.getUserName(), MapUtil.DLCG, "","");
+            recordService.xr(user.getUserId().toString(), user.getUserName(), MapUtil.DLCG);
             return Result.success("欢迎：" + user.getUserName(), item);
         }
         // ==================日志==================
-        recordService.xr(user.getUserId().toString(), user.getUserName(), MapUtil.MMCW, "", "");
+        recordService.xr(user.getUserId().toString(), user.getUserName(), MapUtil.MMCW);
         return Result.fail("密码错误，请重试");
     }
 
@@ -119,7 +125,7 @@ public class LoginController {
             return Result.fail(250);
         }
         // ==================日志==================
-        recordService.xr(user.getUserId().toString(), user.getUserName(), MapUtil.ZXCG, "", "");
+        recordService.xr(user.getUserId().toString(), user.getUserName(), MapUtil.ZXCG);
         return Result.success("注销成功", null);
     }
 
@@ -151,7 +157,7 @@ public class LoginController {
                 //标志量
                 this.registerLogin.setFlag(1);
                 // ==================日志==================
-                recordService.xr(login.getEmail(), "", MapUtil.ZCJCYZM, "", "");
+                recordService.xr(login.getEmail(), "", MapUtil.ZCJCYZM);
                 return Result.success("验证码已发送，请注意查收", null);
             } catch (MessagingException e) {
                 e.printStackTrace();
@@ -197,7 +203,7 @@ public class LoginController {
         //置0
         this.registerLogin.setFlag(0);
         // ==================日志==================
-        recordService.xr(login.getEmail(), "", MapUtil.MMXGCG, "", "");
+        recordService.xr(login.getEmail(), "", MapUtil.MMXGCG);
         return Result.success("修改成功，请登录");
     }
 }

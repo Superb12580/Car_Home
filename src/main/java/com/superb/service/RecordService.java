@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface RecordService extends IService<Record> {
     int xr(String userId, String userName, String nr, String objectId, String objectName);
+    int xr(String userId, String userName, String nr);
 }

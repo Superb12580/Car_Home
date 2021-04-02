@@ -13,6 +13,16 @@ public class MapUtil {
 
     // 管理员Id
     public static final Long GLYID = 1L;
+    public static final String QCZJGLY = "汽车之家管理员";
+    public static final String QCZJGLYXG = "汽车之家管理员修改了用户个人信息";
+    public static final String SCTX = "用户上传了头像";
+    public static final String ZXQD = "用户进行了签到";
+    public static final String BJXX = "用户修改了个人信息";
+    public static final String XGMM = "用户修改了个人密码";
+
+
+    public static final Integer YRZ = 1;
+    public static final Integer WRZ = 0;
 
     // 文章默认条数
     public static final Integer WZTS = 9;
@@ -61,6 +71,7 @@ public class MapUtil {
     public static final String XTTZ = "系统通知";
     public static final String GZTZ = "关注通知";
     public static final String DTTZ = "动态通知";
+    public static final String GXTZ = "更新通知";
 
     //通知内容
     public static final String HYZCQCZJ = "欢迎注册汽车之家";
@@ -69,6 +80,7 @@ public class MapUtil {
     public static final String YHGZLN = "用户关注了你";
     public static final String YHPLLNDDT = "用户评论了你的动态";
     public static final String YHZFLNDDT = "用户转发了你的动态";
+    public static final String NDGZGXLDT = "你的关注更新了动态";
 
     // 消息类型
     public static final Integer XXLX_XT = 0;

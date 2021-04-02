@@ -67,7 +67,7 @@ public class MessageController {
 
 
     /**
-     * 发送消息
+     * 发送私信
      * @param message
      * @return
      */
@@ -82,6 +82,8 @@ public class MessageController {
         // ==================日志==================
         recordService.xr(user2.getUserId().toString(), user2.getUserName(), MapUtil.FSXX + "：" + message.getMessageTitle(), user.getUserId().toString(), user.getUserName());
 
+        // 信息类型为私信
+        message.setMessageType(MapUtil.XXLX_SX);
         messageService.save(message);
         return Result.success("发送成功",null);
     }
@@ -92,7 +94,7 @@ public class MessageController {
      * @return
      */
     @PostMapping("/delete")
-    public Result delete(@RequestBody Message message){
+    public Result delete(@RequestBody Message message) {
         // 接收者
         User user = userService.getById(message.getThisId());
         // 发送者
@@ -100,7 +102,16 @@ public class MessageController {
         // ==================日志==================
         recordService.xr(user.getUserId().toString(), user.getUserName(), MapUtil.SCXX + "：" + message.getMessageTitle(), user2.getUserId().toString(), user2.getUserName());
 
+        Message byId = messageService.getById(message);
         messageService.removeById(message.getMessageId());
+        if (byId.getMessageType().compareTo(MapUtil.XXLX_SX) == 0) {
+            // 删除私信消息要更新user表的xxts
+            int count = messageService.count(new QueryWrapper<Message>().eq("this_id", user.getUserId()).eq("message_type", MapUtil.XXLX_SX));
+            User user3 = new User();
+            user3.setUserId(user.getUserId());
+            user3.setSxts(count);
+            userService.updateById(user3);
+        }
         return Result.success("消息删除成功");
     }
 

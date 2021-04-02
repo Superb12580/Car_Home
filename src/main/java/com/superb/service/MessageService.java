@@ -2,6 +2,7 @@ package com.superb.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.superb.entity.Essay;
 import com.superb.entity.Message;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -24,5 +25,12 @@ public interface MessageService extends IService<Message> {
      * @return
      */
     IPage<Map<String, Object>> superbMessageById(Page<?> page, Long userId, Integer messageType);
+
+
+    /**
+     * 发动态后通知所有粉丝
+     * @param essay
+     */
+    void sendMessage (Essay essay);
 
 }

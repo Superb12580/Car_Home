@@ -118,6 +118,11 @@ public class Style implements Serializable {
     private String updateTime;
 
     /**
+     * 用户id
+     */
+    private String wybs;
+
+    /**
      * 逻辑删除
      */
     private Boolean deleted;

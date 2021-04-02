@@ -69,7 +69,7 @@ public class Message implements Serializable {
     private Integer commentId;
 
     /**
-     * 消息类型 0系统 1动态 2私信
+     * 消息类型 0系统 1动态 2私信 3评论
      */
     private Integer messageType;
 

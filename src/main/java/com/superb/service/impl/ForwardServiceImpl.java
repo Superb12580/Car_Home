@@ -35,6 +35,10 @@ public class ForwardServiceImpl extends ServiceImpl<ForwardMapper, Forward> impl
     public IPage<Map<String, Object>> superbByUserId(Page<?> page, Long userId) {
         IPage<Map<String, Object>> mapIPage = baseMapper.superbByUserId(page, userId);
         // 处理多标签
+        return getMapIPage(mapIPage);
+    }
+
+    private IPage<Map<String, Object>> getMapIPage(IPage<Map<String, Object>> mapIPage) {
         for (Map<String, Object> map : mapIPage.getRecords()) {
             Map<String, Object> map2 = ((Map<String, Object>) map.get("essay"));
             if (map2 != null && map2.get("essayLabel") instanceof String && map2.get("essayLabel") != null && !"".equals(map2.get("essayLabel"))) {
@@ -51,15 +55,6 @@ public class ForwardServiceImpl extends ServiceImpl<ForwardMapper, Forward> impl
     public IPage<Map<String, Object>> superbAllForward(Page<?> page) {
         IPage<Map<String, Object>> forward = baseMapper.superbAllForward(page);
         // 处理多标签
-        for (Map<String, Object> map : forward.getRecords()) {
-            Map<String, Object> map2 = ((Map<String, Object>) map.get("essay"));
-            if (map2 != null && map2.get("essayLabel") instanceof String && map2.get("essayLabel") != null && !"".equals(map2.get("essayLabel"))) {
-                String str = map2.get("essayLabel").toString();
-                String[] split = str.split(",");
-                List<Label> labels = labelService.listLabel(Arrays.asList(split));
-                map2.put("essayLabel", labels);
-            }
-        }
-        return forward;
+        return getMapIPage(forward);
     }
 }

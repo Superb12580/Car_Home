@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author Superb
- * @since 2020-11-11
+ * @since 2021-04-02
  */
 public interface VideoMapper extends BaseMapper<Video> {
 

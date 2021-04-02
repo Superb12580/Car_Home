@@ -58,6 +58,16 @@ public class Essay implements Serializable {
     private Long userId;
 
     /**
+     * 用户id
+     */
+    private String wybs;
+
+    /**
+     * 视频路径
+     */
+    private String video;
+
+    /**
      * 逻辑删除
      */
     private Boolean deleted;

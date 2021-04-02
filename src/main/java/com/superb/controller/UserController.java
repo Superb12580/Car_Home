@@ -49,6 +49,9 @@ public class UserController {
     @Autowired
     private SendMail sendMail;
 
+    @Autowired
+    private RecordService recordService;
+
 
     /**
      * 显示全部用户（管理员）
@@ -120,7 +123,8 @@ public class UserController {
             }
         }
 
-
+        // 日志
+        recordService.xr(user.getUserId().toString(), user.getUserName(), MapUtil.QCZJGLYXG,MapUtil.GLYID.toString(), MapUtil.QCZJGLY);
         userService.updateById(user);
         return Result.success("修改成功", null);
     }
@@ -211,6 +215,8 @@ public class UserController {
         final User byId = userService.getById(user.getUserId());
         Item item = new Item();
         BeanUtil.copyProperties(byId, item);
+        // 日志
+        recordService.xr(byId.getUserId().toString(), byId.getUserName(), MapUtil.SCTX);
         return Result.success("上传成功", item);
     }
 
@@ -275,8 +281,10 @@ public class UserController {
 
     @GetMapping("/listCjh")
     public Result listCjh () {
-        Page<User> page = new Page<>((count++ % 2) + 1, MapUtil.sizeXS);
-        return Result.success(userService.page(page, new QueryWrapper<User>().lt("user_id", MapUtil.sizeCJH)).getRecords());
+        // 总条数 / 每页显示 = 完整页数  i!=0
+        int i = userService.count(new QueryWrapper<User>().eq("sfrz", MapUtil.YRZ)) / MapUtil.sizeXS;
+        Page<User> page = new Page<>((count++ % i) + 1, MapUtil.sizeXS);
+        return Result.success(userService.page(page, new QueryWrapper<User>().eq("sfrz", MapUtil.YRZ)).getRecords());
     }
 
 
@@ -295,6 +303,8 @@ public class UserController {
         // 签到标志
         user.setGraded(MapUtil.YQD);
         userService.updateById(user);
+        // 日志
+        recordService.xr(user.getUserId().toString(), user.getUserName(), MapUtil.ZXQD);
         return Result.success("签到成功，+10积分");
     }
 
@@ -328,6 +338,8 @@ public class UserController {
         final User byId = userService.getById(user.getUserId());
         Item item2 = new Item();
         BeanUtil.copyProperties(byId, item2);
+        // 日志
+        recordService.xr(byId.getUserId().toString(), byId.getUserName(), MapUtil.BJXX);
         return Result.success("修改成功", item2);
     }
 
@@ -351,6 +363,8 @@ public class UserController {
         }
         user.setPassword(SecureUtil.md5(login.getNewPassword()));
         userService.updateById(user);
+        // 日志
+        recordService.xr(user.getUserId().toString(), user.getUserName(), MapUtil.XGMM);
         return Result.success("修改成功");
 
     }

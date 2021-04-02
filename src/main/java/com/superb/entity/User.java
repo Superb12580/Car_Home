@@ -92,6 +92,16 @@ public class User implements Serializable {
     private Integer graded;
 
     /**
+     * 私信条数
+     */
+    private Integer sxts;
+
+    /**
+     * 是否认证公众号
+     */
+    private Integer sfrz;
+
+    /**
      * 逻辑删除
      */
     private Boolean deleted;

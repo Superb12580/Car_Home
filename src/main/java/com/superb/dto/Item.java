@@ -73,6 +73,17 @@ public class Item implements Serializable {
     private Integer graded;
 
     /**
+     * 私信条数
+     */
+    private Integer sxts;
+
+
+    /**
+     * 是否认证公众号
+     */
+    private Integer sfrz;
+
+    /**
      * 是否已关注
      */
     private Integer flagAttention;

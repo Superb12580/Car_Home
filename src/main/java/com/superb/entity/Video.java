@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author Superb
- * @since 2020-11-11
+ * @since 2021-04-02
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -20,15 +20,12 @@ public class Video implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private String videoId;
+
     /**
      * 视频路径
      */
     private String videoUrl;
-
-    /**
-     * 动态id
-     */
-    private Long essayId;
 
     /**
      * 车型id
@@ -36,9 +33,19 @@ public class Video implements Serializable {
     private Integer styleId;
 
     /**
-     * 文章id
+     * 视频标题
      */
-    private Integer newsId;
+    private String videoTitle;
+
+    /**
+     * 视频内容
+     */
+    private String videoText;
+
+    /**
+     * 发布id
+     */
+    private Long userId;
 
 
 }

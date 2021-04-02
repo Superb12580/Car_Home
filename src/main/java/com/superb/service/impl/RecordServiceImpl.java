@@ -34,4 +34,13 @@ RecordServiceImpl extends ServiceImpl<RecordMapper, Record> implements RecordSer
         record.setObjectName(objectName);
         return baseMapper.insert(record);
     }
+
+    @Override
+    public int xr(String userId, String userName, String nr) {
+        Record record = new Record();
+        record.setUserId(userId);
+        record.setUserName(userName);
+        record.setNr(nr);
+        return baseMapper.insert(record);
+    }
 }

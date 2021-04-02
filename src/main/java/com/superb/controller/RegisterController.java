@@ -67,7 +67,7 @@ public class RegisterController {
         //判断该邮箱是否已注册
         if (user == null) {
             // ==================日志==================
-            recordService.xr(register.getEmail(), "", MapUtil.ZCJCYZM, "", "");
+            recordService.xr(register.getEmail(), "", MapUtil.ZCJCYZM);
             return Result.success("验证码已发送，请注意查收", null);
         }
         return Result.fail("该邮箱已注册，请返回登录");
@@ -125,7 +125,7 @@ public class RegisterController {
         Item item = new Item();
         BeanUtil.copyProperties(user, item);
         // ==================日志==================
-        recordService.xr(user.getEmail(), user.getUserName(), MapUtil.ZCCG, "", "");
+        recordService.xr(user.getEmail(), user.getUserName(), MapUtil.ZCCG);
         // 发送消息
         Message message = new Message();
         message.setMessageTitle(MapUtil.XTTZ);
