@@ -10,6 +10,16 @@ import java.util.Map;
  * @E_mail superb12580@163.com
  */
 public class MapUtil {
+    //上传文件夹名称
+    public static final String USER = "car-home/user";
+    public static final String NEWS_TX = "car-home/news/tx";
+    public static final String NEWS_TJ = "car-home/news/tj";
+    public static final String STYLE_TX = "car-home/style/tx";
+    public static final String STYLE_LBT = "car-home/style/lbt";
+    public static final String STYLE_TJ = "car-home/style/tj";
+    public static final String ESSAY = "car-home/essay";
+    public static final String FOLD = "car-home/fold";
+
 
     // 管理员Id
     public static final Long GLYID = 1L;

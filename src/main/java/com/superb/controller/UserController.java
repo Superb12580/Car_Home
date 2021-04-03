@@ -206,15 +206,20 @@ public class UserController {
      */
     @PostMapping("/upload")
     public Result uploadOssFile(MultipartFile file, User user) {
-        //获取上传文件  MultipartFile
-        //返回上传到oss的路径
-        String url = ossService.uploadFileAvatar(file);
-        user.setPhoto(url);
-        userService.updateById(user);
-        // 修改后的信息更新到前端
         final User byId = userService.getById(user.getUserId());
+        if (byId.getPhoto() != null && !"".equals(byId.getPhoto())) {
+            // 删除原先图片
+            ossService.deleteFile(byId.getPhoto());
+        }
+        String url = ossService.uploadFile(file,MapUtil.USER);
+        User user2 = new User();
+        user2.setUserId(user.getUserId());
+        user2.setPhoto(url);
+        userService.updateById(user2);
+        // 修改后的信息更新到前端
         Item item = new Item();
         BeanUtil.copyProperties(byId, item);
+        item.setPhoto(url);
         // 日志
         recordService.xr(byId.getUserId().toString(), byId.getUserName(), MapUtil.SCTX);
         return Result.success("上传成功", item);
@@ -291,7 +296,6 @@ public class UserController {
 
     /**
      * 签到
-     *
      * @param item
      * @return
      */

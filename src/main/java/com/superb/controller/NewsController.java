@@ -7,13 +7,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.common.MapUtil;
 import com.superb.entity.News;
 import com.superb.service.NewsService;
+import com.superb.service.OssService;
 import com.superb.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 
@@ -112,6 +110,41 @@ public class NewsController {
         news.setCount((Long)map.get("count"));
         newsService.updateById(news);
         return Result.success(map);
+    }
+
+
+
+    //***********************************后台***********************************//
+
+
+    @Autowired
+    private OssService ossService;
+    /**
+     * 上传新闻头像
+     * @param file
+     * @param news
+     * @return
+     */
+    @PostMapping("/uploadNewsTX")
+    public Result uploadNewsTX(MultipartFile file, News news) {
+        String url = ossService.uploadFile(file, MapUtil.NEWS_TX);
+        news.setNewsPhoto(url);
+        newsService.updateById(news);
+        return Result.success();
+    }
+
+    /**
+     * 上传新闻图集
+     * @param file
+     * @param news
+     * @return
+     */
+    @PostMapping("/uploadNewsTJ")
+    public Result uploadNewsTJ(MultipartFile file, News news) {
+        String url = ossService.uploadFile(file, MapUtil.NEWS_TJ);
+        news.setNewsPhoto(url);
+        newsService.updateById(news);
+        return Result.success();
     }
 
 }

@@ -15,7 +15,14 @@ public interface OssService {
      * @param file
      * @return
      */
-    String uploadFileAvatar(MultipartFile file);
+    String uploadFile(MultipartFile file, String dir);
+
+
+    /**
+     * 删除单个文件
+     * @param pathFile
+     */
+    void deleteFile(String pathFile);
 
     /**
      * 上传视频到阿里云

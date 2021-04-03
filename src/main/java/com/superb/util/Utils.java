@@ -3,7 +3,9 @@ package com.superb.util;
 import com.superb.dto.RegisterLogin;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,6 +16,7 @@ import java.util.UUID;
  */
 public class Utils {
 
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
     /**
      * 生成新的文件名
@@ -22,8 +25,11 @@ public class Utils {
      */
     public static String getFileName(String fileName){
         if (fileName != null) {
+            // 把文件按照日期进行分类
+            // 获取当前日期
+            String datePath = simpleDateFormat.format(new Date());
             String suffix = fileName.substring(fileName.lastIndexOf("."));
-            return UUID.randomUUID().toString().replace("-", "") + suffix;
+            return datePath + '/' + getUUID() + suffix;
         }
         return null;
     }

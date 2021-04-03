@@ -21,9 +21,13 @@ import java.util.UUID;
  */
 @Service
 public class OssServiceImpl implements OssService {
+    // 工具类获取值
+//    private final  String endpoint = ConstantProperties.END_POINT;
+//    private final String accessKeyId = ConstantProperties.ACCESS_KEY_ID;
+//    private final String accessKeySecret = ConstantProperties.ACCESS_KEY_SECRET;
+//    private final String bucketName = ConstantProperties.BUCKET_NAME;
     @Override
-    public String uploadFileAvatar(MultipartFile file) {
-        // 工具类获取值
+    public String uploadFile(MultipartFile file, String dir) {
         String endpoint = ConstantProperties.END_POINT;
         String accessKeyId = ConstantProperties.ACCESS_KEY_ID;
         String accessKeySecret = ConstantProperties.ACCESS_KEY_SECRET;
@@ -40,13 +44,9 @@ public class OssServiceImpl implements OssService {
 
             String fileNameNew = Utils.getFileName(fileName);
 
-            // 把文件按照日期进行分类
-            // 获取当前日期
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
-            String datePath = simpleDateFormat.format(new Date());
 
             StringBuilder sb = new StringBuilder();
-            sb.append(datePath).append('/').append(fileNameNew);
+            sb.append(dir).append('/').append(fileNameNew);
 
             //调用oss方法实现上传
             //第一个参数  Bucket名称
@@ -65,6 +65,26 @@ public class OssServiceImpl implements OssService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public void deleteFile(String pathFile) {
+
+        String endpoint = ConstantProperties.END_POINT;
+        String accessKeyId = ConstantProperties.ACCESS_KEY_ID;
+        String accessKeySecret = ConstantProperties.ACCESS_KEY_SECRET;
+        String bucketName = ConstantProperties.BUCKET_NAME;
+
+        String substring = pathFile.substring(pathFile.indexOf("car-home"));
+
+        // 创建OSSClient实例。
+        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+
+        // 删除文件。如需删除文件夹，请将ObjectName设置为对应的文件夹名称。如果文件夹非空，则需要将文件夹下的所有object删除后才能删除该文件夹。
+        ossClient.deleteObject(bucketName, substring);
+
+        // 关闭OSSClient。
+        ossClient.shutdown();
     }
 
     @Override
