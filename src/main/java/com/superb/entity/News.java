@@ -98,9 +98,14 @@ public class News implements Serializable {
     private Long count;
 
     /**
-     * 用户id
+     * 唯一标识
      */
     private String wybs;
+
+    /**
+     * 状态  0已编辑 1上传图集 2待审核 3已通过
+     */
+    private Integer zt;
 
 
     /**

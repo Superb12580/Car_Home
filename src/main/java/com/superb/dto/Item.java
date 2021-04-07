@@ -93,6 +93,11 @@ public class Item implements Serializable {
      */
     private Integer collectionCount;
 
+    /**
+     * 文章数
+     */
+    private Integer newsCount;
+
 
     /**
      * 关注数

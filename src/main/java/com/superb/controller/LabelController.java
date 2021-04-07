@@ -1,6 +1,7 @@
 package com.superb.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.superb.entity.Label;
 import com.superb.mapper.LabelMapper;
 import com.superb.service.LabelService;
@@ -61,7 +62,7 @@ public class LabelController {
      * @return
      */
     @PostMapping("/put")
-    public Result put(HttpServletRequest request, @RequestBody Label label){
+    public Result put(@RequestBody Label label){
 
         if (label == null || label.getLabelText() == null || "".equals(label.getLabelText()) || label.getLabelId() == null){
             return Result.fail(250);
@@ -77,7 +78,7 @@ public class LabelController {
      * @return
      */
     @PostMapping("/delete")
-    public Result delete(HttpServletRequest request, @RequestBody Label label){
+    public Result delete(@RequestBody Label label){
 
         if (label == null || label.getLabelId() == null){
             return Result.fail(250);
@@ -92,7 +93,7 @@ public class LabelController {
      * @return
      */
     @PostMapping("/deletes")
-    public Result deletes(HttpServletRequest request, @RequestParam String str){
+    public Result deletes(@RequestParam String str){
 
         List<Integer> list = Utils.stringToInteger(str);
         if (list == null){

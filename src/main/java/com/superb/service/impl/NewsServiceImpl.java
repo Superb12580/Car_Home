@@ -20,7 +20,7 @@ import java.util.Map;
  * @since 2021-03-25
  */
 @Service
-public class NewsServiceImpl extends ServiceImpl<NewsMapper, News> implements NewsService{
+public class NewsServiceImpl extends ServiceImpl<NewsMapper, News> implements NewsService {
 
     @Override
     public List<News> listWz(Integer total) {
@@ -45,5 +45,15 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News> implements Ne
     @Override
     public IPage<Map<String, Object>> itemNews(Page<?> page, Long userId) {
         return baseMapper.itemNews(page, userId);
+    }
+
+    @Override
+    public Map<String, Object> itemById(Integer id) {
+        return baseMapper.itemById(id);
+    }
+
+    @Override
+    public IPage<Map<String, Object>> itemNewsSy(Page<?> page, Long userId) {
+        return baseMapper.itemNewsSy(page, userId);
     }
 }

@@ -26,6 +26,13 @@ public interface NewsMapper extends BaseMapper<News> {
     List<News> listWz (Integer total);
 
     /**
+     * 查询一条news 附带user 用户审核界面通过时展示
+     * @param id
+     * @return
+     */
+    Map<String, Object> itemById (Integer id);
+
+    /**
      * 首页文章排行
      * @param total
      * @return
@@ -59,6 +66,12 @@ public interface NewsMapper extends BaseMapper<News> {
      * @return
      */
     IPage<Map<String, Object>> itemNews (Page<?> page, Long userId);
+
+    /**
+     * 查询一个带头图片的news 附带user
+     * @return
+     */
+    IPage<Map<String, Object>> itemNewsSy (Page<?> page, Long userId);
 
 
 }

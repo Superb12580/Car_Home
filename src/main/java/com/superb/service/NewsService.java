@@ -52,4 +52,17 @@ public interface NewsService extends IService<News> {
      */
     IPage<Map<String, Object>> itemNews (Page<?> page, Long userId);
 
+    /**
+     * 查询一条news 附带user 用户审核界面通过时展示
+     * @param id
+     * @return
+     */
+    Map<String, Object> itemById (Integer id);
+
+    /**
+     * 查询一个带头图片的news 附带user
+     * @return
+     */
+    IPage<Map<String, Object>> itemNewsSy (Page<?> page, Long userId);
+
 }

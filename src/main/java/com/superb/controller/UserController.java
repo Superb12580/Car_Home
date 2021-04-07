@@ -199,6 +199,9 @@ public class UserController {
     @Autowired
     private OssService ossService;
 
+    @Autowired
+    private NewsService newsService;
+
     /**
      * 上传头像的方法
      * @param file
@@ -262,6 +265,7 @@ public class UserController {
         int forwardCount = forwardService.count(new QueryWrapper<Forward>().eq("user_id", thatId));
         int commentCount = commentService.count(new QueryWrapper<Comment>().eq("user_id", thatId));
         int messageCount = messageService.count(new QueryWrapper<Message>().eq("this_id", thatId));
+        int newsCount = newsService.count(new QueryWrapper<News>().eq("user_id", thatId).eq("zt", MapUtil.YFB));
 
         final Attention one = attentionService.getOne(new QueryWrapper<Attention>().eq("this_id", userId).eq("that_id", thatId));
 
@@ -278,6 +282,7 @@ public class UserController {
         item.setForwardCount(forwardCount);
         item.setCommentCount(commentCount);
         item.setMessageCount(messageCount);
+        item.setNewsCount(newsCount);
         BeanUtil.copyProperties(user, item);
         return Result.success(item);
     }

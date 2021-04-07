@@ -20,6 +20,16 @@ public class MapUtil {
     public static final String ESSAY = "car-home/essay";
     public static final String FOLD = "car-home/fold";
 
+    //发布了文章
+    public static final String FBWZ = "发布文章";
+    public static final String SCTJ = "上传图集";
+
+    // 文章审核发布 1已编辑 2待审核 3已发布
+    public static final Integer YBJ = 2;
+    public static final Integer DSH = 3;
+    public static final Integer YFB = 4;
+    public static final Integer YBH = 5;
+
 
     // 管理员Id
     public static final Long GLYID = 1L;

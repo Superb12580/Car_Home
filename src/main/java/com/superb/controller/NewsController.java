@@ -5,11 +5,15 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.common.MapUtil;
+import com.superb.entity.Essay;
 import com.superb.entity.News;
-import com.superb.service.NewsService;
-import com.superb.service.OssService;
+import com.superb.entity.Photo;
+import com.superb.entity.User;
+import com.superb.service.*;
 import com.superb.util.Result;
+import com.superb.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -49,17 +53,32 @@ public class NewsController {
 
 
     /**
-     * 查询所有带图的news  附加user
+     * 查询用户所有已审核news  附加user
      * @param current
      * @param size
      * @return
      */
     @GetMapping("/item")
-    public Result list (@RequestParam(defaultValue = "1",value = "current") Integer current,
+    public Result item (@RequestParam(defaultValue = "1",value = "current") Integer current,
                         @RequestParam(defaultValue = "10",name = "size") Integer size,
                         @RequestParam("userId") Long userId) {
         Page<Map<String ,Object>> page = new Page<>(current, size);
         IPage<Map<String, Object>> list = newsService.itemNews(page, userId);
+        return Result.success(list);
+    }
+
+    /**
+     * 查询用户所有news  附加user
+     * @param current
+     * @param size
+     * @return
+     */
+    @GetMapping("/itemNewsSy")
+    public Result itemNewsSy (@RequestParam(defaultValue = "1",value = "current") Integer current,
+                        @RequestParam(defaultValue = "5",name = "size") Integer size,
+                        @RequestParam("userId") Long userId) {
+        Page<Map<String ,Object>> page = new Page<>(current, size);
+        IPage<Map<String, Object>> list = newsService.itemNewsSy(page, userId);
         return Result.success(list);
     }
 
@@ -70,11 +89,11 @@ public class NewsController {
     @GetMapping("/itemLbt")
     public Result itemLbt () {
         // 总条数 / 每页显示 = 完整页数  i!=0
-        int i = newsService.count(new QueryWrapper<News>().isNotNull("news_photo")) / MapUtil.sizeA;
+        int i = newsService.count(new QueryWrapper<News>().isNotNull("news_photo").eq("zt", MapUtil.YFB)) / MapUtil.sizeA;
 
         Page<News> page = new Page<>((++count % i) + 1, MapUtil.sizeA);
 
-        return Result.success(newsService.page(page, new QueryWrapper<News>().isNotNull("news_photo").orderByDesc("create_time")).getRecords());
+        return Result.success(newsService.page(page, new QueryWrapper<News>().isNotNull("news_photo").eq("zt", MapUtil.YFB).orderByDesc("create_time")).getRecords());
     }
 
     /**
@@ -112,6 +131,17 @@ public class NewsController {
         return Result.success(map);
     }
 
+    /**
+     * 查询一条news 用户发布news第二步初始化
+     * @param id
+     * @return
+     */
+    @GetMapping("/itemById")
+    public Result itemById (@RequestParam("id") Integer id) {
+        Map<String, Object> map = newsService.itemById(id);
+        return Result.success(map);
+    }
+
 
 
     //***********************************后台***********************************//
@@ -119,32 +149,85 @@ public class NewsController {
 
     @Autowired
     private OssService ossService;
-    /**
-     * 上传新闻头像
-     * @param file
-     * @param news
-     * @return
-     */
-    @PostMapping("/uploadNewsTX")
-    public Result uploadNewsTX(MultipartFile file, News news) {
-        String url = ossService.uploadFile(file, MapUtil.NEWS_TX);
-        news.setNewsPhoto(url);
-        newsService.updateById(news);
-        return Result.success();
-    }
+
+    @Autowired
+    private RecordService recordService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private PhotoService photoService;
 
     /**
      * 上传新闻图集
      * @param file
-     * @param news
+     * @param news 传id传标题
      * @return
      */
     @PostMapping("/uploadNewsTJ")
     public Result uploadNewsTJ(MultipartFile file, News news) {
         String url = ossService.uploadFile(file, MapUtil.NEWS_TJ);
-        news.setNewsPhoto(url);
-        newsService.updateById(news);
+        Photo photo = new Photo();
+        photo.setPhotoUrl(url);
+        photo.setNewsId(news.getId());
+        photoService.save(photo);
+        // 日志
+        User byId = userService.getById(news.getUserId());
+        recordService.xr(byId.getUserId().toString(), byId.getUserName(), MapUtil.SCTJ, news.getId().toString(), news.getTitle());
         return Result.success();
+    }
+
+    /**
+     * 上传图集完成 修改状态
+     * @param news
+     * @return
+     */
+    @PostMapping("/tjwc")
+    public Result tjwc(@RequestBody News news) {
+        news.setZt(MapUtil.DSH);
+        newsService.updateById(news);
+        return Result.success(news);
+    }
+
+    /**
+     * 发布有图文章
+     * @param file
+     * @param news
+     * @return
+     */
+    @PostMapping("/fbytwz")
+    public Result fbytwz(MultipartFile file, News news) {
+        //返回上传到oss的路径
+        String url = ossService.uploadFile(file, MapUtil.NEWS_TX);
+        news.setNewsPhoto(url);
+        news.setZt(MapUtil.YBJ);
+        String uuid = Utils.getUUID();
+        news.setWybs(uuid);
+        newsService.save(news);
+        // 日志
+        News wybs = newsService.getOne(new QueryWrapper<News>().eq("wybs", uuid));
+        User byId = userService.getById(news.getUserId());
+        recordService.xr(byId.getUserId().toString(), byId.getUserName(), MapUtil.FBWZ, wybs.getId().toString(), wybs.getTitle());
+        return Result.success(wybs);
+    }
+
+    /**
+     * 发布无图文章
+     * @param news
+     * @return
+     */
+    @PostMapping("/fbwtwz")
+    public Result fbwtwz(@RequestBody News news) {
+        String uuid = Utils.getUUID();
+        news.setWybs(uuid);
+        news.setZt(MapUtil.YBJ);
+        newsService.save(news);
+        // 日志
+        News wybs = newsService.getOne(new QueryWrapper<News>().eq("wybs", uuid));
+        User byId = userService.getById(news.getUserId());
+        recordService.xr(byId.getUserId().toString(), byId.getUserName(), MapUtil.FBWZ, wybs.getId().toString(), wybs.getTitle());
+        return Result.success(wybs);
     }
 
 }

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.common.MapUtil;
+import com.superb.entity.Label;
 import com.superb.entity.Style;
 import com.superb.service.StyleService;
 import com.superb.util.Result;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -32,6 +35,8 @@ public class StyleController {
 
     private int count = 0;
     private int count2 = 0;
+
+
 
     // 首页底部展示
     @GetMapping("/item")
