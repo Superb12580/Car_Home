@@ -24,7 +24,7 @@ public class MapUtil {
     public static final String FBWZ = "发布文章";
     public static final String SCTJ = "上传图集";
 
-    // 文章审核发布 1已编辑 2待审核 3已发布
+    // 文章审核发布 2已编辑 3待审核 4已发布 5已驳回
     public static final Integer YBJ = 2;
     public static final Integer DSH = 3;
     public static final Integer YFB = 4;

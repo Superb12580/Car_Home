@@ -23,7 +23,7 @@ public interface NewsMapper extends BaseMapper<News> {
      * @param total
      * @return
      */
-    List<News> listWz (Integer total);
+    List<News> listWz (Integer total, Integer zt);
 
     /**
      * 查询一条news 附带user 用户审核界面通过时展示
@@ -37,13 +37,13 @@ public interface NewsMapper extends BaseMapper<News> {
      * @param total
      * @return
      */
-    List<News> listPh (Integer total);
+    List<News> listPh (Integer total, Integer zt);
 
 
     /**
      * 一个用户的文章数量
      */
-    Integer newsCountByUserId (Long userId);
+    Integer newsCountByUserId (Long userId, Integer zt);
 
 
     /**
@@ -57,7 +57,7 @@ public interface NewsMapper extends BaseMapper<News> {
      * 查询所有带头图片的news 附带user
      * @return
      */
-    IPage<Map<String, Object>> listNews (Page<?> page);
+    IPage<Map<String, Object>> listNews (Page<?> page, Integer zt);
 
 
 
@@ -65,7 +65,7 @@ public interface NewsMapper extends BaseMapper<News> {
      * 查询一个带头图片的news 附带user
      * @return
      */
-    IPage<Map<String, Object>> itemNews (Page<?> page, Long userId);
+    IPage<Map<String, Object>> itemNews (Page<?> page, Long userId, Integer zt);
 
     /**
      * 查询一个带头图片的news 附带user

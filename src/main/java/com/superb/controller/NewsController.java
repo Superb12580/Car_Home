@@ -38,7 +38,7 @@ public class NewsController {
     private int count = 0;
 
     /**
-     * 查询所有带图的news  附加user
+     * 查询所有news  附加user
      * @param current
      * @param size
      * @return
@@ -47,7 +47,7 @@ public class NewsController {
     public Result list (@RequestParam(defaultValue = "1",value = "current") Integer current,
                         @RequestParam(defaultValue = "10",name = "size") Integer size) {
         Page<Map<String ,Object>> page = new Page<>(current, size);
-        IPage<Map<String, Object>> list = newsService.listNews(page);
+        IPage<Map<String, Object>> list = newsService.listNews(page, MapUtil.YFB);
         return Result.success(list);
     }
 
@@ -63,7 +63,7 @@ public class NewsController {
                         @RequestParam(defaultValue = "10",name = "size") Integer size,
                         @RequestParam("userId") Long userId) {
         Page<Map<String ,Object>> page = new Page<>(current, size);
-        IPage<Map<String, Object>> list = newsService.itemNews(page, userId);
+        IPage<Map<String, Object>> list = newsService.itemNews(page, userId, MapUtil.YFB);
         return Result.success(list);
     }
 
@@ -102,7 +102,7 @@ public class NewsController {
      */
     @GetMapping("/itemWz")
     public Result itemWz () {
-        return Result.success(newsService.listWz(MapUtil.WZTS));
+        return Result.success(newsService.listWz(MapUtil.WZTS, MapUtil.YFB));
     }
 
     /**
@@ -111,7 +111,7 @@ public class NewsController {
      */
     @GetMapping("/itemPh")
     public Result itemPh () {
-        return Result.success(newsService.listPh(MapUtil.PHTS));
+        return Result.success(newsService.listPh(MapUtil.PHTS, MapUtil.YFB));
     }
 
     /**

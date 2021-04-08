@@ -23,13 +23,13 @@ import java.util.Map;
 public class NewsServiceImpl extends ServiceImpl<NewsMapper, News> implements NewsService {
 
     @Override
-    public List<News> listWz(Integer total) {
-        return baseMapper.listWz(total);
+    public List<News> listWz(Integer total, Integer zt) {
+        return baseMapper.listWz(total, zt);
     }
 
     @Override
-    public List<News> listPh(Integer total) {
-        return baseMapper.listPh(total);
+    public List<News> listPh(Integer total, Integer zt) {
+        return baseMapper.listPh(total, zt);
     }
 
     @Override
@@ -38,13 +38,13 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News> implements Ne
     }
 
     @Override
-    public IPage<Map<String ,Object>> listNews(Page<?> page) {
-        return baseMapper.listNews(page);
+    public IPage<Map<String ,Object>> listNews(Page<?> page, Integer zt) {
+        return baseMapper.listNews(page, zt);
     }
 
     @Override
-    public IPage<Map<String, Object>> itemNews(Page<?> page, Long userId) {
-        return baseMapper.itemNews(page, userId);
+    public IPage<Map<String, Object>> itemNews(Page<?> page, Long userId, Integer zt) {
+        return baseMapper.itemNews(page, userId, zt);
     }
 
     @Override

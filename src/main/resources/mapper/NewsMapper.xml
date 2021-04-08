@@ -3,15 +3,15 @@
 <mapper namespace="com.superb.mapper.NewsMapper">
 
     <select id="listWz" parameterType="java.lang.Integer" resultType="com.superb.entity.News">
-        select * from news where zt = 4 order by create_time desc limit #{total}
+        select * from news where zt = #{zt} order by create_time desc limit #{total}
     </select>
 
     <select id="listPh" parameterType="java.lang.Integer" resultType="com.superb.entity.News">
-        select * from news where zt = 4 order by `count` desc limit #{total}
+        select * from news where zt = #{zt} order by `count` desc limit #{total}
     </select>
 
-<!--    一个用户的文章数量-->
-    <select id="newsCountByUserId" parameterType="java.lang.Long" resultType="java.lang.Integer">
+<!--    一个用户的文章数量  4代表已审核-->
+    <select id="newsCountByUserId" resultType="java.lang.Integer">
         select count(*) from news where user_id = #{userId} and zt = 4
     </select>
 
@@ -39,8 +39,8 @@
     </resultMap>
 
 <!--    查询所有news 附带user-->
-    <select id="listNews" resultMap="listNews">
-        select * from news where zt = 4 order by create_time desc
+    <select id="listNews" resultType="java.lang.Integer" resultMap="listNews">
+        select * from news where zt = #{zt} order by create_time desc
     </select>
 
 <!--    用户news审核页面  无需zt = 4-->
@@ -49,8 +49,8 @@
     </select>
 
     <!--    查询单个用户所有已审核news 附带user-->
-    <select id="itemNews" resultMap="listNews" parameterType="java.lang.Long">
-        select * from news where user_id = #{userId} and zt = 4 order by create_time desc
+    <select id="itemNews" resultMap="listNews">
+        select * from news where user_id = #{userId} and zt = #{zt} order by create_time desc
     </select>
 
     <!--    查询单个用户所有news 附带user-->
