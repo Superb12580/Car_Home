@@ -17,4 +17,26 @@
     </select>
 
 
+<!--    以下为管理员-->
+
+<!--    查询所有标签，包括逻辑删除-->
+    <select id="listAdmin" resultMap="labelMap">
+        select * from label order by create_time desc
+    </select>
+
+    <delete id="deleteAdmin" parameterType="java.lang.Integer">
+        delete from label where label_id = #{labelId}
+    </delete>
+
+    <update id="updateAdmin" parameterType="com.superb.entity.Label">
+        update label set label_text = #{labelText}, update_time = #{updateTime} where label_id = #{labelId}
+    </update>
+
+
+    <update id="jyAdmin" parameterType="com.superb.entity.Label">
+        update label set deleted = #{deleted}, update_time = #{updateTime} where label_id = #{labelId}
+    </update>
+
+
+
 </mapper>

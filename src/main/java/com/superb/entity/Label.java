@@ -52,7 +52,7 @@ public class Label implements Serializable {
     /**
      * 逻辑删除
      */
-    private Boolean deleted;
+    private Integer deleted;
 
 
 }

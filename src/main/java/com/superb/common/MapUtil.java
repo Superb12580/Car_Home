@@ -54,6 +54,10 @@ public class MapUtil {
     public static final Integer YQD = 1;
     public static final Integer WQD = 0;
 
+    //
+    public static final Integer YJY = 1;
+    public static final Integer YKQ = 0;
+
     // 已关注
     public static final Integer YGZ = 1;
     // 互相关注
