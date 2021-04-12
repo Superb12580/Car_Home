@@ -36,4 +36,9 @@
     <select id="superbByUserId" resultMap="comment" parameterType="java.lang.Long">
         select * from comment where user_id = #{userId} and deleted = 0 order by create_time desc
     </select>
+    <!--    查询一个所有评论 附带动态相关-->
+    <select id="superbListAdmin" resultMap="comment" parameterType="java.lang.Integer">
+        select * from comment where deleted = #{deleted} order by create_time desc
+    </select>
+
 </mapper>

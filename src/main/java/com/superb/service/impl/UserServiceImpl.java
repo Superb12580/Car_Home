@@ -21,12 +21,18 @@ import java.util.List;
  */
 @Service
 public class
-UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService
+{
 
 
     @Override
-    public IPage<User> adminListDeleted(Page<?> page) {
-        return baseMapper.adminListDeleted(page);
+    public IPage<User> userListAdmin(Page<?> page) {
+        return baseMapper.userListAdmin(page);
+    }
+
+    @Override
+    public IPage<User> adminListCjh(Page<?> page, Integer sfrz) {
+        return baseMapper.adminListCjh(page, sfrz);
     }
 
     @Override

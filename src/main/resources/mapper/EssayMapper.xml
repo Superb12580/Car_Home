@@ -88,8 +88,9 @@
 
     <!--查询所有动态 包含转发数点赞数评论数-->
     <select id="superbAllEssay" resultMap="essayMap">
-        select * from essay where deleted = 0 order by create_time desc
+        select * from essay where deleted = #{deleted} order by create_time desc
     </select>
+
 
     <!--显示一条动态 包含转发数点赞数评论数-->
     <select id="selectByEssayId" resultMap="essayMap" parameterType="java.lang.Long">

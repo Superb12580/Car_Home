@@ -27,8 +27,9 @@ public class
 LabelServiceImpl extends ServiceImpl<LabelMapper, Label> implements LabelService {
     @Override
     public List<Label> listLabel(List<String> labelId) {
-        return baseMapper.selectList(new QueryWrapper<Label>().in("label_id", labelId));
-//        return baseMapper.listLabel(labelId);
+        // 使用此会造成逻辑删除的无法回显
+//        return baseMapper.selectList(new QueryWrapper<Label>().in("label_id", labelId));
+        return baseMapper.listLabel(labelId);
     }
 
     @Override

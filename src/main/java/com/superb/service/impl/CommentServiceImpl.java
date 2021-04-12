@@ -48,6 +48,21 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     }
 
     @Override
+    public IPage<Map<String, Object>> superbListAdmin(Page<?> page, Integer deleted) {
+        IPage<Map<String, Object>> mapIPage = baseMapper.superbListAdmin(page, deleted);
+        for (Map<String, Object> map : mapIPage.getRecords()) {
+            Map<String, Object> map2 = ((Map<String, Object>) map.get("essay"));
+            if (map2 != null && map2.get("essayLabel") instanceof String && map2.get("essayLabel") != null && !"".equals(map2.get("essayLabel"))) {
+                String str = map2.get("essayLabel").toString();
+                String[] split = str.split(",");
+                List<Label> labels = labelService.listLabel(Arrays.asList(split));
+                map2.put("essayLabel", labels);
+            }
+        }
+        return mapIPage;
+    }
+
+    @Override
     public IPage<Map<String, Object>> superbCommentById(Page<?> page, Long essayId) {
         return baseMapper.superbCommentById(page, essayId);
     }

@@ -46,7 +46,7 @@ public class EssayController {
     private MessageService messageService;
 
     /**
-     * 显示所有动态
+     * 显示所有未删除动态
      *
      * @param current
      * @param size
@@ -56,7 +56,22 @@ public class EssayController {
     public Result list(@RequestParam(defaultValue = "1", value = "current") Integer current,
                        @RequestParam(defaultValue = "5", name = "size") Integer size) {
         Page<Map<String, Object>> page = new Page<>(current, size);
-        IPage<Map<String, Object>> essayDtoIPage = essayService.superbAllEssay(page);
+        IPage<Map<String, Object>> essayDtoIPage = essayService.superbAllEssay(page, MapUtil.WSC);
+        return Result.success(essayDtoIPage);
+    }
+
+    /**
+     * 显示所有已删除动态
+     *
+     * @param current
+     * @param size
+     * @return
+     */
+    @GetMapping("/listAdmin")
+    public Result listAdmin(@RequestParam(defaultValue = "1", value = "current") Integer current,
+                       @RequestParam(defaultValue = "5", name = "size") Integer size) {
+        Page<Map<String, Object>> page = new Page<>(current, size);
+        IPage<Map<String, Object>> essayDtoIPage = essayService.superbAllEssay(page, MapUtil.YSC);
         return Result.success(essayDtoIPage);
     }
 

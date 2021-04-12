@@ -25,11 +25,18 @@ public interface UserMapper extends BaseMapper<User> {
     User superbById(Long userId);
 
     /**
+     * 查询所有车家号
+     * @param page
+     * @return
+     */
+    IPage<User> adminListCjh(Page<?> page, Integer sfrz);
+
+    /**
      * 查询所有包括已删除
      * @param page
      * @return
      */
-    IPage<User> adminListDeleted(Page<?> page);
+    IPage<User> userListAdmin(Page<?> page);
 
     /**
      * 模糊查询包括已删除

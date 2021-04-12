@@ -67,6 +67,36 @@ public class CommentController {
     }
 
     /**
+     * 查询所有未删除评论 附带essay
+     * @param current
+     * @param size
+     * @return
+     */
+    @GetMapping("commentAdmin")
+    public Result commentAdmin(@RequestParam(defaultValue = "1",value = "current") Integer current,
+                       @RequestParam(defaultValue = "5",name = "size") Integer size){
+
+        Page<Map<String, Object>> page = new Page<>(current, size);
+        IPage<Map<String, Object>> mapIPage = commentService.superbListAdmin(page, MapUtil.WSC);
+        return Result.success(mapIPage);
+    }
+
+    /**
+     * 查询所有已删除删除评论 附带essay
+     * @param current
+     * @param size
+     * @return
+     */
+    @GetMapping("commentAdminDelete")
+    public Result commentAdminDelete(@RequestParam(defaultValue = "1",value = "current") Integer current,
+                       @RequestParam(defaultValue = "5",name = "size") Integer size){
+
+        Page<Map<String, Object>> page = new Page<>(current, size);
+        IPage<Map<String, Object>> mapIPage = commentService.superbListAdmin(page, MapUtil.YSC);
+        return Result.success(mapIPage);
+    }
+
+    /**
      * 返回一条动态的所有评论
      * 连接用户表
      * @param essayId

@@ -51,7 +51,7 @@ public interface EssayMapper extends BaseMapper<Essay> {
      * @param page
      * @return
      */
-    IPage<Map<String, Object>> superbAllEssay(Page<?> page);
+    IPage<Map<String, Object>> superbAllEssay(Page<?> page, Integer deleted);
 
 
     /**********************管理员***************************/

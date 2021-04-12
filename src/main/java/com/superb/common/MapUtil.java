@@ -49,6 +49,9 @@ public class MapUtil {
     // 文章排行条数
     public static final Integer PHTS = 10;
 
+    public static final Integer YSC = 1;
+    public static final Integer WSC = 0;
+
 
     // 签到标志量
     public static final Integer YQD = 1;

@@ -42,7 +42,7 @@ public class ForwardController {
     private MessageService messageService;
 
     /**
-     * 显示所有转发
+     * 显示所有未删除转发
      * @param current
      * @param size
      * @return
@@ -51,7 +51,21 @@ public class ForwardController {
     public Result list(@RequestParam(defaultValue = "1",value = "current") Integer current,
                        @RequestParam(defaultValue = "5",name = "size") Integer size){
         Page<Map<String, Object>> page = new Page<>(current, size);
-        IPage<Map<String, Object>> forwardDtoIPage = forwardService.superbAllForward(page);
+        IPage<Map<String, Object>> forwardDtoIPage = forwardService.superbAllForward(page, MapUtil.WSC);
+        return Result.success(forwardDtoIPage);
+    }
+
+    /**
+     * 显示所有已删除转发
+     * @param current
+     * @param size
+     * @return
+     */
+    @GetMapping("/listAdmin")
+    public Result listAdmin(@RequestParam(defaultValue = "1",value = "current") Integer current,
+                       @RequestParam(defaultValue = "5",name = "size") Integer size){
+        Page<Map<String, Object>> page = new Page<>(current, size);
+        IPage<Map<String, Object>> forwardDtoIPage = forwardService.superbAllForward(page, MapUtil.YSC);
         return Result.success(forwardDtoIPage);
     }
 

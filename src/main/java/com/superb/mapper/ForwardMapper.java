@@ -51,7 +51,7 @@ public interface ForwardMapper extends BaseMapper<Forward> {
      * @param page
      * @return
      */
-    IPage<Map<String, Object>> superbAllForward(Page<?> page);
+    IPage<Map<String, Object>> superbAllForward(Page<?> page, Integer deleted);
 
 
 

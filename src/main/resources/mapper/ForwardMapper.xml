@@ -22,8 +22,8 @@
     </select>
 
 <!--    查询所有转发 连接动态表-->
-    <select id="superbAllForward" resultMap="forward">
-        select * from forward where deleted = 0 order by create_time desc
+    <select id="superbAllForward" resultMap="forward" parameterType="java.lang.Integer">
+        select * from forward where deleted = #{deleted} order by create_time desc
     </select>
 
 

@@ -24,6 +24,7 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * <p>
@@ -54,24 +55,58 @@ public class UserController {
 
 
     /**
-     * 显示全部用户（管理员）
-     * flag 0隐藏已删除 1显示
-     * currentPage 当前页码
+     * 管理员查询所有用户
+     * @param current
+     * @param size
+     * @return
      */
     @GetMapping("/adminList")
-    public Result adminList(@RequestParam(defaultValue = "0", value = "flag") Integer flag,
-                            @RequestParam(defaultValue = "1", value = "currentPage") int currentPage) {
+    public Result adminList(@RequestParam(defaultValue = "1", value = "current") Integer current,
+                            @RequestParam(defaultValue = "8", value = "size") Integer size) {
 
 
-        Page<User> page = new Page<>(currentPage, MapUtil.sizeB);
-        //默认不显示已删除用户
-        IPage<User> list = userService.page(page);
-        //显示已删除
-        if (flag == 1) {
-            list = userService.adminListDeleted(page);
-        }
-
+        Page<User> page = new Page<>(current, size);
+        IPage<User> list = userService.userListAdmin(page);
         return Result.success(list);
+    }
+
+    /**
+     * 查询所有车家号
+     * @param current
+     * @param size
+     * @return
+     */
+    @GetMapping("/adminListCjh")
+    public Result adminListCjh(@RequestParam(defaultValue = "1", value = "current") Integer current,
+                            @RequestParam(defaultValue = "8", value = "size") Integer size) {
+
+        Page<User> page = new Page<>(current, size);
+        IPage<User> list = userService.adminListCjh(page, MapUtil.YRZ);
+        return Result.success(list);
+    }
+
+    /**
+     * 添加认证
+     * @param user
+     * @return
+     */
+    @PostMapping("/rz")
+    public Result rz (@RequestBody User user) {
+        user.setSfrz(MapUtil.YRZ);
+        userService.updateById(user);
+        return Result.success("已认证");
+    }
+
+    /**
+     * 取消认证
+     * @param user
+     * @return
+     */
+    @PostMapping("/qxrz")
+    public Result qxrz (@RequestBody User user) {
+        user.setSfrz(MapUtil.WRZ);
+        userService.updateById(user);
+        return Result.success("已取消");
     }
 
 
@@ -247,6 +282,7 @@ public class UserController {
         BeanUtil.copyProperties(user, item);
         return Result.success(item);
     }
+
 
     /**
      *

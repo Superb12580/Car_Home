@@ -28,6 +28,13 @@ public interface CommentMapper extends BaseMapper<Comment> {
     IPage<Map<String, Object>> superbByUserId(Page<?> page, Long userId);
 
 
+    /**
+     * 查询所有评论 附带动态 管理员
+     * @param page
+     * @param deleted
+     * @return
+     */
+    IPage<Map<String, Object>> superbListAdmin(Page<?> page, Integer deleted);
 
     /**
      * 查询一条动态的所有评论 附带评论用户信息

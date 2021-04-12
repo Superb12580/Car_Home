@@ -64,8 +64,8 @@ EssayServiceImpl extends ServiceImpl<EssayMapper, Essay> implements EssayService
 
 
     @Override
-    public IPage<Map<String, Object>> superbAllEssay(Page<?> page) {
-        IPage<Map<String, Object>> mapIPage = baseMapper.superbAllEssay(page);
+    public IPage<Map<String, Object>> superbAllEssay(Page<?> page, Integer deleted) {
+        IPage<Map<String, Object>> mapIPage = baseMapper.superbAllEssay(page, deleted);
         // 处理多标签
         for (Map<String, Object> map : mapIPage.getRecords()) {
             if (map.get("essayLabel") != null && !"".equals(map.get("essayLabel"))) {

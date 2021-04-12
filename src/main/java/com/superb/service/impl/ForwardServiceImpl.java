@@ -52,8 +52,8 @@ public class ForwardServiceImpl extends ServiceImpl<ForwardMapper, Forward> impl
     }
 
     @Override
-    public IPage<Map<String, Object>> superbAllForward(Page<?> page) {
-        IPage<Map<String, Object>> forward = baseMapper.superbAllForward(page);
+    public IPage<Map<String, Object>> superbAllForward(Page<?> page, Integer deleted) {
+        IPage<Map<String, Object>> forward = baseMapper.superbAllForward(page, deleted);
         // 处理多标签
         return getMapIPage(forward);
     }

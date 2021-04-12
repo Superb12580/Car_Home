@@ -35,27 +35,27 @@ public class Fold implements Serializable {
 
     private String title1;
 
-    private String aText1;
+    private String text1;
 
-    private String aText2;
+    private String text2;
 
     private String title2;
 
-    private String bText1;
+    private String text3;
 
-    private String bText2;
+    private String text4;
 
     private String title3;
 
-    private String cText1;
+    private String text5;
 
-    private String cText2;
+    private String text6;
 
     private String title4;
 
-    private String dText1;
+    private String text7;
 
-    private String dText2;
+    private String text8;
 
 
 }

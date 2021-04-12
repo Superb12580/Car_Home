@@ -22,7 +22,14 @@ public interface UserService extends IService<User> {
      * @param page
      * @return
      */
-    IPage<User> adminListDeleted(Page<?> page);
+    IPage<User> userListAdmin(Page<?> page);
+
+    /**
+     * 查询所有车家号
+     * @param page
+     * @return
+     */
+    IPage<User> adminListCjh(Page<?> page, Integer sfrz);
 
     /**
      * 模糊查询包括已删除

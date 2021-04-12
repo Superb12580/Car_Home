@@ -31,6 +31,6 @@ public interface ForwardService extends IService<Forward> {
      * @param page
      * @return
      */
-    IPage<Map<String, Object>> superbAllForward(Page<?> page);
+    IPage<Map<String, Object>> superbAllForward(Page<?> page, Integer deleted);
 
 }
