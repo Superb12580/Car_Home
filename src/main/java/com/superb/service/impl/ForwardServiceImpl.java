@@ -57,4 +57,11 @@ public class ForwardServiceImpl extends ServiceImpl<ForwardMapper, Forward> impl
         // 处理多标签
         return getMapIPage(forward);
     }
+
+    @Override
+    public void fbAdmin(Integer deleted, Integer id) {
+        this.baseMapper.fbAdmin(deleted, id);
+    }
+
+
 }

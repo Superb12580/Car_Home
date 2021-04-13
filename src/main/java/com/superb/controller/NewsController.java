@@ -5,10 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.common.MapUtil;
-import com.superb.entity.Essay;
-import com.superb.entity.News;
-import com.superb.entity.Photo;
-import com.superb.entity.User;
+import com.superb.entity.*;
 import com.superb.service.*;
 import com.superb.util.Result;
 import com.superb.util.Utils;
@@ -35,10 +32,13 @@ public class NewsController {
     @Autowired
     private NewsService newsService;
 
+    @Autowired
+    private MessageService messageService;
+
     private int count = 0;
 
     /**
-     * 查询所有news  附加user
+     * 查询所有已发布  news  附加user
      * @param current
      * @param size
      * @return
@@ -49,6 +49,64 @@ public class NewsController {
         Page<Map<String ,Object>> page = new Page<>(current, size);
         IPage<Map<String, Object>> list = newsService.listNews(page, MapUtil.YFB);
         return Result.success(list);
+    }
+
+    /**
+     * 查询所有已驳回  news  附加user
+     * @param current
+     * @param size
+     * @return
+     */
+    @GetMapping("/listAdminYbh")
+    public Result listAdminYbh (@RequestParam(defaultValue = "1",value = "current") Integer current,
+                        @RequestParam(defaultValue = "10",name = "size") Integer size) {
+        Page<Map<String ,Object>> page = new Page<>(current, size);
+        IPage<Map<String, Object>> list = newsService.listNews(page, MapUtil.YBH);
+        return Result.success(list);
+    }
+
+    /**
+     * 查询所有待审核  news  附加user
+     * @param current
+     * @param size
+     * @return
+     */
+    @GetMapping("/listAdminDsh")
+    public Result listAdminDsh (@RequestParam(defaultValue = "1",value = "current") Integer current,
+                        @RequestParam(defaultValue = "10",name = "size") Integer size) {
+        Page<Map<String ,Object>> page = new Page<>(current, size);
+        IPage<Map<String, Object>> list = newsService.listNews(page, MapUtil.DSH);
+        return Result.success(list);
+    }
+
+    @PostMapping("/bhAdmin")
+    public Result bhAdmin (@RequestBody News news) {
+        news.setZt(MapUtil.YBH);
+        newsService.updateById(news);
+        // 发消息
+        Message message = new Message();
+        message.setMessageTitle(MapUtil.XTTZ);
+        message.setMessageText("你的文章《" + news.getTitle() + "》已被驳回");
+        message.setMessageType(MapUtil.XXLX_XT);
+        message.setThatId(MapUtil.GLYID);
+        message.setThisId(news.getUserId());
+        messageService.save(message);
+        return Result.success("已驳回");
+    }
+
+    @PostMapping("/fbAdmin")
+    public Result fbAdmin (@RequestBody News news) {
+        news.setZt(MapUtil.YFB);
+        newsService.updateById(news);
+        // 发消息
+        Message message = new Message();
+        message.setMessageTitle(MapUtil.XTTZ);
+        message.setMessageText("你的文章《" + news.getTitle() + "》已通过审核");
+        message.setMessageType(MapUtil.XXLX_XT);
+        message.setThatId(MapUtil.GLYID);
+        message.setThisId(news.getUserId());
+        messageService.save(message);
+        return Result.success("已发布");
     }
 
 

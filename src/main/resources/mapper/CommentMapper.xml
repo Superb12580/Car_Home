@@ -41,4 +41,8 @@
         select * from comment where deleted = #{deleted} order by create_time desc
     </select>
 
+    <update id="fbAdmin" parameterType="java.lang.Integer">
+        update comment set deleted = #{deleted} where id = #{id}
+    </update>
+
 </mapper>

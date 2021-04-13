@@ -159,4 +159,27 @@ public class CommentController {
         return Result.success("评论已删除");
     }
 
+    /**
+     * 管理员  删除评论
+     * @param comment
+     * @return
+     */
+    @PostMapping("/deleteAdmin")
+    public Result deleteAdmin(@RequestBody Comment comment){
+        commentService.removeById(comment.getId());
+        return Result.success("已删除");
+    }
+
+    /**
+     * 重新发布
+     *  管理员
+     * @param comment
+     * @retur
+     */
+    @PostMapping("/fbAdmin")
+    public Result fbAdmin(@RequestBody Comment comment) {
+        commentService.fbAdmin(MapUtil.WSC, comment.getId());
+        return Result.success("已发布");
+    }
+
 }

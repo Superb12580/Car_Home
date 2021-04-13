@@ -156,6 +156,30 @@ public class EssayController {
     }
 
     /**
+     * 下架动态
+     *  管理员
+     * @param essay
+     * @retur
+     */
+    @PostMapping("/deleteAdmin")
+    public Result deleteAdmin(@RequestBody Essay essay) {
+        essayService.removeById(essay.getEssayId());
+        return Result.success("已下架");
+    }
+
+    /**
+     * 重新发布
+     *  管理员
+     * @param essay
+     * @retur
+     */
+    @PostMapping("/fbAdmin")
+    public Result fbAdmin(@RequestBody Essay essay) {
+        essayService.fbAdmin(MapUtil.WSC, essay.getEssayId());
+        return Result.success("已发布");
+    }
+
+    /**
      * 批量删除动态
      *
      * @param str
@@ -175,4 +199,6 @@ public class EssayController {
         essayService.removeByIds(list);
         return Result.success("批量删除成功");
     }
+
+
 }

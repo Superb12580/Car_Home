@@ -54,6 +54,8 @@ public interface EssayMapper extends BaseMapper<Essay> {
     IPage<Map<String, Object>> superbAllEssay(Page<?> page, Integer deleted);
 
 
+
+
     /**********************管理员***************************/
 
     /**
@@ -84,4 +86,11 @@ public interface EssayMapper extends BaseMapper<Essay> {
      * @return
      */
     IPage<EssayDto> adminLikeDeleted(Page<?> page,String str);
+
+    /**
+     * 重新发布
+     * @param deleted
+     * @param essayId
+     */
+    void fbAdmin (Integer deleted, Long essayId);
 }

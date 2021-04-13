@@ -67,5 +67,9 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         return baseMapper.superbCommentById(page, essayId);
     }
 
+    @Override
+    public void fbAdmin(Integer deleted, Integer id) {
+        this.baseMapper.fbAdmin(deleted, id);
+    }
 
 }

@@ -97,6 +97,10 @@
         select * from essay where essay_id = #{essayId} and deleted = 0
     </select>
 
+    <update id="fbAdmin">
+        update essay set deleted = #{deleted} where essay_id = #{essayId}
+    </update>
+
 
 
 

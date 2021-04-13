@@ -33,4 +33,12 @@ public interface ForwardService extends IService<Forward> {
      */
     IPage<Map<String, Object>> superbAllForward(Page<?> page, Integer deleted);
 
+
+    /**
+     * 重新发布
+     * @param deleted
+     * @param id
+     */
+    void fbAdmin (Integer deleted, Integer id);
+
 }

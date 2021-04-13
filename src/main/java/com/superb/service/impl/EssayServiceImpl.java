@@ -97,4 +97,9 @@ EssayServiceImpl extends ServiceImpl<EssayMapper, Essay> implements EssayService
     public IPage<EssayDto> adminLikeDeleted(Page<?> page, String str) {
         return baseMapper.adminLikeDeleted(page, str);
     }
+
+    @Override
+    public void fbAdmin(Integer deleted, Long essayId) {
+        this.baseMapper.fbAdmin(deleted, essayId);
+    }
 }

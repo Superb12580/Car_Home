@@ -48,6 +48,15 @@ public class LoginController {
     @Autowired
     private MessageService messageService;
 
+    @PostMapping("/admin")
+    public Result admin(@RequestBody RegisterLogin login) {
+        User user = userService.getById(MapUtil.GLYID);
+        if (user.getDlh().equals(login.getUserName()) && user.getPassword().equals(SecureUtil.md5(login.getPassword()))){
+            return Result.success("欢迎：" + user.getUserName(), user);
+        }
+        return Result.fail("用户名或密码错误，请重试");
+    }
+
     /**
      * 登录验证、传参用户名或邮箱和密码
      *
@@ -68,8 +77,8 @@ public class LoginController {
         }
         // 比对密码
         if (user.getPassword().equals(SecureUtil.md5(login.getPassword()))) {
-            // 获取私信总条数
-            int count = messageService.count(new QueryWrapper<Message>().eq("this_id", user.getUserId()).eq("message_type", MapUtil.XXLX_SX));
+            // 获取信息总条数
+            int count = messageService.count(new QueryWrapper<Message>().eq("this_id", user.getUserId()));
             Item item = new Item();
             BeanUtil.copyProperties(user, item);
             item.setSxts(Math.max(count - item.getSxts(), 0));

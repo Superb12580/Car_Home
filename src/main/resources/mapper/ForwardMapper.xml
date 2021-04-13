@@ -43,4 +43,8 @@
     <select id="superbForwardById" resultMap="forwardMap">
         select * from forward where essay_id = #{essayId}
     </select>
+
+    <update id="fbAdmin" parameterType="java.lang.Integer">
+        update forward set deleted = #{deleted} where id = #{id}
+    </update>
 </mapper>

@@ -55,4 +55,10 @@ public interface ForwardMapper extends BaseMapper<Forward> {
 
 
 
+    /**
+     * 重新发布
+     * @param deleted
+     * @param id
+     */
+    void fbAdmin (Integer deleted, Integer id);
 }

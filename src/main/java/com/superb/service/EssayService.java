@@ -76,4 +76,12 @@ public interface EssayService extends IService<Essay> {
      */
     IPage<EssayDto> adminLikeDeleted(Page<?> page,String str);
 
+
+    /**
+     * 重新发布
+     * @param deleted
+     * @param essayId
+     */
+    void fbAdmin (Integer deleted, Long essayId);
+
 }

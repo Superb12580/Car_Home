@@ -5,10 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.common.MapUtil;
-import com.superb.entity.Essay;
-import com.superb.entity.Forward;
-import com.superb.entity.Message;
-import com.superb.entity.User;
+import com.superb.entity.*;
 import com.superb.service.*;
 import com.superb.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,5 +128,29 @@ public class ForwardController {
         // 删除
         forwardService.removeById(forward.getId());
         return Result.success("删除成功");
+    }
+
+    /**
+     * 删除转发 管理员
+     * @param forward
+     * @return
+     */
+    @PostMapping("/deleteAdmin")
+    public Result deleteAdmin(@RequestBody Forward forward){
+        // 删除
+        forwardService.removeById(forward.getId());
+        return Result.success("已删除");
+    }
+
+    /**
+     * 重新发布
+     *  管理员
+     * @param forward
+     * @retur
+     */
+    @PostMapping("/fbAdmin")
+    public Result fbAdmin(@RequestBody Forward forward) {
+        forwardService.fbAdmin(MapUtil.WSC, forward.getId());
+        return Result.success("已发布");
     }
 }

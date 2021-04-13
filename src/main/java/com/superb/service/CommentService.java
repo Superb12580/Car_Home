@@ -43,4 +43,11 @@ public interface CommentService extends IService<Comment> {
      */
     IPage<Map<String, Object>> superbCommentById(Page<?> page, Long essayId);
 
+
+    /**
+     * 重新发布
+     * @param deleted
+     * @param id
+     */
+    void fbAdmin (Integer deleted, Integer id);
 }
