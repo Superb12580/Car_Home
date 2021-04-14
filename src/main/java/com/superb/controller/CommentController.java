@@ -158,6 +158,8 @@ public class CommentController {
         commentService.removeById(comment.getId());
         return Result.success("评论已删除");
     }
+    @Autowired
+    private RecordAdminService recordAdminService;
 
     /**
      * 管理员  删除评论
@@ -166,6 +168,8 @@ public class CommentController {
      */
     @PostMapping("/deleteAdmin")
     public Result deleteAdmin(@RequestBody Comment comment){
+        // 管理员日志
+        recordAdminService.xr("删除评论：" + comment.getCommentText());
         commentService.removeById(comment.getId());
         return Result.success("已删除");
     }
@@ -178,6 +182,8 @@ public class CommentController {
      */
     @PostMapping("/fbAdmin")
     public Result fbAdmin(@RequestBody Comment comment) {
+        // 管理员日志
+        recordAdminService.xr("重新上线评论：" + comment.getCommentText());
         commentService.fbAdmin(MapUtil.WSC, comment.getId());
         return Result.success("已发布");
     }

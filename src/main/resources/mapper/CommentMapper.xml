@@ -41,6 +41,10 @@
         select * from comment where deleted = #{deleted} order by create_time desc
     </select>
 
+    <select id="adminCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(*) from comment where deleted = #{deleted}
+    </select>
+
     <update id="fbAdmin" parameterType="java.lang.Integer">
         update comment set deleted = #{deleted} where id = #{id}
     </update>

@@ -63,5 +63,10 @@ public class ForwardServiceImpl extends ServiceImpl<ForwardMapper, Forward> impl
         this.baseMapper.fbAdmin(deleted, id);
     }
 
+    @Override
+    public Integer adminCount(Integer deleted) {
+        return this.baseMapper.adminCount(deleted);
+    }
+
 
 }

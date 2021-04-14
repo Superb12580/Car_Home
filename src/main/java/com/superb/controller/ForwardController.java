@@ -130,6 +130,9 @@ public class ForwardController {
         return Result.success("删除成功");
     }
 
+    @Autowired
+    private RecordAdminService recordAdminService;
+
     /**
      * 删除转发 管理员
      * @param forward
@@ -137,6 +140,8 @@ public class ForwardController {
      */
     @PostMapping("/deleteAdmin")
     public Result deleteAdmin(@RequestBody Forward forward){
+        // 管理员日志
+        recordAdminService.xr("删除转发：" + forward.getForwardTitle());
         // 删除
         forwardService.removeById(forward.getId());
         return Result.success("已删除");
@@ -150,6 +155,8 @@ public class ForwardController {
      */
     @PostMapping("/fbAdmin")
     public Result fbAdmin(@RequestBody Forward forward) {
+        // 管理员日志
+        recordAdminService.xr("重新上线转发：" + forward.getForwardTitle());
         forwardService.fbAdmin(MapUtil.WSC, forward.getId());
         return Result.success("已发布");
     }

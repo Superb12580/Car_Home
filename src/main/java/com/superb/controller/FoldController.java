@@ -11,6 +11,7 @@ import com.superb.entity.News;
 import com.superb.entity.User;
 import com.superb.service.FoldService;
 import com.superb.service.OssService;
+import com.superb.service.RecordAdminService;
 import com.superb.util.Result;
 import com.superb.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ import java.util.Random;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author Superb
@@ -41,6 +42,7 @@ public class FoldController {
 
     /**
      * 折叠项展示
+     *
      * @return
      */
     @GetMapping("/item")
@@ -55,9 +57,13 @@ public class FoldController {
     @Autowired
     private OssService ossService;
 
+    @Autowired
+    private RecordAdminService recordAdminService;
+
 
     /**
      * 编辑回显
+     *
      * @param id
      * @return
      */
@@ -65,11 +71,11 @@ public class FoldController {
     public Result item(@RequestParam("id") Integer id) {
         Fold fold = foldService.getById(id);
         return Result.success(fold);
-
     }
 
     /**
      * 查询所有折叠板
+     *
      * @param current
      * @param size
      * @return
@@ -83,27 +89,57 @@ public class FoldController {
     }
 
     /**
-     * 添加编辑折叠板
+     * 添加折叠板
+     *
      * @param file
      * @param fold
      * @return
      */
-    @PostMapping("/addUpdate")
-    public Result addUpdate(MultipartFile file, Fold fold) {
+    @PostMapping("/addAdmin")
+    public Result addAdmin(MultipartFile file, Fold fold) {
         //返回上传到oss的路径
         String url = ossService.uploadFile(file, MapUtil.FOLD);
         fold.setStylePhoto(url);
-        // 编辑
-        if (fold.getId() != null){
-            Fold byId = foldService.getById(fold.getId());
-            // 删除原先照片
-
-            ossService.deleteFile(byId.getStylePhoto());
-            foldService.updateById(fold);
-            return Result.success("修改成功");
-        }
+        // 管理员日志
+        recordAdminService.xr("新增折叠板：" + fold.getTitle1());
         foldService.save(fold);
-        return Result.success();
+        return Result.success("添加成功");
+    }
+
+    /**
+     * 修改照片
+     * @param file
+     * @param fold
+     * @return
+     */
+    @PostMapping("/updatePhoto")
+    public Result updatePhoto(MultipartFile file, Fold fold) {
+        Fold byId = foldService.getById(fold.getId());
+        // 删除原先照片
+        ossService.deleteFile(byId.getStylePhoto());
+        //返回上传到oss的路径
+        String url = ossService.uploadFile(file, MapUtil.FOLD);
+        fold = new Fold();
+        fold.setStylePhoto(url);
+        fold.setId(byId.getId());
+        // 管理员日志
+        recordAdminService.xr("编辑折叠板图片：" + byId.getTitle1());
+        foldService.updateById(fold);
+        return Result.success("修改成功");
+    }
+
+    /**
+     * 修改信息
+     * @param fold
+     * @return
+     */
+    @PostMapping("/updateAdmin")
+    public Result updateAdmin(@RequestBody Fold fold) {
+        fold.setStylePhoto(null);
+        // 管理员日志
+        recordAdminService.xr("编辑折叠板：" + fold.getTitle1());
+        foldService.updateById(fold);
+        return Result.success("修改成功");
     }
 
     /**
@@ -114,6 +150,11 @@ public class FoldController {
      */
     @PostMapping("/delete")
     public Result delete(@RequestBody Fold fold) {
+        Fold byId = foldService.getById(fold.getId());
+        // 删除原先照片
+        ossService.deleteFile(byId.getStylePhoto());
+        // 管理员日志
+        recordAdminService.xr("删除折叠板：" + fold.getTitle1());
         foldService.removeById(fold.getId());
         return Result.success("删除成功");
     }

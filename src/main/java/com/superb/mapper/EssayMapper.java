@@ -93,4 +93,11 @@ public interface EssayMapper extends BaseMapper<Essay> {
      * @param essayId
      */
     void fbAdmin (Integer deleted, Long essayId);
+
+    /**
+     * 查询数量
+     * @param deleted
+     * @return
+     */
+    Integer adminCount(Integer deleted);
 }

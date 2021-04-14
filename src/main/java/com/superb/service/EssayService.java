@@ -84,4 +84,11 @@ public interface EssayService extends IService<Essay> {
      */
     void fbAdmin (Integer deleted, Long essayId);
 
+    /**
+     * 查询数量
+     * @param deleted
+     * @return
+     */
+    Integer adminCount(Integer deleted);
+
 }

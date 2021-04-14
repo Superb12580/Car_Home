@@ -58,4 +58,11 @@ public interface CommentMapper extends BaseMapper<Comment> {
      * @param id
      */
     void fbAdmin (Integer deleted, Integer id);
+
+    /**
+     * 查询数量
+     * @param deleted
+     * @return
+     */
+    Integer adminCount(Integer deleted);
 }

@@ -6,8 +6,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.common.MapUtil;
 import com.superb.entity.Label;
+import com.superb.entity.RecordAdmin;
 import com.superb.mapper.LabelMapper;
 import com.superb.service.LabelService;
+import com.superb.service.RecordAdminService;
 import com.superb.util.Result;
 import com.superb.util.Utils;
 import freemarker.template.utility.StringUtil;
@@ -33,6 +35,9 @@ public class LabelController {
 
     @Autowired
     private LabelService labelService;
+
+    @Autowired
+    private RecordAdminService recordAdminService;
 
 
     /**
@@ -69,9 +74,13 @@ public class LabelController {
             return Result.fail(250);
         }
         if (label.getLabelId() != null) {
+            // 管理员日志
+            recordAdminService.xr("修改标签：" + label.getLabelText());
             labelService.updateAdmin(label);
             return Result.success("标签修改成功");
         }
+        // 管理员日志
+        recordAdminService.xr("添加新标签：" + label.getLabelText());
         labelService.save(label);
         return Result.success("标签添加成功");
     }
@@ -89,6 +98,12 @@ public class LabelController {
             return Result.fail(250);
         }
         label.setDeleted(label.getDeleted().equals(MapUtil.YJY) ? MapUtil.YKQ : MapUtil.YJY);
+        // 管理员日志
+        String str = "禁用标签：";
+        if (label.getDeleted().equals(MapUtil.YKQ)){
+            str = "开启标签：";
+        }
+        recordAdminService.xr(str + label.getLabelText());
         labelService.jyAdmin(label);
         return Result.success("操作成功");
     }
@@ -104,6 +119,8 @@ public class LabelController {
         if (label == null || label.getLabelId() == null){
             return Result.fail(250);
         }
+        // 管理员日志
+        recordAdminService.xr("删除标签：" + label.getLabelText());
         labelService.deleteAdmin(label.getLabelId());
         return Result.success("标签删除成功");
     }

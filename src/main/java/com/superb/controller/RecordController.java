@@ -1,6 +1,7 @@
 package com.superb.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.entity.Record;
@@ -30,7 +31,7 @@ public class RecordController {
     public Result list(@RequestParam(defaultValue = "1", name = "current") Integer current,
                        @RequestParam(defaultValue = "8", name = "size") Integer size) {
         Page<Record> page = new Page<>(current, size);
-        IPage<Record> recordIPage = recordService.page(page);
+    IPage<Record> recordIPage = recordService.page(page, new QueryWrapper<Record>().orderByDesc("create_time"));
         return Result.success(recordIPage);
     }
 

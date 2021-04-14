@@ -102,4 +102,9 @@ EssayServiceImpl extends ServiceImpl<EssayMapper, Essay> implements EssayService
     public void fbAdmin(Integer deleted, Long essayId) {
         this.baseMapper.fbAdmin(deleted, essayId);
     }
+
+    @Override
+    public Integer adminCount(Integer deleted) {
+        return this.baseMapper.adminCount(deleted);
+    }
 }

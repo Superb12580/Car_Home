@@ -72,4 +72,9 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         this.baseMapper.fbAdmin(deleted, id);
     }
 
+    @Override
+    public Integer adminCount(Integer deleted) {
+        return this.baseMapper.adminCount(deleted);
+    }
+
 }

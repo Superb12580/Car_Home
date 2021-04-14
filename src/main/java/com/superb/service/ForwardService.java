@@ -41,4 +41,11 @@ public interface ForwardService extends IService<Forward> {
      */
     void fbAdmin (Integer deleted, Integer id);
 
+    /**
+     * 查询数量
+     * @param deleted
+     * @return
+     */
+    Integer adminCount(Integer deleted);
+
 }

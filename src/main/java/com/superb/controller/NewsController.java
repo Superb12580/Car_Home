@@ -79,6 +79,9 @@ public class NewsController {
         return Result.success(list);
     }
 
+    @Autowired
+    private RecordAdminService recordAdminService;
+
     @PostMapping("/bhAdmin")
     public Result bhAdmin (@RequestBody News news) {
         news.setZt(MapUtil.YBH);
@@ -90,6 +93,8 @@ public class NewsController {
         message.setMessageType(MapUtil.XXLX_XT);
         message.setThatId(MapUtil.GLYID);
         message.setThisId(news.getUserId());
+        // 后台记录
+        recordAdminService.xr("驳回文章：" + news.getTitle());
         messageService.save(message);
         return Result.success("已驳回");
     }
@@ -105,6 +110,8 @@ public class NewsController {
         message.setMessageType(MapUtil.XXLX_XT);
         message.setThatId(MapUtil.GLYID);
         message.setThisId(news.getUserId());
+        // 后台记录
+        recordAdminService.xr("审批通过：" + news.getTitle());
         messageService.save(message);
         return Result.success("已发布");
     }

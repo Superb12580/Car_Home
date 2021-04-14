@@ -84,6 +84,8 @@ public class UserController {
         IPage<User> list = userService.adminListCjh(page, MapUtil.YRZ);
         return Result.success(list);
     }
+    @Autowired
+    private RecordAdminService recordAdminService;
 
     /**
      * 添加认证
@@ -93,6 +95,8 @@ public class UserController {
     @PostMapping("/rz")
     public Result rz (@RequestBody User user) {
         user.setSfrz(MapUtil.YRZ);
+        // 管理员日志
+        recordAdminService.xr("认证用户：" + user.getUserName() + "为车家号");
         userService.updateById(user);
         return Result.success("已认证");
     }
@@ -105,6 +109,8 @@ public class UserController {
     @PostMapping("/qxrz")
     public Result qxrz (@RequestBody User user) {
         user.setSfrz(MapUtil.WRZ);
+        // 管理员日志
+        recordAdminService.xr("取消车家号：" + user.getUserName());
         userService.updateById(user);
         return Result.success("已取消");
     }

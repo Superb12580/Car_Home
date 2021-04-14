@@ -8,10 +8,7 @@ import com.superb.common.MapUtil;
 import com.superb.dto.EssayDto;
 import com.superb.entity.Essay;
 import com.superb.entity.User;
-import com.superb.service.EssayService;
-import com.superb.service.MessageService;
-import com.superb.service.RecordService;
-import com.superb.service.UserService;
+import com.superb.service.*;
 import com.superb.util.Result;
 import com.superb.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -155,6 +152,9 @@ public class EssayController {
 
     }
 
+    @Autowired
+    private RecordAdminService recordAdminService;
+
     /**
      * 下架动态
      *  管理员
@@ -163,6 +163,8 @@ public class EssayController {
      */
     @PostMapping("/deleteAdmin")
     public Result deleteAdmin(@RequestBody Essay essay) {
+        // 管理员日志
+        recordAdminService.xr("下架动态：" + essay.getEssayTitle());
         essayService.removeById(essay.getEssayId());
         return Result.success("已下架");
     }
@@ -175,6 +177,8 @@ public class EssayController {
      */
     @PostMapping("/fbAdmin")
     public Result fbAdmin(@RequestBody Essay essay) {
+        // 管理员日志
+        recordAdminService.xr("重新上线动态：" + essay.getEssayTitle());
         essayService.fbAdmin(MapUtil.WSC, essay.getEssayId());
         return Result.success("已发布");
     }

@@ -49,7 +49,7 @@
 
     <!--显示一条动态详情-->
     <select id="superbByEssayId" resultMap="essay" parameterType="java.lang.Long">
-        select * from essay where essay_id = #{essayId} and deleted = 0
+        select * from essay where essay_id = #{essayId}
     </select>
 
 
@@ -89,6 +89,11 @@
     <!--查询所有动态 包含转发数点赞数评论数-->
     <select id="superbAllEssay" resultMap="essayMap">
         select * from essay where deleted = #{deleted} order by create_time desc
+    </select>
+
+
+    <select id="adminCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(*) from essay where deleted = #{deleted}
     </select>
 
 

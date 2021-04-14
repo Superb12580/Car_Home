@@ -32,6 +32,9 @@
         select count(*) from forward where essay_id = #{essayId} and deleted = 0
     </select>
 
+    <select id="adminCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(*) from forward where deleted = #{deleted}
+    </select>
 
 
     <resultMap id="forwardMap" type="java.util.Map">
