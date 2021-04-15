@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -70,9 +71,40 @@ public class StyleController {
     // 点击量前十
     @GetMapping("/itemDjl")
     public Result itemDjl() {
-        Page<Style> page = new Page<>(MapUtil.HXGZ, MapUtil.sizeC);
+        Page<Style> page = new Page<>(MapUtil.MRYM, MapUtil.sizeC);
         IPage<Style> djl = styleService.page(page, new QueryWrapper<Style>().orderByDesc("djl"));
         return Result.success(djl.getRecords());
+    }
+
+
+    // 销量排行
+    @GetMapping("/xlPh")
+    public Result xlPh() {
+        Page<Style> page = new Page<>(MapUtil.MRYM, MapUtil.sizeD);
+        IPage<Style> styleIPage = styleService.page(page, new QueryWrapper<Style>().orderByDesc("xl"));
+        return Result.success(styleIPage.getRecords());
+    }
+
+    // 评分排行
+    @GetMapping("/pfPh")
+    public Result pfPh() {
+        List<Map<String, Object>> list = styleService.pfPh(MapUtil.sizeD);
+        return Result.success(list);
+    }
+
+    // 点击量排行
+    @GetMapping("/djlPh")
+    public Result djlPh() {
+        Page<Style> page = new Page<>(MapUtil.MRYM, MapUtil.sizeD);
+        IPage<Style> styleIPage = styleService.page(page, new QueryWrapper<Style>().orderByDesc("djl"));
+        return Result.success(styleIPage.getRecords());
+    }
+
+    // 收藏数排行
+    @GetMapping("/scsPh")
+    public Result scsPh() {
+        List<Map<String, Object>> list = styleService.scPh(MapUtil.sizeD);
+        return Result.success(list);
     }
 
 }

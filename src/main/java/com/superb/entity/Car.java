@@ -139,5 +139,6 @@ public class Car implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private String updateTime;
 
+    private Integer deleted;
 
 }

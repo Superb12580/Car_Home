@@ -10,4 +10,14 @@
         select * from style where style_id = #{styleId}
     </select>
 
+<!--    收藏排行连表查询-->
+    <select id="scPh" resultType="java.util.Map">
+        select s.*,count(`c`.style_id) `count` from style s left join collection `c` on s.style_id = c.style_id where s.deleted = 0 group by s.style_id order by `count` desc limit #{count}
+    </select>
+
+
+    <select id="pfPh" resultType="java.util.Map">
+        select *,round((zpf / pfrs),1) pf from style order by pf desc limit #{count}
+    </select>
+
 </mapper>

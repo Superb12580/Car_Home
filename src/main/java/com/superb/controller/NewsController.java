@@ -66,6 +66,20 @@ public class NewsController {
     }
 
     /**
+     * 即将上市新闻
+     * @param current
+     * @param size
+     * @return
+     */
+    @GetMapping("/listJjss")
+    public Result listJjss(@RequestParam(defaultValue = "1",value = "current") Integer current,
+                           @RequestParam(defaultValue = "6",name = "size") Integer size){
+        Page<News> page = new Page<>(current, size);
+        IPage<News> list = newsService.page(page, new QueryWrapper<News>().isNotNull("sssj").isNotNull("sscmc").orderByDesc("create_time"));
+        return Result.success(list);
+    }
+
+    /**
      * 查询所有待审核  news  附加user
      * @param current
      * @param size

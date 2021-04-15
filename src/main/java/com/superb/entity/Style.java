@@ -86,11 +86,6 @@ public class Style implements Serializable {
     private Integer zpf;
 
     /**
-     * 收藏数
-     */
-    private Integer scs;
-
-    /**
      * 点击量
      */
     private Long djl;

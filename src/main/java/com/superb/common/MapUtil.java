@@ -124,14 +124,13 @@ public class MapUtil {
         XXLX_MAP.put(XXLX_PL, "评论");
     }
 
-
-    // 所有车家号
-    public static final Integer sizeCJH = 11;
     // 一次显示
     public static final Integer sizeXS = 5;
 
 
 
+    // 默认页码
+    public static final Integer MRYM = 1;
     public static final Integer sizeA = 4;
     public static final Integer sizeB = 8;
     public static final Integer sizeC = 10;
