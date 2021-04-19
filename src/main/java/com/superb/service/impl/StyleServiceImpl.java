@@ -1,5 +1,6 @@
 package com.superb.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.entity.Style;
 import com.superb.mapper.StyleMapper;
 import com.superb.service.StyleService;
@@ -28,5 +29,25 @@ public class StyleServiceImpl extends ServiceImpl<StyleMapper, Style> implements
     @Override
     public List<Map<String, Object>> pfPh(Integer count) {
         return baseMapper.pfPh(count);
+    }
+
+    @Override
+    public Page<Map<String, Object>> listAdminLbt(Page<?> page) {
+        return baseMapper.listAdminLbt(page);
+    }
+
+    @Override
+    public List<Map<String, Object>> selectData(String typeName) {
+        return baseMapper.selectData(typeName);
+    }
+
+    @Override
+    public void updateAdmin(Style style) {
+        baseMapper.updateAdmin(style);
+    }
+
+    @Override
+    public Page<Style> listAdmin(Page<?> page) {
+        return baseMapper.listAdmin(page);
     }
 }

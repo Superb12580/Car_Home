@@ -40,7 +40,7 @@ public class Car implements Serializable {
     /**
      * 厂商指导价(万)
      */
-    private String gfzdj;
+    private String cszdj;
 
     /**
      * 最大扭矩

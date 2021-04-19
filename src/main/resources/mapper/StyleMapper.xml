@@ -20,4 +20,21 @@
         select *,round((zpf / pfrs),1) pf from style order by pf desc limit #{count}
     </select>
 
+    <select id="listAdminLbt" resultType="java.util.Map">
+        select *,round((zpf / pfrs),1) pf from style where img_lbt != '' order by create_time desc
+    </select>
+
+
+    <select id="selectData" parameterType="java.lang.String" resultType="java.util.Map">
+        select b.* from data_type a, data_dictionary b where a.type_id = b.parent and a.type_name = #{typeName}
+    </select>
+
+    <update id="updateAdmin" parameterType="com.superb.entity.Style">
+        update style set update_time = #{updateTime}, deleted = #{deleted} where style_id = #{styleId}
+    </update>
+
+    <select id="listAdmin" resultType="com.superb.entity.Style">
+        select * from style
+    </select>
+
 </mapper>

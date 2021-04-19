@@ -120,7 +120,7 @@ public class Style implements Serializable {
     /**
      * 逻辑删除
      */
-    private Boolean deleted;
+    private Integer deleted;
 
 
 }

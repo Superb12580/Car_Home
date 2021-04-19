@@ -1,9 +1,5 @@
 package com.superb.common;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 /**
  * @author Superb
  * @date 2021/1/5 - 17:25
@@ -115,18 +111,12 @@ public class MapUtil {
     public static final Integer XXLX_SX = 2;
     public static final Integer XXLX_PL = 3;
 
-    public static Map<Integer, String> XXLX_MAP = new LinkedHashMap<>();
-
-    static {
-        XXLX_MAP.put(XXLX_XT, "系统消息");
-        XXLX_MAP.put(XXLX_DT, "动态消息");
-        XXLX_MAP.put(XXLX_SX, "私信");
-        XXLX_MAP.put(XXLX_PL, "评论");
-    }
-
     // 一次显示
     public static final Integer sizeXS = 5;
 
+
+    // 数据类型表
+    public static final String DATA_TYPE_JB = "级别";
 
 
     // 默认页码
@@ -136,33 +126,4 @@ public class MapUtil {
     public static final Integer sizeC = 10;
     public static final Integer sizeD = 15;
 
-    public final static Map<Integer, String> CAR_QDLX = new HashMap<>();
-
-    static {
-        CAR_QDLX.put(0,"前置前驱");
-        CAR_QDLX.put(1,"前置后驱");
-        CAR_QDLX.put(2,"前后四驱");
-    }
-
-    public final static Map<Integer, String> CAR_ZDLX = new HashMap<>();
-
-    static {
-        CAR_ZDLX.put(0,"机械制动");
-        CAR_ZDLX.put(1,"电子制动");
-    }
-
-    public final static Map<Integer, String> CAR_JQFS = new HashMap<>();
-
-    static {
-        CAR_JQFS.put(0,"自然吸气");
-        CAR_JQFS.put(1,"涡轮增压");
-        CAR_JQFS.put(2,"机械增压");
-    }
-
-    public final static Map<Integer, String> CAR_HBBZ = new HashMap<>();
-
-    static {
-        CAR_HBBZ.put(0,"国V");
-        CAR_HBBZ.put(1,"国VI");
-    }
 }
