@@ -117,6 +117,9 @@ public class MapUtil {
 
     // 数据类型表
     public static final String DATA_TYPE_JB = "级别";
+    public static final String DATA_TYPE_CS = "厂商";
+    public static final String DATA_TYPE_HBBZ = "环保标准";
+    public static final String DATA_TYPE_NYLX = "能源类型";
 
 
     // 默认页码

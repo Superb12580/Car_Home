@@ -24,17 +24,22 @@
         select *,round((zpf / pfrs),1) pf from style where img_lbt != '' order by create_time desc
     </select>
 
-
-    <select id="selectData" parameterType="java.lang.String" resultType="java.util.Map">
-        select b.* from data_type a, data_dictionary b where a.type_id = b.parent and a.type_name = #{typeName}
-    </select>
-
+<!--    上下架-->
     <update id="updateAdmin" parameterType="com.superb.entity.Style">
         update style set update_time = #{updateTime}, deleted = #{deleted} where style_id = #{styleId}
     </update>
 
+<!--    修改style图片-->
+    <update id="updateStylePhoto" parameterType="com.superb.entity.Style">
+        update style set update_time = #{updateTime}, style_photo = #{stylePhoto} where style_id = #{styleId}
+    </update>
+<!--修改style信息-->
+    <update id="updateStyle" parameterType="com.superb.entity.Style">
+        update style set jgqj = #{jgqj}, cs = #{cs}, style_name = #{styleName}, jb = #{jb}, sssj = #{sssj}, hbbz = #{hbbz}, nylx = #{nylx}, xl = #{xl}, update_time = #{updateTime} where style_id = #{styleId}
+    </update>
+
     <select id="listAdmin" resultType="com.superb.entity.Style">
-        select * from style
+        select * from style order by create_time desc
     </select>
 
 </mapper>

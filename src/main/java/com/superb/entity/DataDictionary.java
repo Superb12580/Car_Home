@@ -33,7 +33,7 @@ public class DataDictionary implements Serializable {
     /**
      * 父节点
      */
-    private Integer parent;
+    private Integer fjd;
 
     /**
      * 索引

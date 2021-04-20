@@ -40,13 +40,6 @@ public interface StyleService extends IService<Style> {
 
 
     /**
-     * 根据数据类型返回所有相关数据
-     * @param typeName
-     * @return
-     */
-    List<Map<String, Object>> selectData(String typeName);
-
-    /**
      * 上下架车型
      * @param style
      */
@@ -59,4 +52,22 @@ public interface StyleService extends IService<Style> {
      */
     Page<Style> listAdmin(Page<?> page);
 
+    /**
+     * 修改style图片
+     * @param style
+     */
+    void updateStylePhoto(Style style);
+
+    /**
+     * 修改style信息
+     * @param style
+     */
+    void updateStyle(Style style);
+
+    /**
+     * 查询style管理员
+     * @param styleId
+     * @return
+     */
+    Style superbByIdAdmin(Integer styleId);
 }

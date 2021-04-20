@@ -37,11 +37,6 @@ public class StyleServiceImpl extends ServiceImpl<StyleMapper, Style> implements
     }
 
     @Override
-    public List<Map<String, Object>> selectData(String typeName) {
-        return baseMapper.selectData(typeName);
-    }
-
-    @Override
     public void updateAdmin(Style style) {
         baseMapper.updateAdmin(style);
     }
@@ -49,5 +44,20 @@ public class StyleServiceImpl extends ServiceImpl<StyleMapper, Style> implements
     @Override
     public Page<Style> listAdmin(Page<?> page) {
         return baseMapper.listAdmin(page);
+    }
+
+    @Override
+    public void updateStylePhoto(Style style) {
+        baseMapper.updateStylePhoto(style);
+    }
+
+    @Override
+    public void updateStyle(Style style) {
+        baseMapper.updateStyle(style);
+    }
+
+    @Override
+    public Style superbByIdAdmin(Integer styleId) {
+        return baseMapper.superbByIdAdmin(styleId);
     }
 }

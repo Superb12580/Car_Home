@@ -20,16 +20,16 @@ public interface PhotoMapper extends BaseMapper<Photo> {
      * 文章相关图片
      * @return
      */
-    List<Map<String, Object>> newsById ();
+    List<Map<String, Object>> newsById (Integer newsId);
     /**
      * 动态相关图片
      * @return
      */
-    List<Map<String, Object>> essayById ();
+    List<Map<String, Object>> essayById (Long essayId);
     /**
      * 车型相关图片
      * @return
      */
-    List<Map<String, Object>> styleById ();
+    List<Map<String, Object>> styleById (Integer styleId);
 
 }

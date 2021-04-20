@@ -10,7 +10,7 @@
     </resultMap>
 
     <select id="adminListCjh" resultMap="user" parameterType="java.lang.Integer">
-        select * from user where sfrz = #{sfrz}
+        select * from user where sfrz = #{sfrz} order by create_time desc
     </select>
 
     <select id="superbById" resultMap="user">
@@ -18,7 +18,7 @@
     </select>
 
     <select id="userListAdmin" resultMap="user">
-        select * from user
+        select * from user order by create_time desc
     </select>
     <select id="getUserNotId" resultMap="user" parameterType="java.lang.Long">
         select * from user where user_id != #{userId}

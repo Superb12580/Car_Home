@@ -8,6 +8,7 @@ import com.superb.service.DataDictionaryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,5 +25,10 @@ public class DataDictionaryServiceImpl extends ServiceImpl<DataDictionaryMapper,
     @Override
     public IPage<Map<String, Object>> listAdmin(Page<?> page) {
         return baseMapper.listAdmin(page);
+    }
+
+    @Override
+    public List<Map<String, Object>> selectData(String typeName) {
+        return baseMapper.selectData(typeName);
     }
 }

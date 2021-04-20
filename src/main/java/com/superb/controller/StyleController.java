@@ -5,11 +5,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.common.MapUtil;
-import com.superb.entity.Label;
-import com.superb.entity.Style;
+import com.superb.entity.*;
 import com.superb.handler.MyMetaObjectHandler;
-import com.superb.service.OssService;
-import com.superb.service.StyleService;
+import com.superb.service.*;
 import com.superb.util.Result;
 import org.omg.CORBA.OBJ_ADAPTER;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +35,8 @@ public class StyleController {
     @Autowired
     private OssService ossService;
 
+    @Autowired
+    private DataDictionaryService dataDictionaryService;
 
     private int count = 0;
     private int count2 = 0;
@@ -133,9 +133,10 @@ public class StyleController {
      */
     @PostMapping("/deleteAdminLbt")
     public Result deleteAdminLbt(@RequestBody Style style) {
-        Style byId = styleService.getById(style.getStyleId());
+        Style byId = styleService.superbByIdAdmin(style.getStyleId());
         ossService.deleteFile(byId.getImgLbt());
         style.setImgLbt("");
+        recordAdminService.xr("移除轮播图：" + byId.getStyleName());
         styleService.updateById(style);
         return Result.success();
     }
@@ -147,6 +148,8 @@ public class StyleController {
      */
     @PostMapping("deleteAdmin")
     public Result deleteAdmin(@RequestBody Style style) {
+        // 管理员日志
+        recordAdminService.xr("下架车型：" + style.getStyleName());
         styleService.removeById(style.getStyleId());
         return Result.success("已下架");
     }
@@ -160,6 +163,8 @@ public class StyleController {
     public Result sjAdmin(@RequestBody Style style) {
         style.setDeleted(MapUtil.WSC);
         style.setUpdateTime(MyMetaObjectHandler.getDateString(new Date()));
+        // 管理员日志
+        recordAdminService.xr("上架车型：" + style.getStyleName());
         styleService.updateAdmin(style);
         return Result.success("已上架");
     }
@@ -167,7 +172,7 @@ public class StyleController {
     @GetMapping("/listAdmin")
     public Result listAdmin(@RequestParam(defaultValue = "1", value = "current") Integer current,
                             @RequestParam(defaultValue = "8", name = "size") Integer size) {
-        Page<Map<String, Object>> page = new Page<>(current, size);
+        Page<Style> page = new Page<>(current, size);
         Page<Style> stylePage = styleService.listAdmin(page);
         return Result.success(stylePage);
     }
@@ -179,7 +184,7 @@ public class StyleController {
     @GetMapping("/adminDjxl")
     public Result adminDjxl() {
         // 所有级别
-        List<Map<String, Object>> listData = styleService.selectData(MapUtil.DATA_TYPE_JB);
+        List<Map<String, Object>> listData = dataDictionaryService.selectData(MapUtil.DATA_TYPE_JB);
         // 所有车型
         List<Style> listStyle = styleService.list();
         // 组装最终list
@@ -214,15 +219,96 @@ public class StyleController {
      * @return
      */
     @PostMapping("/addLbt")
-    public Result uploadOssFile(MultipartFile file, Style style) {
+    public Result addLbt(MultipartFile file, Style style) {
         String url = ossService.uploadFile(file, MapUtil.STYLE_LBT);
         // 截掉第一位
         String substring = style.getStyleName().substring(1);
         Style style2 = new Style();
         style2.setImgLbt(url);
         style2.setStyleId(Integer.parseInt(substring));
+        Style byId = styleService.getById(style2.getStyleId());
+        // 管理员日志
+        recordAdminService.xr("添加轮播图：" + byId.getStyleName());
         styleService.updateById(style2);
         return Result.success();
     }
 
+    @Autowired
+    private RecordAdminService recordAdminService;
+
+    /**
+     * 保存style
+     * @param file
+     * @param style
+     * @return
+     */
+    @PostMapping("/addStyle")
+    public Result addStyle(MultipartFile file, Style style) {
+        String url = ossService.uploadFile(file, MapUtil.STYLE_TX);
+        style.setStylePhoto(url);
+        // 管理员日志
+        recordAdminService.xr("添加新车型：" + style.getStyleName());
+        styleService.save(style);
+        return Result.success();
+    }
+
+
+
+    /**
+     * 编辑style图片
+     * @param file
+     * @param style
+     * @return
+     */
+    @PostMapping("/editStylePhoto")
+    public Result editStylePhoto(MultipartFile file, Style style) {
+        Style byId = styleService.superbByIdAdmin(style.getStyleId());
+        // 删除原先照片
+        ossService.deleteFile(byId.getStylePhoto());
+        //返回上传到oss的路径
+        String url = ossService.uploadFile(file, MapUtil.STYLE_TX);
+        style = new Style();
+        style.setStylePhoto(url);
+        style.setStyleId(byId.getStyleId());
+        style.setUpdateTime(MyMetaObjectHandler.getDateString(new Date()));
+        // 管理员日志
+        recordAdminService.xr("编辑车型图片：" + byId.getStyleName());
+        styleService.updateStylePhoto(style);
+        return Result.success("修改成功");
+    }
+
+    /**
+     * 编辑style信息
+     * @param style
+     * @return
+     */
+    @PostMapping("/editStyle")
+    public Result editStyle(@RequestBody Style style) {
+        // 管理员日志
+        recordAdminService.xr("编辑车型：" + style.getStyleName());
+        style.setUpdateTime(MyMetaObjectHandler.getDateString(new Date()));
+        styleService.updateStyle(style);
+        return Result.success("修改成功");
+    }
+
+    @Autowired
+    private PhotoService photoService;
+
+    /**
+     * 上传车型图集
+     * @param file
+     * @param style 传id传name
+     * @return
+     */
+    @PostMapping("/uploadStyleTJ")
+    public Result uploadStyleTJ(MultipartFile file, Style style) {
+        String url = ossService.uploadFile(file, MapUtil.STYLE_TJ);
+        Photo photo = new Photo();
+        photo.setPhotoUrl(url);
+        photo.setStyleId(style.getStyleId());
+        photoService.save(photo);
+        // 管理员日志
+        recordAdminService.xr(style.getStyleName() + " 上传图集");
+        return Result.success();
+    }
 }

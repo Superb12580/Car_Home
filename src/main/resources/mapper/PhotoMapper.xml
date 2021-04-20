@@ -14,10 +14,10 @@
     </select>
 
     <select id="essayById" resultMap="photo" parameterType="java.lang.Long">
-        select * from photo where news_id = #{essayId}
+        select * from photo where essay_id = #{essayId}
     </select>
 
     <select id="styleById" resultMap="photo" parameterType="java.lang.Integer">
-        select * from photo where news_id = #{styleId}
+        select * from photo where style_id = #{styleId}
     </select>
 </mapper>

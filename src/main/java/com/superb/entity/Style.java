@@ -96,11 +96,6 @@ public class Style implements Serializable {
     private Integer xl;
 
     /**
-     * 标签 数据字典1-39
-     */
-    private String bq;
-
-    /**
      * 创建时间
      */
     @TableField(fill = FieldFill.INSERT)

@@ -3,6 +3,7 @@ package com.superb.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.superb.common.MapUtil;
 import com.superb.entity.DataDictionary;
 import com.superb.entity.DataType;
 import com.superb.service.DataDictionaryService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,5 +41,47 @@ public class DataDictionaryController {
         IPage<Map<String, Object>> mapIPage = dataDictionaryService.listAdmin(page);
         return Result.success(mapIPage);
     }
+
+
+    /**
+     * 根据数据类型返回厂商
+     * @return
+     */
+    @GetMapping("/itemCs")
+    public Result itemCs(){
+        List<Map<String, Object>> list = dataDictionaryService.selectData(MapUtil.DATA_TYPE_CS);
+        return Result.success(list);
+    }
+
+    /**
+     * 根据数据类型返回级别
+     * @return
+     */
+    @GetMapping("/itemJb")
+    public Result itemJb(){
+        List<Map<String, Object>> list = dataDictionaryService.selectData(MapUtil.DATA_TYPE_JB);
+        return Result.success(list);
+    }
+
+    /**
+     * 根据数据类型返回环保标准
+     * @return
+     */
+    @GetMapping("/itemHbbz")
+    public Result itemHbbz(){
+        List<Map<String, Object>> list = dataDictionaryService.selectData(MapUtil.DATA_TYPE_HBBZ);
+        return Result.success(list);
+    }
+
+    /**
+     * 根据数据类型返回能源类型
+     * @return
+     */
+    @GetMapping("/itemNylx")
+    public Result itemNylx(){
+        List<Map<String, Object>> list = dataDictionaryService.selectData(MapUtil.DATA_TYPE_NYLX);
+        return Result.success(list);
+    }
+
 
 }

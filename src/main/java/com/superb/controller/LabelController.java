@@ -46,7 +46,7 @@ public class LabelController {
      */
     @GetMapping("/list")
     public Result list(){
-        List<Label> list = labelService.list();
+        List<Label> list = labelService.list(new QueryWrapper<Label>().orderByDesc("create_time"));
         return Result.success(list);
     }
 

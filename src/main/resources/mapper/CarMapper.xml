@@ -2,4 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.superb.mapper.CarMapper">
 
+    <select id="selectAdmin" parameterType="java.lang.Integer" resultType="com.superb.entity.Car">
+        select * from car where style_id = #{styleId} order by create_time desc
+    </select>
+
+    <select id="selectAdminList" resultType="com.superb.entity.Car">
+        select * from car order by create_time desc
+    </select>
+
+    <!--    上下架-->
+    <update id="updateAdmin" parameterType="com.superb.entity.Style">
+        update car set update_time = #{updateTime}, deleted = #{deleted} where car_id = #{carId}
+    </update>
+
 </mapper>
