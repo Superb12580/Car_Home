@@ -87,4 +87,24 @@ public class CarController {
         return Result.success("已上架");
     }
 
+    /**
+     * 保存一条
+     * @param car
+     * @return
+     */
+    @PostMapping("saveAdmin")
+    public Result saveAdmin(@RequestBody Car car) {
+        if (car.getCarId() != null && !"".equals(car.getCarId().toString())) {
+            car.setUpdateTime(MyMetaObjectHandler.getDateString(new Date()));
+            // 管理员日志
+            recordAdminService.xr("编辑Car：" + car.getCarName());
+            carService.updateCar(car);
+            return Result.success("已编辑");
+        }
+        carService.save(car);
+        // 管理员日志
+        recordAdminService.xr("添加Car：" + car.getCarName());
+        carService.updateCar(car);
+        return Result.success("已保存");
+    }
 }

@@ -34,4 +34,9 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
     public void updateAdmin(Car car) {
         baseMapper.updateAdmin(car);
     }
+
+    @Override
+    public void updateCar(Car car) {
+        baseMapper.updateCar(car);
+    }
 }

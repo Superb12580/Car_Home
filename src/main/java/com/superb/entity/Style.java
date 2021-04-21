@@ -61,6 +61,11 @@ public class Style implements Serializable {
     private Integer jb;
 
     /**
+     * 数据字典-国别-头部筛选
+     */
+    private Integer gb;
+
+    /**
      * 上市时间
      */
     private String sssj;

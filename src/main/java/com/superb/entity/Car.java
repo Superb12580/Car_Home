@@ -45,32 +45,32 @@ public class Car implements Serializable {
     /**
      * 最大扭矩
      */
-    private Integer zdnj;
+    private String zdnj;
 
     /**
      * 车长
      */
-    private Integer cc;
+    private String cc;
 
     /**
      * 车宽
      */
-    private Integer ck;
+    private String ck;
 
     /**
      * 车高
      */
-    private Integer cg;
+    private String cg;
 
     /**
      * 轴距
      */
-    private Integer zj;
+    private String zj;
 
     /**
      * 油箱容积
      */
-    private Double yxrj;
+    private String yxrj;
 
     /**
      * 发动机型号
@@ -85,7 +85,7 @@ public class Car implements Serializable {
     /**
      * 进气方式-Map
      */
-    private Integer jqxs;
+    private Integer jqfs;
 
     /**
      * 最大马力
@@ -105,7 +105,7 @@ public class Car implements Serializable {
     /**
      * 驻车制动类型-Map
      */
-    private Integer zczdlx;
+    private Integer zdlx;
 
     /**
      * 百公里加速时间
@@ -125,7 +125,7 @@ public class Car implements Serializable {
     /**
      * 燃油标号
      */
-    private String rybh;
+    private Integer rybh;
 
     /**
      * 创建时间

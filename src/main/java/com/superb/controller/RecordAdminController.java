@@ -64,7 +64,7 @@ public class RecordAdminController {
     private CommentService commentService;
 
     @Autowired
-    private CarService carService;
+    private StyleService styleService;
 
     @Autowired
     private VideoService videoService;
@@ -125,7 +125,7 @@ public class RecordAdminController {
         map.put("pls", yfbpl);
 
         // 已录入车型
-        map.put("ylrcx", carService.count());
+        map.put("ylrcx", styleService.count());
 
         // 视频集
         map.put("spj", videoService.count());

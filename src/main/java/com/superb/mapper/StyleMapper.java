@@ -70,4 +70,10 @@ public interface StyleMapper extends BaseMapper<Style> {
      */
     Style superbByIdAdmin(Integer styleId);
 
+    /**
+     * 选车
+     * @return
+     */
+    List<Style> selectXc(Map<String, Object> map);
+
 }

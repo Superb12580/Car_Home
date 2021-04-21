@@ -53,6 +53,7 @@ public class DataDictionaryController {
         return Result.success(list);
     }
 
+
     /**
      * 根据数据类型返回级别
      * @return
@@ -60,6 +61,16 @@ public class DataDictionaryController {
     @GetMapping("/itemJb")
     public Result itemJb(){
         List<Map<String, Object>> list = dataDictionaryService.selectData(MapUtil.DATA_TYPE_JB);
+        return Result.success(list);
+    }
+
+    /**
+     * 根据数据类型返回国别
+     * @return
+     */
+    @GetMapping("/itemGb")
+    public Result itemGb(){
+        List<Map<String, Object>> list = dataDictionaryService.selectData(MapUtil.DATA_TYPE_GB);
         return Result.success(list);
     }
 
@@ -82,6 +93,47 @@ public class DataDictionaryController {
         List<Map<String, Object>> list = dataDictionaryService.selectData(MapUtil.DATA_TYPE_NYLX);
         return Result.success(list);
     }
+
+    /**
+     * 根据数据类型返回进气方式
+     * @return
+     */
+    @GetMapping("/itemJqfs")
+    public Result itemJqfs(){
+        List<Map<String, Object>> list = dataDictionaryService.selectData(MapUtil.DATA_TYPE_JQFS);
+        return Result.success(list);
+    }
+
+    /**
+     * 根据数据类型返回驱动方式
+     * @return
+     */
+    @GetMapping("/itemQdfs")
+    public Result itemQdfs(){
+        List<Map<String, Object>> list = dataDictionaryService.selectData(MapUtil.DATA_TYPE_QDFS);
+        return Result.success(list);
+    }
+
+    /**
+     * 根据数据类型返回驻车制动类型
+     * @return
+     */
+    @GetMapping("/itemZdlx")
+    public Result itemZdlx(){
+        List<Map<String, Object>> list = dataDictionaryService.selectData(MapUtil.DATA_TYPE_ZDLX);
+        return Result.success(list);
+    }
+
+    /**
+     * 根据数据类型返回燃油标号
+     * @return
+     */
+    @GetMapping("/itemRybh")
+    public Result itemRybh(){
+        List<Map<String, Object>> list = dataDictionaryService.selectData(MapUtil.DATA_TYPE_RYBH);
+        return Result.success(list);
+    }
+
 
 
 }

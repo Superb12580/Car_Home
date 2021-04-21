@@ -120,6 +120,11 @@ public class MapUtil {
     public static final String DATA_TYPE_CS = "厂商";
     public static final String DATA_TYPE_HBBZ = "环保标准";
     public static final String DATA_TYPE_NYLX = "能源类型";
+    public static final String DATA_TYPE_JQFS = "进气方式";
+    public static final String DATA_TYPE_QDFS = "驱动方式";
+    public static final String DATA_TYPE_ZDLX = "制动类型";
+    public static final String DATA_TYPE_RYBH = "燃油标号";
+    public static final String DATA_TYPE_GB = "国别";
 
 
     // 默认页码

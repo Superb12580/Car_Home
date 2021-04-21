@@ -35,11 +35,34 @@
     </update>
 <!--修改style信息-->
     <update id="updateStyle" parameterType="com.superb.entity.Style">
-        update style set jgqj = #{jgqj}, cs = #{cs}, style_name = #{styleName}, jb = #{jb}, sssj = #{sssj}, hbbz = #{hbbz}, nylx = #{nylx}, xl = #{xl}, update_time = #{updateTime} where style_id = #{styleId}
+        update style set jgqj = #{jgqj}, cs = #{cs}, style_name = #{styleName}, jb = #{jb}, gb = #{gb}, sssj = #{sssj}, hbbz = #{hbbz}, nylx = #{nylx}, xl = #{xl}, update_time = #{updateTime} where style_id = #{styleId}
     </update>
 
     <select id="listAdmin" resultType="com.superb.entity.Style">
         select * from style order by create_time desc
+    </select>
+
+<!--多条件筛选-->
+    <select id="selectXc" parameterType="java.util.Map" resultType="com.superb.entity.Style">
+        select *
+        from style
+        where 1 = 1
+        <if test="csTj != null and csTj !=''">
+            and cs = #{csTj}
+        </if>
+        <if test="jbTj != null and jbTj !=''">
+            and jb = #{jbTj}
+        </if>
+        <if test="gbTj != null and gbTj !=''">
+            and gb = #{gbTj}
+        </if>
+        <if test="hbbzTj != null and hbbzTj !=''">
+            and hbbz = #{hbbzTj}
+        </if>
+        <if test="nylxTj != null and nylxTj !=''">
+            and nylx = #{nylxTj}
+        </if>
+        order by create_time desc
     </select>
 
 </mapper>

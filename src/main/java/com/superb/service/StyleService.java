@@ -70,4 +70,10 @@ public interface StyleService extends IService<Style> {
      * @return
      */
     Style superbByIdAdmin(Integer styleId);
+
+    /**
+     * 选车
+     * @return
+     */
+    List<Style> selectXc(Map<String, Object> map);
 }

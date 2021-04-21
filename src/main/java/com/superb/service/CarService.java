@@ -37,4 +37,10 @@ public interface CarService extends IService<Car> {
      */
     void updateAdmin(Car car);
 
+    /**
+     * 编辑保存
+     * @param car
+     */
+    void updateCar(Car car);
+
 }

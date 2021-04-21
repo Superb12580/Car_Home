@@ -75,7 +75,7 @@ public class NewsController {
     public Result listJjss(@RequestParam(defaultValue = "1",value = "current") Integer current,
                            @RequestParam(defaultValue = "6",name = "size") Integer size){
         Page<News> page = new Page<>(current, size);
-        IPage<News> list = newsService.page(page, new QueryWrapper<News>().isNotNull("sssj").isNotNull("sscmc").orderByDesc("create_time"));
+        IPage<News> list = newsService.page(page, new QueryWrapper<News>().ne("sssj", "").ne("sscmc", "").orderByDesc("create_time"));
         return Result.success(list);
     }
 

@@ -60,4 +60,9 @@ public class StyleServiceImpl extends ServiceImpl<StyleMapper, Style> implements
     public Style superbByIdAdmin(Integer styleId) {
         return baseMapper.superbByIdAdmin(styleId);
     }
+
+    @Override
+    public List<Style> selectXc(Map<String, Object> map) {
+        return baseMapper.selectXc(map);
+    }
 }

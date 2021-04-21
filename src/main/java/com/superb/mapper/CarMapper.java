@@ -37,4 +37,10 @@ public interface CarMapper extends BaseMapper<Car> {
      * @param car
      */
     void updateAdmin(Car car);
+
+    /**
+     * 编辑保存
+     * @param car
+     */
+    void updateCar(Car car);
 }

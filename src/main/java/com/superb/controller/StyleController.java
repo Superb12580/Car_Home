@@ -41,6 +41,16 @@ public class StyleController {
     private int count = 0;
     private int count2 = 0;
 
+    // 选车
+    @PostMapping("/xc")
+    public Result xc(@RequestBody Map<String, Object> map) {
+        List<Style> styles = styleService.selectXc(map);
+        Map<String, Object> objectMap = new HashMap<>();
+        // 筛选条件回传
+        objectMap.put("tj", map);
+        objectMap.put("xr", styles);
+        return Result.success(objectMap);
+    }
 
 
     // 首页底部展示
@@ -171,7 +181,7 @@ public class StyleController {
 
     @GetMapping("/listAdmin")
     public Result listAdmin(@RequestParam(defaultValue = "1", value = "current") Integer current,
-                            @RequestParam(defaultValue = "8", name = "size") Integer size) {
+                            @RequestParam(defaultValue = "5", name = "size") Integer size) {
         Page<Style> page = new Page<>(current, size);
         Page<Style> stylePage = styleService.listAdmin(page);
         return Result.success(stylePage);
