@@ -286,7 +286,7 @@ public class NewsController {
         newsService.save(news);
         // 日志
         News wybs = newsService.getOne(new QueryWrapper<News>().eq("wybs", uuid));
-        User byId = userService.getById(news.getUserId());
+        User byId = userService.getById(wybs.getUserId());
         recordService.xr(byId.getUserId().toString(), byId.getUserName(), MapUtil.FBWZ, wybs.getId().toString(), wybs.getTitle());
         return Result.success(wybs);
     }
@@ -304,7 +304,7 @@ public class NewsController {
         newsService.save(news);
         // 日志
         News wybs = newsService.getOne(new QueryWrapper<News>().eq("wybs", uuid));
-        User byId = userService.getById(news.getUserId());
+        User byId = userService.getById(wybs.getUserId());
         recordService.xr(byId.getUserId().toString(), byId.getUserName(), MapUtil.FBWZ, wybs.getId().toString(), wybs.getTitle());
         return Result.success(wybs);
     }
