@@ -6,6 +6,7 @@ import com.superb.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -30,6 +31,13 @@ public interface UserMapper extends BaseMapper<User> {
      * @return
      */
     IPage<User> adminListCjh(Page<?> page, Integer sfrz);
+
+    /**
+     * 搜索
+     * @param text
+     * @return
+     */
+    IPage<User> search(Page<?> page, String text);
 
     /**
      * 查询所有包括已删除

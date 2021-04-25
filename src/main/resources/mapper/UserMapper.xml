@@ -9,6 +9,10 @@
         <result column="update_time" property="updateTime"/>
     </resultMap>
 
+    <select id="search" parameterType="java.lang.String" resultMap="user">
+        select * from user where deleted = 0 and user_name like '%${text}%' order by create_time desc
+    </select>
+
     <select id="adminListCjh" resultMap="user" parameterType="java.lang.Integer">
         select * from user where sfrz = #{sfrz} order by create_time desc
     </select>
@@ -24,20 +28,5 @@
         select * from user where user_id != #{userId}
     </select>
 
-
-    <select id="adminLikeDeleted" resultMap="user" parameterType="java.lang.String">
-        select *
-        from user
-        where
-        user_id like #{str} or
-        user_name like #{str} or
-        email like #{str} or
-        sign like #{str} or
-        gender like #{str} or
-        date_birth like #{str} or
-        create_time like #{str} or
-        update_time like #{str} or
-        grade like #{str}
-    </select>
 
 </mapper>

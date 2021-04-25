@@ -1,8 +1,10 @@
 package com.superb.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.entity.Style;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.superb.entity.User;
 
 import java.util.List;
 import java.util.Map;
@@ -69,6 +71,14 @@ public interface StyleMapper extends BaseMapper<Style> {
      * @return
      */
     Style superbByIdAdmin(Integer styleId);
+
+    /**
+     * 搜索
+     * @param text
+     * @return
+     */
+    IPage<Style> search(Page<?> page, String text);
+
 
     /**
      * 选车

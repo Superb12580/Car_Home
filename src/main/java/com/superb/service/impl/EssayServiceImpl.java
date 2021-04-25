@@ -51,14 +51,7 @@ EssayServiceImpl extends ServiceImpl<EssayMapper, Essay> implements EssayService
     public IPage<Map<String, Object>> superbEssayById(Page<?> page, Long userId) {
         IPage<Map<String, Object>> mapIPage = baseMapper.superbEssayById(page, userId);
         // 处理多标签
-        for (Map<String, Object> map : mapIPage.getRecords()) {
-            if (map.get("essayLabel") != null && !"".equals(map.get("essayLabel"))) {
-                String str = map.get("essayLabel").toString();
-                String[] split = str.split(",");
-                List<Label> labels = labelService.listLabel(Arrays.asList(split));
-                map.put("essayLabel", labels);
-            }
-        }
+        getLabel(mapIPage);
         return mapIPage;
     }
 
@@ -67,6 +60,19 @@ EssayServiceImpl extends ServiceImpl<EssayMapper, Essay> implements EssayService
     public IPage<Map<String, Object>> superbAllEssay(Page<?> page, Integer deleted) {
         IPage<Map<String, Object>> mapIPage = baseMapper.superbAllEssay(page, deleted);
         // 处理多标签
+        getLabel(mapIPage);
+        return mapIPage;
+    }
+
+    @Override
+    public IPage<Map<String, Object>> search(Page<?> page, String text) {
+        IPage<Map<String, Object>> mapIPage = baseMapper.search(page, text);
+        // 处理多标签
+        getLabel(mapIPage);
+        return mapIPage;
+    }
+
+    private void getLabel(IPage<Map<String, Object>> mapIPage) {
         for (Map<String, Object> map : mapIPage.getRecords()) {
             if (map.get("essayLabel") != null && !"".equals(map.get("essayLabel"))) {
                 String str = map.get("essayLabel").toString();
@@ -75,27 +81,6 @@ EssayServiceImpl extends ServiceImpl<EssayMapper, Essay> implements EssayService
                 map.put("essayLabel", labels);
             }
         }
-        return mapIPage;
-    }
-
-    @Override
-    public IPage<EssayDto> adminList(Page<?> page) {
-        return baseMapper.adminList(page);
-    }
-
-    @Override
-    public IPage<EssayDto> adminListDeleted(Page<?> page) {
-        return baseMapper.adminListDeleted(page);
-    }
-
-    @Override
-    public IPage<EssayDto> adminLike(Page<?> page, String str) {
-        return baseMapper.adminLike(page, str);
-    }
-
-    @Override
-    public IPage<EssayDto> adminLikeDeleted(Page<?> page, String str) {
-        return baseMapper.adminLikeDeleted(page, str);
     }
 
     @Override

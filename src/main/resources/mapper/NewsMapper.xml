@@ -58,4 +58,9 @@
         select * from news where user_id = #{userId} order by create_time desc
     </select>
 
+
+<!--    搜索已发布-->
+    <select id="search" parameterType="java.lang.String" resultMap="listNews">
+        select * from news where zt = 4 and title like '%${text}%' order by create_time desc
+    </select>
 </mapper>

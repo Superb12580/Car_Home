@@ -1,5 +1,6 @@
 package com.superb.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.entity.Style;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -70,6 +71,13 @@ public interface StyleService extends IService<Style> {
      * @return
      */
     Style superbByIdAdmin(Integer styleId);
+
+    /**
+     * 搜索
+     * @param text
+     * @return
+     */
+    IPage<Style> search(Page<?> page, String text);
 
     /**
      * 选车

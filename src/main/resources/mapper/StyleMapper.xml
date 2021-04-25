@@ -65,4 +65,8 @@
         order by create_time desc
     </select>
 
+
+    <select id="search" parameterType="java.lang.String" resultType="com.superb.entity.Style">
+        select * from style where deleted = 0 and style_name like '%${text}%' order by create_time desc
+    </select>
 </mapper>

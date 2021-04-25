@@ -56,4 +56,9 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News> implements Ne
     public IPage<Map<String, Object>> itemNewsSy(Page<?> page, Long userId) {
         return baseMapper.itemNewsSy(page, userId);
     }
+
+    @Override
+    public IPage<Map<String, Object>> search(Page<?> page, String text) {
+        return baseMapper.search(page, text);
+    }
 }

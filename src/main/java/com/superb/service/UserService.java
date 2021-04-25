@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -23,6 +24,13 @@ public interface UserService extends IService<User> {
      * @return
      */
     IPage<User> userListAdmin(Page<?> page);
+
+    /**
+     * 搜索
+     * @param text
+     * @return
+     */
+    IPage<User> search(Page<?> page, String text);
 
     /**
      * 查询所有车家号

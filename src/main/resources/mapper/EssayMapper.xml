@@ -106,30 +106,10 @@
         update essay set deleted = #{deleted} where essay_id = #{essayId}
     </update>
 
-
-
-
-
-    <!--    管理员-->
-
-
-    <resultMap id="essayAdmin" type="com.superb.dto.EssayDto">
-        <id column="essay_id" property="essayId"/>
-        <result column="essay_title" property="essayTitle"/>
-        <result column="essay_text" property="essayText"/>
-        <result column="create_time" property="createTime"/>
-        <result column="essay_label" property="essayLabel"/>
-        <!--连表-->
-        <association column="user_id" property="user" javaType="com.superb.entity.User"
-                     select="com.superb.mapper.UserMapper.selectById"/>
-    </resultMap>
-
-
-    <select id="adminListDeleted" resultMap="essayAdmin">
-        select * from essay
+    <select id="search" parameterType="java.lang.String" resultMap="essayMap">
+        select * from essay where deleted = 0 and essay_title like '%${text}%' order by create_time desc
     </select>
 
-    <select id="adminList" resultMap="essayAdmin">
-        select * from essay where deleted = 0
-    </select>
+
+
 </mapper>

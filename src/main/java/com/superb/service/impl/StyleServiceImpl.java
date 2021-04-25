@@ -1,5 +1,6 @@
 package com.superb.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.superb.entity.Style;
 import com.superb.mapper.StyleMapper;
@@ -59,6 +60,11 @@ public class StyleServiceImpl extends ServiceImpl<StyleMapper, Style> implements
     @Override
     public Style superbByIdAdmin(Integer styleId) {
         return baseMapper.superbByIdAdmin(styleId);
+    }
+
+    @Override
+    public IPage<Style> search(Page<?> page, String text) {
+        return baseMapper.search(page, text);
     }
 
     @Override

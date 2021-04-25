@@ -152,6 +152,20 @@ public class StyleController {
     }
 
     /**
+     * 模糊查询
+     * @param text
+     * @return
+     */
+    @GetMapping("/search")
+    public Result search(@RequestParam(defaultValue = "", value = "text") String text,
+                         @RequestParam(defaultValue = "1", name = "current") Integer current,
+                         @RequestParam(defaultValue = "9", name = "size") Integer size){
+        Page<Map<String, Object>> page = new Page<>(current, size);
+        IPage<Style> search = styleService.search(page, text);
+        return Result.success(search);
+    }
+
+    /**
      * 下架
      * @param style
      * @return

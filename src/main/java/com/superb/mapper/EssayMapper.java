@@ -54,38 +54,20 @@ public interface EssayMapper extends BaseMapper<Essay> {
     IPage<Map<String, Object>> superbAllEssay(Page<?> page, Integer deleted);
 
 
+    /**
+     * 搜索
+     * @param text
+     * @return
+     */
+    IPage<Map<String, Object>> search(Page<?> page, String text);
+
+
+
 
 
     /**********************管理员***************************/
 
-    /**
-     * 查询所有不包括已删除
-     * @param page
-     * @return
-     */
-    IPage<EssayDto> adminList(Page<?> page);
-    /**
-     * 查询所有包括已删除
-     * @param page
-     * @return
-     */
-    IPage<EssayDto> adminListDeleted(Page<?> page);
 
-    /**
-     * 模糊查询不包括已删除
-     * @param page
-     * @param str
-     * @return
-     */
-    IPage<EssayDto> adminLike(Page<?> page,String str);
-
-    /**
-     * 模糊查询包括已删除
-     * @param page
-     * @param str
-     * @return
-     */
-    IPage<EssayDto> adminLikeDeleted(Page<?> page,String str);
 
     /**
      * 重新发布

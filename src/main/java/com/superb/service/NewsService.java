@@ -65,4 +65,12 @@ public interface NewsService extends IService<News> {
      */
     IPage<Map<String, Object>> itemNewsSy (Page<?> page, Long userId);
 
+
+    /**
+     * 搜索
+     * @param text
+     * @return
+     */
+    IPage<Map<String, Object>> search(Page<?> page, String text);
+
 }

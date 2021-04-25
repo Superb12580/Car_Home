@@ -36,8 +36,6 @@ public class CarApplicationTests {
     @Autowired
     private LabelService labelService;
 
-    @Autowired
-    private EssayMapper essayMapper;
 
 
     @Test
@@ -75,32 +73,6 @@ public class CarApplicationTests {
         userService.updateById(user);
     }
 
-    @Test
-    public void test5() {
-        System.out.println("********************");
-        Page<EssayDto> page = new Page<>(1, 3);
-        IPage<EssayDto> essayDtoIPage = essayMapper.adminList(page);
-        for (EssayDto essayDto : essayDtoIPage.getRecords()) {
-            System.out.println(essayDto.getUser());
-            System.out.println(essayDto.getLabel());
-        }
-        System.out.println("********************");
-    }
-
-    @Autowired
-    private AttentionMapper attentionMapper;
-
-    @Test
-    public void test6() {
-        System.out.println("********************");
-        Page<AttentionDto> page = new Page<>(1, 3);
-        IPage<AttentionDto> attentionDtoIPage = attentionMapper.superbAttentionById(page,3L);
-        for (AttentionDto attentionDto : attentionDtoIPage.getRecords()) {
-            System.out.println(attentionDto.getCreateTime());
-            System.out.println(attentionDto.getThisId());
-        }
-        System.out.println("********************");
-    }
 
 
 }
