@@ -455,7 +455,7 @@ public class UserController {
 
         try {
             //发送验证码
-            String code = sendMail.sendMailHelper(login.getEmail());
+            String code = sendMail.sendMail(login.getEmail());
             String email = login.getEmail();
             this.registerLogin.setCode(code);
             this.registerLogin.setEmail(email);
@@ -503,7 +503,7 @@ public class UserController {
         if (user == null) {
             try {
                 //发送验证码
-                String code = sendMail.sendMailHelper(login.getEmail());
+                String code = sendMail.sendMail(login.getEmail());
                 String email = login.getEmail();
                 this.registerLogin.setCode(code);
                 this.registerLogin.setEmail(email);

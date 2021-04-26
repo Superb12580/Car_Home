@@ -158,7 +158,7 @@ public class LoginController {
         if (user != null) {
             try {
                 //发送验证码
-                String code = sendMail.sendMailHelper(login.getEmail());
+                String code = sendMail.sendMail(login.getEmail());
                 long userId = user.getUserId();
                 this.registerLogin.setCode(code);
                 this.registerLogin.setUserId(userId);

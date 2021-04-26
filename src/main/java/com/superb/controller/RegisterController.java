@@ -82,7 +82,7 @@ public class RegisterController {
     private void sendEmail(@RequestBody RegisterLogin register) {
         try {
             //发送验证码
-            String code = sendMail.sendMailHelper(register.getEmail());
+            String code = sendMail.sendMail(register.getEmail());
             String email = register.getEmail();
             this.registerLogin.setCode(code);
             this.registerLogin.setEmail(email);

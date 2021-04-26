@@ -43,7 +43,7 @@ public class Utils {
             List<GetPlayInfoResponse.PlayInfo> playInfoList = response.getPlayInfoList();
             //播放地址
             for (GetPlayInfoResponse.PlayInfo playInfo : playInfoList) {
-                return playInfo.getPlayURL();
+                return playInfo.getPlayURL().substring(0, playInfo.getPlayURL().indexOf('?'));
             }
             //Base信息
 //            System.out.print("VideoBase.Title = " + response.getVideoBase().getTitle() + "\n");
