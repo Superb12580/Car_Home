@@ -32,8 +32,8 @@ public interface OssService {
     String uploadVideoAly(MultipartFile file);
 
     /**
-     * 删除多个阿里云视频的方法
-     * @param videoIdList
+     * 删除阿里云视频的方法
+     * @param videoId
      */
-    void removeMoreAlyVideo(List videoIdList);
+    void removeMoreAlyVideo(String videoId);
 }

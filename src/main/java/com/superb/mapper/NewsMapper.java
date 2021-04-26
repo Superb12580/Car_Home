@@ -41,20 +41,14 @@ public interface NewsMapper extends BaseMapper<News> {
 
 
     /**
-     * 一个用户的文章数量
-     */
-    Integer newsCountByUserId (Long userId, Integer zt);
-
-
-    /**
-     * 文章详情 附带用户信息 粉丝数 文章数量 相关style信息 文章排行
+     * 文章详情 附带用户信息 粉丝数 文章数量 相关style信息
      * @param id
      * @return
      */
     Map<String, Object> newsById (Integer id);
 
     /**
-     * 查询所有带头图片的news 附带user
+     * 查询所有news 附带user
      * @return
      */
     IPage<Map<String, Object>> listNews (Page<?> page, Integer zt);

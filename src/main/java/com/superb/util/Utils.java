@@ -1,5 +1,10 @@
 package com.superb.util;
 
+import com.aliyun.oss.ClientException;
+import com.aliyuncs.DefaultAcsClient;
+import com.aliyuncs.profile.DefaultProfile;
+import com.aliyuncs.vod.model.v20170321.GetPlayInfoRequest;
+import com.aliyuncs.vod.model.v20170321.GetPlayInfoResponse;
 import com.superb.dto.RegisterLogin;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +20,39 @@ import java.util.UUID;
  * @E_mail superb12580@163.com
  */
 public class Utils {
+
+    public static DefaultAcsClient initVodClient(String accessKeyId, String accessKeySecret) throws ClientException {
+        String regionId = "cn-shanghai";  // 点播服务接入区域
+        DefaultProfile profile = DefaultProfile.getProfile(regionId, accessKeyId, accessKeySecret);
+        DefaultAcsClient client = new DefaultAcsClient(profile);
+        return client;
+    }
+
+    /**
+     * 输入视频id返回播放地址
+     * @param videoId
+     * @return
+     */
+    public static String getUrlById(String videoId) {
+        DefaultAcsClient client = Utils.initVodClient(ConstantProperties.ACCESS_KEY_ID, ConstantProperties.ACCESS_KEY_SECRET);
+        GetPlayInfoResponse response;
+        try {
+            GetPlayInfoRequest request = new GetPlayInfoRequest();
+            request.setVideoId(videoId);
+            response = client.getAcsResponse(request);
+            List<GetPlayInfoResponse.PlayInfo> playInfoList = response.getPlayInfoList();
+            //播放地址
+            for (GetPlayInfoResponse.PlayInfo playInfo : playInfoList) {
+                return playInfo.getPlayURL();
+            }
+            //Base信息
+//            System.out.print("VideoBase.Title = " + response.getVideoBase().getTitle() + "\n");
+        } catch (Exception e) {
+            System.out.print("ErrorMessage = " + e.getLocalizedMessage());
+        }
+        return null;
+    }
+
 
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 

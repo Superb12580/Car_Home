@@ -11,7 +11,6 @@ import com.superb.dto.Item;
 import com.superb.dto.RegisterLogin;
 import com.superb.entity.*;
 import com.superb.service.*;
-import com.superb.util.FileUpload;
 import com.superb.util.Result;
 import com.superb.util.SendMail;
 import com.superb.util.Utils;
@@ -21,10 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 /**
  * <p>

@@ -26,6 +26,11 @@ public class MapUtil {
     public static final Integer YFB = 4;
     public static final Integer YBH = 5;
 
+    // 视频审核发布 1待审核 2通过 3已驳回
+    public static final Integer VIDEO_DSH = 1;
+    public static final Integer VIDEO_YFB = 2;
+    public static final Integer VIDEO_YBH = 3;
+
 
     // 管理员Id
     public static final Long GLYID = 1L;
@@ -42,7 +47,7 @@ public class MapUtil {
 
     // 文章默认条数
     public static final Integer WZTS = 9;
-    // 文章排行条数
+    // 文章视频排行条数
     public static final Integer PHTS = 10;
 
     public static final Integer YSC = 1;
