@@ -98,6 +98,11 @@ public class Item implements Serializable {
      */
     private Integer newsCount;
 
+    /**
+     * 视频数
+     */
+    private Integer videoCount;
+
 
     /**
      * 关注数

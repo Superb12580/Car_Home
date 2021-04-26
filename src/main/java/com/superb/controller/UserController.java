@@ -300,6 +300,8 @@ public class UserController {
         return Result.success(item);
     }
 
+    @Autowired
+    private VideoService videoService;
 
     /**
      *
@@ -319,6 +321,7 @@ public class UserController {
         int commentCount = commentService.count(new QueryWrapper<Comment>().eq("user_id", thatId));
         int messageCount = messageService.count(new QueryWrapper<Message>().eq("this_id", thatId));
         int newsCount = newsService.count(new QueryWrapper<News>().eq("user_id", thatId).eq("zt", MapUtil.YFB));
+        int videoCount = videoService.count(new QueryWrapper<Video>().eq("user_id", thatId).eq("zt", MapUtil.VIDEO_YFB));
 
         final Attention one = attentionService.getOne(new QueryWrapper<Attention>().eq("this_id", userId).eq("that_id", thatId));
 
@@ -336,6 +339,7 @@ public class UserController {
         item.setCommentCount(commentCount);
         item.setMessageCount(messageCount);
         item.setNewsCount(newsCount);
+        item.setVideoCount(videoCount);
         BeanUtil.copyProperties(user, item);
         return Result.success(item);
     }
