@@ -125,7 +125,7 @@ public class UserController {
     public Result search(@RequestParam(defaultValue = "", value = "text") String text,
                          @RequestParam(defaultValue = "1", name = "current") Integer current,
                          @RequestParam(defaultValue = "8", name = "size") Integer size){
-        Page<Map<String, Object>> page = new Page<>(current, size);
+        Page<User> page = new Page<>(current, size);
         IPage<User> search = userService.search(page, text);
         return Result.success(search);
     }
