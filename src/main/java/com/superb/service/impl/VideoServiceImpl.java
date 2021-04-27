@@ -41,4 +41,9 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
     public Map<String, Object> videoById(Integer id) {
         return baseMapper.videoById(id);
     }
+
+    @Override
+    public IPage<Map<String, Object>> search(Page<?> page, String text) {
+        return baseMapper.search(page, text);
+    }
 }

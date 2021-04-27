@@ -49,4 +49,11 @@ public interface VideoMapper extends BaseMapper<Video> {
      * @return
      */
     Map<String, Object> videoById (Integer id);
+
+    /**
+     * 搜索
+     * @param text
+     * @return
+     */
+    IPage<Map<String, Object>> search(Page<?> page, String text);
 }

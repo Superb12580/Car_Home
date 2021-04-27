@@ -13,6 +13,12 @@
     </resultMap>
 
 
+    <!--    搜索已发布-->
+    <select id="search" parameterType="java.lang.String" resultMap="listVideo">
+        select * from video where zt = 2 and video_title like '%${text}%' order by create_time desc
+    </select>
+
+
     <!--    查询所有video附带user-->
     <select id="listVideo" resultType="java.lang.Integer" resultMap="listVideo">
         select * from video where zt = #{zt} order by create_time desc
