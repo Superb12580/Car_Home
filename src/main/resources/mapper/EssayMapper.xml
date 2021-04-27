@@ -7,6 +7,7 @@
         <result column="essay_title" property="essayTitle"/>
         <result column="essay_text" property="essayText"/>
         <result column="user_id" property="userId"/>
+        <result column="deleted" property="deleted"/>
         <result column="essay_label" property="essayLabel"/>
         <!--连接用户表 显示发动态的用户-->
         <association column="user_id" property="user"

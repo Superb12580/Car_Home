@@ -8,6 +8,7 @@ import com.superb.common.MapUtil;
 import com.superb.entity.News;
 import com.superb.entity.RecordAdmin;
 import com.superb.entity.User;
+import com.superb.entity.Video;
 import com.superb.service.*;
 import com.superb.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,7 +129,7 @@ public class RecordAdminController {
         map.put("ylrcx", styleService.count());
 
         // 视频集
-        map.put("spj", videoService.count());
+        map.put("spj", videoService.count(new QueryWrapper<Video>().eq("zt", MapUtil.VIDEO_YFB)));
 
         return Result.success(map);
     }
