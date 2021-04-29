@@ -27,6 +27,12 @@ public class SendMail {
     private static final String imgUrl = "C:\\Users\\HP\\Desktop\\汽车之家\\ProjectCode\\SpringBootCar\\src\\main\\resources\\img\\Logo2.png";
     private static final String fromUrl = "superb12580@163.com";
 
+    /**
+     * 不带附件
+     * @param toUrl
+     * @return
+     * @throws MessagingException
+     */
     public String sendMail(String toUrl) throws MessagingException {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage,true);
@@ -41,6 +47,12 @@ public class SendMail {
         return code;
     }
 
+    /**
+     * 带附件
+     * @param toUrl
+     * @return
+     * @throws MessagingException
+     */
     public String sendMailHelper(String toUrl) throws MessagingException {
 
         MimeMessage mimeMessage = mailSender.createMimeMessage();

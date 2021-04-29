@@ -54,7 +54,7 @@ public class Utils {
     }
 
 
-    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
     /**
      * 生成新的文件名

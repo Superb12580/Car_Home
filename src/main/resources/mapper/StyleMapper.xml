@@ -46,7 +46,7 @@
     <select id="selectXc" parameterType="java.util.Map" resultType="com.superb.entity.Style">
         select *
         from style
-        where 1 = 1
+        where deleted = 0
         <if test="csTj != null and csTj !=''">
             and cs = #{csTj}
         </if>
