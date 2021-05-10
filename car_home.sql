@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50562
 File Encoding         : 65001
 
-Date: 2021-04-27 17:31:22
+Date: 2021-05-11 03:26:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -65,7 +65,7 @@ CREATE TABLE `car` (
   `jqfs` int(11) DEFAULT NULL COMMENT '进气方式-Map',
   `zdml` varchar(35) DEFAULT NULL COMMENT '最大马力',
   `zdgl` varchar(35) DEFAULT NULL COMMENT '最大功率',
-  `qdfs` int(2) DEFAULT NULL COMMENT '驱动类型-Map',
+  `qdfs` int(2) DEFAULT NULL COMMENT '驱动方式-Map',
   `zdlx` int(2) DEFAULT NULL COMMENT '制动类型-Map',
   `bgljs` varchar(20) DEFAULT NULL COMMENT '百公里加速时间',
   `bglyh` varchar(30) DEFAULT NULL COMMENT '百公里油耗',
@@ -99,7 +99,7 @@ CREATE TABLE `comment` (
   `create_time` varchar(255) NOT NULL COMMENT '评论时间',
   `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '逻辑删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for data_dictionary
@@ -183,6 +183,15 @@ CREATE TABLE `forward` (
 ) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
+-- Table structure for grade
+-- ----------------------------
+DROP TABLE IF EXISTS `grade`;
+CREATE TABLE `grade` (
+  `user_id` bigint(20) NOT NULL COMMENT '用户id',
+  `style_id` int(11) NOT NULL COMMENT '车型id'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
 -- Table structure for label
 -- ----------------------------
 DROP TABLE IF EXISTS `label`;
@@ -212,7 +221,7 @@ CREATE TABLE `message` (
   `create_time` varchar(255) NOT NULL COMMENT '发送时间',
   `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '逻辑删除',
   PRIMARY KEY (`message_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=284 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=287 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for news
@@ -264,7 +273,7 @@ CREATE TABLE `record` (
   `object_id` varchar(255) DEFAULT NULL COMMENT '对象id',
   `object_name` varchar(255) DEFAULT NULL COMMENT '对象名称',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1471 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1513 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for record_admin
@@ -275,7 +284,17 @@ CREATE TABLE `record_admin` (
   `create_time` varchar(255) NOT NULL COMMENT '创建时间',
   `text` varchar(255) NOT NULL COMMENT '操作内容',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=140 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=164 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Table structure for reputation
+-- ----------------------------
+DROP TABLE IF EXISTS `reputation`;
+CREATE TABLE `reputation` (
+  `user_id` bigint(20) NOT NULL COMMENT '用户id',
+  `style_id` int(11) NOT NULL COMMENT '车型id',
+  `fs` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for style
@@ -326,7 +345,7 @@ CREATE TABLE `user` (
   `sfrz` int(10) NOT NULL DEFAULT '0' COMMENT '是否为公众号',
   `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '逻辑删除',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for video
