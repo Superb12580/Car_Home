@@ -49,6 +49,14 @@ public interface VideoService extends IService<Video> {
     Map<String, Object> videoById (Integer id);
 
     /**
+     * 相关视频推荐
+     * @param page
+     * @param styleId
+     * @return
+     */
+    IPage<Map<String, Object>> listByStyleId(Page<?> page, Integer styleId);
+
+    /**
      * 搜索
      * @param text
      * @return

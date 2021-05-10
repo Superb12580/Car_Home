@@ -19,4 +19,36 @@
         update car set car_name = #{carName}, cszdj = #{cszdj}, zdnj = #{zdnj}, cc = #{cc}, ck = #{ck}, cg = #{cg}, zj = #{zj}, yxrj = #{yxrj}, fdjxh = #{fdjxh}, pl = #{pl}, jqfs = #{jqfs}, zdml = #{zdml}, zdgl = #{zdgl}, qdfs = #{qdfs}, zdlx = #{zdlx}, bgljs = #{bgljs}, bglyh = #{bglyh}, zgcs = #{zgcs}, rybh = #{rybh}, update_time = #{updateTime} where car_id = #{carId}
     </update>
 
+    <resultMap id="car" type="java.util.Map">
+        <id column="car_id" property="carId"/>
+        <result column="car_name" property="carName"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+
+        <!--连接字典 显示国别-->
+        <association column="qdfs" property="qdfs"
+                     select="com.superb.mapper.DataDictionaryMapper.selectDataById"
+                     javaType="java.lang.Integer"/>
+
+        <!--连接字典 显示级别-->
+        <association column="jqfs" property="jqfs"
+                     select="com.superb.mapper.DataDictionaryMapper.selectDataById"
+                     javaType="java.lang.Integer"/>
+
+        <!--连接字典 显示环保标准-->
+        <association column="rybh" property="rybh"
+                     select="com.superb.mapper.DataDictionaryMapper.selectDataById"
+                     javaType="java.lang.Integer"/>
+
+        <!--连接字典 显示环保标准-->
+        <association column="zdlx" property="zdlx"
+                     select="com.superb.mapper.DataDictionaryMapper.selectDataById"
+                     javaType="java.lang.Integer"/>
+
+    </resultMap>
+
+    <select id="xq" parameterType="java.lang.Integer" resultMap="car">
+        select * from car where style_id = #{styleId} and deleted = 0
+    </select>
+
 </mapper>

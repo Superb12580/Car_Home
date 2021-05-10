@@ -69,4 +69,44 @@
     <select id="search" parameterType="java.lang.String" resultType="com.superb.entity.Style">
         select * from style where deleted = 0 and style_name like '%${text}%' order by create_time desc
     </select>
+
+
+
+    <resultMap id="style" type="java.util.Map">
+        <id column="style_id" property="styleId"/>
+        <result column="style_name" property="styleName"/>
+        <result column="img_lbt" property="imgLbt"/>
+        <result column="style_photo" property="stylePhoto"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+
+        <!--连接字典 显示国别-->
+        <association column="gb" property="gb"
+                     select="com.superb.mapper.DataDictionaryMapper.selectDataById"
+                     javaType="java.lang.Integer"/>
+
+        <!--连接字典 显示级别-->
+        <association column="jb" property="jb"
+                     select="com.superb.mapper.DataDictionaryMapper.selectDataById"
+                     javaType="java.lang.Integer"/>
+
+        <!--连接字典 显示环保标准-->
+        <association column="hbbz" property="hbbz"
+                     select="com.superb.mapper.DataDictionaryMapper.selectDataById"
+                     javaType="java.lang.Integer"/>
+
+        <!--连接字典 显示环保标准-->
+        <association column="nylx" property="nylx"
+                     select="com.superb.mapper.DataDictionaryMapper.selectDataById"
+                     javaType="java.lang.Integer"/>
+
+        <!--连接字典 显示厂商-->
+        <association column="cs" property="cs"
+                     select="com.superb.mapper.DataDictionaryMapper.selectDataById"
+                     javaType="java.lang.Integer"/>
+    </resultMap>
+
+    <select id="xq" parameterType="java.lang.Integer" resultMap="style">
+        select * from style where style_id = #{styleId}
+    </select>
 </mapper>

@@ -62,6 +62,14 @@ public interface NewsMapper extends BaseMapper<News> {
     IPage<Map<String, Object>> itemNews (Page<?> page, Long userId, Integer zt);
 
     /**
+     * 相关文章推荐
+     * @param page
+     * @param styleId
+     * @return
+     */
+    IPage<Map<String, Object>> listByStyleId(Page<?> page, Integer styleId);
+
+    /**
      * 查询一个带头图片的news 附带user
      * @return
      */

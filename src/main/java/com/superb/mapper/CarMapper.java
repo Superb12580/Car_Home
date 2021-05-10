@@ -43,4 +43,11 @@ public interface CarMapper extends BaseMapper<Car> {
      * @param car
      */
     void updateCar(Car car);
+
+    /**
+     * 车详情
+     * @param styleId
+     * @return
+     */
+    List<Map<String, Object>> xq(Integer styleId);
 }

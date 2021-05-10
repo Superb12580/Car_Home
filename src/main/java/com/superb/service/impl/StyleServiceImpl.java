@@ -6,6 +6,7 @@ import com.superb.entity.Style;
 import com.superb.mapper.StyleMapper;
 import com.superb.service.StyleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.superb.util.Utils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -71,4 +72,17 @@ public class StyleServiceImpl extends ServiceImpl<StyleMapper, Style> implements
     public List<Style> selectXc(Map<String, Object> map) {
         return baseMapper.selectXc(map);
     }
+
+    @Override
+    public Map<String, Object> xq(Integer styleId) {
+        Map<String, Object> xq = baseMapper.xq(styleId);
+        double pfrs = Double.parseDouble(xq.get("pfrs").toString());
+        double div = 0D;
+        if (pfrs > 0){
+            div = Utils.div(Double.parseDouble(xq.get("zpf").toString()), pfrs, 1);
+        }
+        xq.put("kb", div);
+        return xq;
+    }
+
 }

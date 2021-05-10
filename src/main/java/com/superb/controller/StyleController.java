@@ -41,6 +41,19 @@ public class StyleController {
     private int count = 0;
     private int count2 = 0;
 
+
+    /**
+     * 车详情
+     * @param styleId
+     * @return
+     */
+    @GetMapping("/xq")
+    public Result xq(@RequestParam("styleId") Integer styleId) {
+        Map<String, Object> xq = styleService.xq(styleId);
+        return Result.success(xq);
+    }
+
+
     // 选车
     @PostMapping("/xc")
     public Result xc(@RequestBody Map<String, Object> map) {
@@ -94,7 +107,7 @@ public class StyleController {
     // 销量排行
     @GetMapping("/xlPh")
     public Result xlPh() {
-        Page<Style> page = new Page<>(MapUtil.MRYM, MapUtil.sizeD);
+        Page<Style> page = new Page<>(MapUtil.MRYM, MapUtil.sizeC);
         IPage<Style> styleIPage = styleService.page(page, new QueryWrapper<Style>().orderByDesc("xl"));
         return Result.success(styleIPage.getRecords());
     }
@@ -102,14 +115,14 @@ public class StyleController {
     // 评分排行
     @GetMapping("/pfPh")
     public Result pfPh() {
-        List<Map<String, Object>> list = styleService.pfPh(MapUtil.sizeD);
+        List<Map<String, Object>> list = styleService.pfPh(MapUtil.sizeC);
         return Result.success(list);
     }
 
     // 点击量排行
     @GetMapping("/djlPh")
     public Result djlPh() {
-        Page<Style> page = new Page<>(MapUtil.MRYM, MapUtil.sizeD);
+        Page<Style> page = new Page<>(MapUtil.MRYM, MapUtil.sizeC);
         IPage<Style> styleIPage = styleService.page(page, new QueryWrapper<Style>().orderByDesc("djl"));
         return Result.success(styleIPage.getRecords());
     }
@@ -117,7 +130,7 @@ public class StyleController {
     // 收藏数排行
     @GetMapping("/scsPh")
     public Result scsPh() {
-        List<Map<String, Object>> list = styleService.scPh(MapUtil.sizeD);
+        List<Map<String, Object>> list = styleService.scPh(MapUtil.sizeC);
         return Result.success(list);
     }
 

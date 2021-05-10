@@ -8,7 +8,9 @@ import com.superb.service.CarService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -38,5 +40,27 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
     @Override
     public void updateCar(Car car) {
         baseMapper.updateCar(car);
+    }
+
+    @Override
+    public List<Map<String, Object>> xq(Integer styleId, boolean flag) {
+        List<Map<String, Object>> xq = baseMapper.xq(styleId);
+        // 如果需要高亮
+        if (flag) {
+            Map<String, Object> flagMap = new HashMap<>();
+            for (Map.Entry<String, Object> entry : xq.get(0).entrySet()){
+                Map<String, Object> hashMap = new HashMap<>();
+                for (Map<String, Object> map : xq) {
+                    hashMap.put(map.get(entry.getKey()).toString(), entry.getKey());
+                }
+                flagMap.put(entry.getKey(), 0);
+                if (hashMap.size() > 1){
+                    flagMap.put(entry.getKey(), 1);
+                }
+            }
+            xq.clear();
+            xq.add(flagMap);
+        }
+        return xq;
     }
 }

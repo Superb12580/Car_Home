@@ -86,4 +86,11 @@ public interface StyleMapper extends BaseMapper<Style> {
      */
     List<Style> selectXc(Map<String, Object> map);
 
+    /**
+     * 车详情
+     * @param styleId
+     * @return
+     */
+    Map<String, Object> xq(Integer styleId);
+
 }

@@ -37,6 +37,15 @@ public interface VideoMapper extends BaseMapper<Video> {
 
 
     /**
+     * 相关视频推荐
+     * @param page
+     * @param styleId
+     * @return
+     */
+    IPage<Map<String, Object>> listByStyleId(Page<?> page, Integer styleId);
+
+
+    /**
      * 视频排行
      * @param total
      * @return

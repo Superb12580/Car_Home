@@ -46,6 +46,7 @@ public interface StyleService extends IService<Style> {
      */
     void updateAdmin(Style style);
 
+
     /**
      * 管理员查询所有
      * @param page
@@ -84,4 +85,11 @@ public interface StyleService extends IService<Style> {
      * @return
      */
     List<Style> selectXc(Map<String, Object> map);
+
+    /**
+     * 车详情
+     * @param styleId
+     * @return
+     */
+    Map<String, Object> xq(Integer styleId);
 }

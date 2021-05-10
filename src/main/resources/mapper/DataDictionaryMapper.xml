@@ -12,4 +12,8 @@
     </select>
 
 
+    <select id="selectDataById" parameterType="java.lang.Integer" resultType="java.util.Map">
+        select * from data_dictionary where id = #{id}
+    </select>
+
 </mapper>

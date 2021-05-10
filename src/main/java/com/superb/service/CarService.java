@@ -6,6 +6,7 @@ import com.superb.entity.Car;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -42,5 +43,12 @@ public interface CarService extends IService<Car> {
      * @param car
      */
     void updateCar(Car car);
+
+    /**
+     * 车详情
+     * @param styleId
+     * @return
+     */
+    List<Map<String, Object>> xq(Integer styleId, boolean flag);
 
 }

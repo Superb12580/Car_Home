@@ -43,6 +43,11 @@
         select * from news where zt = #{zt} order by create_time desc
     </select>
 
+    <!--    相关文章推荐-->
+    <select id="listByStyleId" parameterType="java.lang.Integer" resultMap="listNews">
+        select * from news where zt = 4 and style_id = #{styleId} order by create_time desc
+    </select>
+
 <!--    用户news审核页面  无需zt = 4-->
     <select id="itemById" resultMap="listNews" parameterType="java.lang.Integer">
         select * from news where id = #{id}

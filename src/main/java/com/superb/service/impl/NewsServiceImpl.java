@@ -28,6 +28,11 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News> implements Ne
     }
 
     @Override
+    public IPage<Map<String, Object>> listByStyleId(Page<?> page, Integer styleId) {
+        return baseMapper.listByStyleId(page, styleId);
+    }
+
+    @Override
     public List<News> listPh(Integer total, Integer zt) {
         return baseMapper.listPh(total, zt);
     }

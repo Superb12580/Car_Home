@@ -10,6 +10,7 @@ import com.superb.entity.Style;
 import com.superb.handler.MyMetaObjectHandler;
 import com.superb.service.CarService;
 import com.superb.service.RecordAdminService;
+import com.superb.service.StyleService;
 import com.superb.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,36 @@ public class CarController {
 
     @Autowired
     private RecordAdminService recordAdminService;
+
+    @Autowired
+    private StyleService styleService;
+
+    /**
+     * 车详情
+     * @param styleId
+     * @return
+     */
+    @GetMapping("/xq")
+    public Result xq(@RequestParam("styleId") Integer styleId) {
+        Style byId = styleService.getById(styleId);
+        Style style = new Style();
+        style.setStyleId(byId.getStyleId());
+        style.setDjl(byId.getDjl() + 1);
+        styleService.updateById(style);
+        List<Map<String, Object>> xq = carService.xq(styleId, false);
+        return Result.success(xq);
+    }
+
+    /**
+     * 车详情
+     * @param styleId
+     * @return
+     */
+    @GetMapping("/glxs")
+    public Result glxs(@RequestParam("styleId") Integer styleId) {
+        List<Map<String, Object>> xq = carService.xq(styleId, true);
+        return Result.success(xq.get(0));
+    }
 
 
     /**

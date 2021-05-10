@@ -26,6 +26,14 @@ public interface NewsService extends IService<News> {
     List<News> listWz (Integer total, Integer zt);
 
     /**
+     * 相关文章推荐
+     * @param page
+     * @param styleId
+     * @return
+     */
+    IPage<Map<String, Object>> listByStyleId(Page<?> page, Integer styleId);
+
+    /**
      * 首页文章排行
      * @param total
      * @return

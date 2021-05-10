@@ -18,6 +18,11 @@
         select * from video where zt = 2 and video_title like '%${text}%' order by create_time desc
     </select>
 
+    <!--    相关视频推荐-->
+    <select id="listByStyleId" parameterType="java.lang.Integer" resultMap="listVideo">
+        select * from video where zt = 2 and style_id = #{styleId} order by create_time desc
+    </select>
+
 
     <!--    查询所有video附带user-->
     <select id="listVideo" resultType="java.lang.Integer" resultMap="listVideo">

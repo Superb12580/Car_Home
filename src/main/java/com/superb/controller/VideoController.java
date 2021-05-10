@@ -56,6 +56,20 @@ public class VideoController {
     }
 
     /**
+     * 相关视频推荐列表 已发布
+     * @param current
+     * @param size
+     * @return
+     */
+    @GetMapping("/listVideoByStyleId")
+    public Result listVideoByStyleId(@RequestParam(defaultValue = "1", name = "current") Integer current,
+                       @RequestParam(defaultValue = "5", name = "size") Integer size, @RequestParam("styleId")Integer styleId){
+        Page<Map<String, Object>> page = new Page<>(current, size);
+        IPage<Map<String, Object>> mapIPage = videoService.listByStyleId(page, styleId);
+        return Result.success(mapIPage);
+    }
+
+    /**
      * 查询所有已驳回  video  附加user
      * @param current
      * @param size

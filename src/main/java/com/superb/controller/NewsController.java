@@ -52,6 +52,21 @@ public class NewsController {
     }
 
     /**
+     * 相关文章推荐列表 已发布
+     * @param current
+     * @param size
+     * @return
+     */
+    @GetMapping("/listNewsByStyleId")
+    public Result listNewsByStyleId(@RequestParam(defaultValue = "1", name = "current") Integer current,
+                                     @RequestParam(defaultValue = "5", name = "size") Integer size, @RequestParam("styleId")Integer styleId){
+        Page<Map<String, Object>> page = new Page<>(current, size);
+        IPage<Map<String, Object>> mapIPage = newsService.listByStyleId(page, styleId);
+        return Result.success(mapIPage);
+    }
+
+
+    /**
      * 查询所有已驳回  news  附加user
      * @param current
      * @param size

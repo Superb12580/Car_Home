@@ -43,6 +43,11 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
     }
 
     @Override
+    public IPage<Map<String, Object>> listByStyleId(Page<?> page, Integer styleId) {
+        return baseMapper.listByStyleId(page, styleId);
+    }
+
+    @Override
     public IPage<Map<String, Object>> search(Page<?> page, String text) {
         return baseMapper.search(page, text);
     }
