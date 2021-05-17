@@ -57,7 +57,7 @@ public class CarController {
     }
 
     /**
-     * 车详情
+     * 高亮显示
      * @param styleId
      * @return
      */

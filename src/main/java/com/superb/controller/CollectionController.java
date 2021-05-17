@@ -62,6 +62,13 @@ public class CollectionController {
     }
 
 
+    @GetMapping("/sfsc")
+    public Result item(@RequestParam("userId")Long userId, @RequestParam("styleId")Integer styleId){
+        Collection one = collectionService.getOne(new QueryWrapper<Collection>().eq("user_id", userId).eq("style_id", styleId));
+        return Result.success(one);
+    }
+
+
     /**
      * 收藏车型 取消收藏
      * @param collection
