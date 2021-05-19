@@ -46,7 +46,7 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
     public List<Map<String, Object>> xq(Integer styleId, boolean flag) {
         List<Map<String, Object>> xq = baseMapper.xq(styleId);
         // 如果需要高亮
-        if (flag) {
+        if (flag && xq.size() != 0) {
             Map<String, Object> flagMap = new HashMap<>();
             for (Map.Entry<String, Object> entry : xq.get(0).entrySet()){
                 Map<String, Object> hashMap = new HashMap<>();
