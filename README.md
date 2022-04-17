@@ -11,7 +11,7 @@ Spring Boot + MyBatis Plus + MySQL + Vue + element UI + axios + Druid
 
 1.  导入项目，修改yml配置文件（阿里云oss对象存储、视频点播及SpringBoot邮件服务需配置成自己的）
 2.  执行SQL文件
-3.  Maven构建项目，引入依赖
+3.  Maven构建项目，引入依赖（部分Jar包无法引入的放入lib目录下）
 4.  运行CarApplication主方法
 
 #### 使用说明
