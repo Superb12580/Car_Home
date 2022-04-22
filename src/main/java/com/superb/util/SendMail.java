@@ -23,7 +23,7 @@ public class SendMail {
     private JavaMailSender mailSender;
 
     private static final String subject = "来自汽车之家";
-    private static final String url = "http://localhost:8080/car";
+    private static final String url = "http://superb12580.github.io";
     private static final String imgUrl = "C:\\Users\\HP\\Desktop\\汽车之家\\ProjectCode\\SpringBootCar\\src\\main\\resources\\img\\Logo2.png";
     private static final String fromUrl = "superb12580@163.com";
 
