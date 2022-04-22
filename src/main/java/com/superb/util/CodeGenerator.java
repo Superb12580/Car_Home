@@ -66,8 +66,10 @@ public class CodeGenerator {
         dsc.setUrl("jdbc:mysql://localhost:3306/car_home?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
-        dsc.setUsername("root");
-        dsc.setPassword("123456.a");
+        // 用户名
+        dsc.setUsername("");
+        // 密码
+        dsc.setPassword("");
         mpg.setDataSource(dsc);
 
         // 包配置
