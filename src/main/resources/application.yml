@@ -6,7 +6,7 @@ spring:
     url: jdbc:mysql://localhost:3306/car_home?serverTimezone=GMT%2B8&useSSL=false&useUnicode=true&charsetEncoding=utf-8
     username: username #你的username
     password: password #你的password
-  #邮件配置
+  #邮件配置，用于用户注册时作为验证码发送方，需要去相关邮箱服务商开启指定配置
   mail:
     username: username #你的username
     password: password #你的password
@@ -35,7 +35,7 @@ server:
   servlet:
     context-path: '/car'
 
-#oss对象存储 如不需要上传文件 此部分可注释掉
+#oss对象存储，阿里云官网开启对象存储和视频点播功能，如不需要上传文件，此部分可注释掉
 aliyun:
   oss:
     file:
