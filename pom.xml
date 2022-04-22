@@ -113,6 +113,7 @@
             <artifactId>aliyun-java-sdk-vod</artifactId>
             <version>2.15.2</version>
         </dependency>
+<!--        此依赖如引入不了，请从lib目录下手动添加至本地仓库-->
         <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>aliyun-sdk-vod-upload</artifactId>
