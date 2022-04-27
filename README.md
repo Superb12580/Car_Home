@@ -8,6 +8,7 @@ Spring Boot + MyBatis Plus + MySQL + Vue + element UI + axios + Druid
 
 #### 演示地址
 http://59.110.157.238/
+
 用户名：admin 密码：1
 
 
